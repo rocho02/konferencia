@@ -55,7 +55,7 @@ return array(
 		// uncomment the following to use a MySQL database
 		
 		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=yii_auth',
+			'connectionString' => 'mysql:host=localhost;dbname=yii_konferencia',
 			'emulatePrepare' => true,
 			'username' => 'root',
 			'password' => '',
