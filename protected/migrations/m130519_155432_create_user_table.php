@@ -15,7 +15,7 @@ class m130519_155432_create_user_table extends CDbMigration
 				'create_user_id' => 'int(11) DEFAULT NULL',
 				'update_time' => 'datetime DEFAULT NULL',
 				'update_user_id' => 'int(11) DEFAULT NULL',
-		), 'ENGINE=InnoDB');
+		), 'ENGINE=InnoDB DEFAULT CHARSET=utf8');
 	}
 
 	public function down()
