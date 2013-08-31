@@ -4,7 +4,7 @@ class m130830_183559_insert_add_default_user extends CDbMigration
 {
 	public function up()
 	{
-		$this->createTable('tbl_user', array(
+		$this->insert('tbl_user', array(
 				'ID'=> '1',
 				'username' => 'admin',
 				'email' => 'admin@yii.com',

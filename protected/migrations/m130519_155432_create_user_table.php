@@ -5,7 +5,7 @@ class m130519_155432_create_user_table extends CDbMigration
 	public function up()
 	{
 		//create the user table
-		$this->insert('tbl_user', array(
+		$this->createTable('tbl_user', array(
 				'id' => 'pk',
 				'username' => 'string NOT NULL',
 				'email' => 'string NOT NULL',
