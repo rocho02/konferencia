@@ -19,3 +19,4 @@ adatbázis: tbl_user
 		
 
 2; authorizáció
+valami
