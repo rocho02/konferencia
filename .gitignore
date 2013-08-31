@@ -1,4 +1,4 @@
 .project
 .settings
 protected/runtime/*
-assets/**
+assets/*
