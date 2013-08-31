@@ -18,3 +18,4 @@ adatbázis: tbl_user
 		password : md5 hash
 		
 
+2; authorizáció
