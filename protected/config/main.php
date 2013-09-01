@@ -81,6 +81,13 @@ return array(
 				*/
 			),
 		),
+		'authManager'=>array(
+			'class'=>'CDbAuthManager',
+			'connectionID'=>'db',
+			'itemTable' =>'tbl_auth_item',
+			'itemChildTable' =>'tbl_auth_item_child',
+			'assignmentTable' =>'tbl_auth_assignment',
+		),
 	),
 
 	// application-level parameters that can be accessed
