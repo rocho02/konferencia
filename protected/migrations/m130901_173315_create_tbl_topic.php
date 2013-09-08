@@ -1,14 +1,12 @@
 <?php
 
-class m130831_162844_create_tbl_event extends CDbMigration
+class m130901_173315_create_tbl_topic extends CDbMigration
 {
 	public function up()
 	{
-		//create the user table
-		$this->createTable('tbl_event', array(
-				'id_event' => 'pk',
-				'start_date' => 'datetime DEFAULT NULL',
-				'end_date' => 'datetime DEFAULT NULL',
+		$this->createTable('tbl_topic', array(
+				'id_topic' => 'pk',
+				'name_topic' => 'string NOT NULL',
 				'description' => 'string',
 				'create_time' => 'datetime DEFAULT NULL',
 				'create_user_id' => 'int(11) DEFAULT NULL',
@@ -19,7 +17,7 @@ class m130831_162844_create_tbl_event extends CDbMigration
 
 	public function down()
 	{
-		$this->dropTable('tbl_event');
+		$this->dropTable('tbl_topic');
 	}
 
 	/*
