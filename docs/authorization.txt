@@ -1,0 +1,50 @@
+
+
+Controller.accessRules
+class AController extends extends Controller{
+
+public function accessRules()
+	{
+		return array(
+			array('allow',  // allow all users to perform 'index' and 'view' actions
+				'actions'=>array('index','view'),
+				'users'=>array('*'),
+			),
+			array('allow', // allow authenticated user to perform 'create' and 'update' actions
+				'actions'=>array('create','update'),
+				'users'=>array('@'),
+			),
+			array('allow', // allow admin user to perform 'admin' and 'delete' actions
+				'actions'=>array('admin','delete'),
+				'users'=>array('admin'),
+			),
+			array('deny',  // deny all users
+				'users'=>array('*'),
+			),
+		);
+	}
+	
+}
+Access rules can be defined using a number of context parameters. The rules
+mentioned earlier are specifying actions and users to create the rule context, but
+there are several other parameters you can use. A few of these are given as follows:
+• Controllers: Specifies an array of controller IDs to which the rule
+should apply.
+• Roles: Specifies a list of authorization items (roles, operations, and
+permissions) to which the rule applies. This makes use of the RBAC feature
+we will be discussing in the next section.
+• IPs: Specifies a list of client IP addresses to which this rule applies.
+• Verbs: Specifies which HTTP request types (GET, POST, and so on) apply to
+this rule.
+• Expression: Specifies a PHP expression whose value indicates whether or not
+the rule should be applied.
+• Actions: Specifies the action method, by use of the corresponding action ID,
+to which the rule should match.
+• Users: Specifies the users to which the rule should apply. The current
+application user's name attribute is used for matching. The following three
+special characters can also be used here:
+1. *: any user
+2. ?: anonymous users
+3. @: authenticated users
+If no users are specified, the rule will apply to all users.
+

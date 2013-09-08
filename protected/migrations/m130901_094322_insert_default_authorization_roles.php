@@ -23,7 +23,8 @@ class m130901_094322_insert_default_authorization_roles extends CDbMigration
 			 $role->addChild("deleteUser"); 
 			 $role->addChild("readUser"); 
 			 
-		
+			 //add role admin for user with primary key id_user = 1
+			$this->_authManager->assign('admin',1);
 	}
 
 	public function down()
