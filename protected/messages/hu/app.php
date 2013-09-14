@@ -4,8 +4,13 @@ return array(
 'Start Date' => 'Kezdő Dátum',
 'End Date'   => 'Befejezési Dátum',
 'Description'   => 'Leírás',
+'Create Time' => 'Létrehozás ideje',
 'Create User' => 'Létrehozta',
 'Create' => 'Létrehoz',
+'Create Event' => 'Létrehozása',
+'Manage Event' => 'Szerkesztés',
+'List Event' => 'Listázás',
+'Id Event' => 'Azonosító',
 )
 
 ?>
