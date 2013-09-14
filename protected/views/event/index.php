@@ -7,12 +7,12 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Create Event', 'url'=>array('create')),
-	array('label'=>'Manage Event', 'url'=>array('admin')),
+	array('label'=> Yii::t("app",'Create Event'), 'url'=>array('create')),
+	array('label'=> Yii::t("app",'Manage Event'), 'url'=>array('admin')),
 );
 ?>
 
-<h1>Events</h1>
+<h1>Konferenciák</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,
