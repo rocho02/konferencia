@@ -4,6 +4,7 @@ return array(
 'Start Date' => 'Kezdő Dátum',
 'End Date'   => 'Befejezési Dátum',
 'Description'   => 'Leírás',
+'Create User' => 'Létrehozta',
 )
 
 ?>
