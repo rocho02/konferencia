@@ -67,14 +67,14 @@ class Event extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id_event' => 'Id Event',
-			'start_date' => 'Start Dátum',
-			'end_date' => 'End Date',
-			'description' => 'Description',
-			'create_time' => 'Create Time',
-			'create_user_id' => 'Create User',
-			'update_time' => 'Update Time',
-			'update_user_id' => 'Update User',
+			'id_event' => Yii::t("app",'Id Event'),
+			'start_date' => Yii::t("app",'Start Date'),
+			'end_date' => Yii::t("app",'End Date'),
+			'description' => Yii::t("app",'Description'),
+			'create_time' => Yii::t("app",'Create Time'),
+			'create_user_id' => Yii::t("app",'Create User'),
+			'update_time' => Yii::t("app",'Update Time'),
+			'update_user_id' => Yii::t("app",'Update User'),
 		);
 	}
 
