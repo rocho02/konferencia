@@ -10,7 +10,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('start_date')); ?>:</b>
-	<?php echo CHtml::encode($data->start_date); ?>
+	<?php echo CHtml::encode($data->formattedStartDate); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('end_date')); ?>:</b>

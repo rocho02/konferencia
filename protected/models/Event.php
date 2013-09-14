@@ -68,7 +68,7 @@ class Event extends CActiveRecord
 	{
 		return array(
 			'id_event' => 'Id Event',
-			'start_date' => 'Start Date',
+			'start_date' => 'Start Dátum',
 			'end_date' => 'End Date',
 			'description' => 'Description',
 			'create_time' => 'Create Time',
@@ -102,4 +102,13 @@ class Event extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+
+	public function getFormattedStartDate(){
+		$valami = "ez valami";
+		var_dump($valami);
+		
+		return $this->start_date;
+	}
+
 }
