@@ -4,13 +4,8 @@
 ?>
 
 <div class="view">
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('id_event')); ?>:</b>
-	<?php echo CHtml::link(CHtml::encode($data->id_event), array('view', 'id'=>$data->id_event)); ?>
-	<br />
-
 	<b><?php echo CHtml::encode($data->getAttributeLabel('start_date')); ?>:</b>
-	<?php echo CHtml::encode($data->formattedStartDate); ?>
+	<?php echo CHtml::link(CHtml::encode($data->formattedStartDate), array('view', 'id'=>$data->id_event)); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('end_date')); ?>:</b>

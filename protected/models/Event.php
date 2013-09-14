@@ -106,10 +106,6 @@ class Event extends CActiveRecord
 
 	public function getFormattedStartDate(){
 		$valami = "ez valami";
-		var_dump($this->start_date);
-		
-		echo Yii::t("app","Last Name");
-		
 		return $this->start_date;
 	}
 

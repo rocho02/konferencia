@@ -1,8 +1,8 @@
 <?php
 return array(
 'Last Name'  => 'Vezetéknév',
-'Start Date' => 'Start Dátum',
-'End Date'   => 'Vége Dátum',
+'Start Date' => 'Kezdő Dátum',
+'End Date'   => 'Befejezési Dátum',
 'Description'   => 'Leírás',
 )
 
