@@ -11,6 +11,9 @@ return array(
 'Manage Event' => 'Szerkesztés',
 'List Event' => 'Listázás',
 'Id Event' => 'Azonosító',
+'View Event' => 'Konfrencia megjelenítése',
+'Update Event' => 'Konferencia frissítése',
+'Delete Event' => 'Konferencia törlése',
 )
 
 ?>
