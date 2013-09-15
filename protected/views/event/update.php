@@ -9,13 +9,13 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Event', 'url'=>array('index')),
-	array('label'=>'Create Event', 'url'=>array('create')),
-	array('label'=>'View Event', 'url'=>array('view', 'id'=>$model->id_event)),
-	array('label'=>'Manage Event', 'url'=>array('admin')),
+	array('label'=>Yii::t("app",'List Event'), 'url'=>array('index')),
+	array('label'=>Yii::t("app",'Create Event'), 'url'=>array('create')),
+	array('label'=>Yii::t("app",'View Event'), 'url'=>array('view', 'id'=>$model->id_event)),
+	array('label'=>Yii::t("app",'Manage Event'), 'url'=>array('admin')),
 );
 ?>
 
-<h1>Update Event <?php echo $model->id_event; ?></h1>
+<h1><?php echo $model->id_event; ?>. számú konferencia frissítése</h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
