@@ -24,6 +24,6 @@ $this->menu=array(
 		'start_date',
 		'end_date',
 		'description',
-		'create_user_id',
+		'createUserName',
 	),
 )); ?>

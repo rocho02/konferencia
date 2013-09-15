@@ -48,8 +48,14 @@ class Event extends CActiveRecord {
 	public function relations() {
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
-		return array();
+		return array(
+					 'updateUser' => array(self::BELONGS_TO, 'User', 'update_user_id'),
+					 'createUser' => array(self::BELONGS_TO, 'User', 'create_user_id'),
+					);
 	}
+	
+	
+	
 
 	/**
 	 * @return array customized attribute labels (name=>label)
@@ -83,6 +89,14 @@ class Event extends CActiveRecord {
 	public function getFormattedStartDate() {
 		$valami = "ez valami";
 		return $this -> start_date;
+	}
+
+	public function getCreateUserName(){
+		$username = "";
+		if ( isset( $this->createUser  ) ){
+			$username = $this->createUser->username;
+		}
+		return $username;
 	}
 
 	protected function beforeSave() {
