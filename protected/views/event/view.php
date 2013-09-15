@@ -21,8 +21,8 @@ $this->menu=array(
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'start_date',
-		'end_date',
+		'formattedStartDate',
+		'formattedEndDate',
 		'description',
 		'createUserName',
 	),

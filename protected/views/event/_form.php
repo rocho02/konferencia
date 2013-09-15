@@ -20,7 +20,8 @@
 		<?php //echo $form->textField($model,'start_date'); 
 		
 		$this->widget('zii.widgets.jui.CJuiDatePicker',array(
-	  		  'name'=>'Event[start_date]',
+	  		  'name'=>'Event[formattedStartDate]',
+	  		  'value'=>$model->getFormattedStartDate(),
 	   		 // additional javascript options for the date picker plugin
 	    	'options'=>array(
 	        'showAnim'=>'fold',
@@ -33,7 +34,7 @@
 		
 		?>
 		
-		<?php echo $form->error($model,'start_date'); ?>
+		<?php echo $form->error($model,'formattedStartDate'); ?>
 	</div>
 
 	<div class="row">
@@ -42,7 +43,8 @@
 			//echo $form->textField($model,'end_date'); 
 		
 			$this->widget('zii.widgets.jui.CJuiDatePicker',array(
-	  		  'name'=>'Event[end_date]',
+	  		  'name'=>'Event[formattedEndDate]',
+	  		  'value'=>$model->getFormattedEndDate(),
 	   		 // additional javascript options for the date picker plugin
 	    	'options'=>array(
 	        'showAnim'=>'fold',
@@ -53,7 +55,7 @@
 	   	 ),
 		));
 		?>
-		<?php echo $form->error($model,'end_date'); ?>
+		<?php echo $form->error($model,'formattedEndDate'); ?>
 	</div>
 
 	<div class="row">

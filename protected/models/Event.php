@@ -36,10 +36,14 @@ class Event extends CActiveRecord {
 	public function rules() {
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
-		return array( array('create_user_id, update_user_id', 'numerical', 'integerOnly' => true), array('description', 'length', 'max' => 255), array('start_date, end_date, create_time, update_time', 'safe'),
-		// The following rule is used by search().
-		// Please remove those attributes that should not be searched.
-		array('id_event, start_date, end_date, description, create_time, create_user_id, update_time, update_user_id', 'safe', 'on' => 'search'), );
+		return array( 
+			array('create_user_id, update_user_id', 'numerical', 'integerOnly' => true),
+		 	array('description', 'length', 'max' => 255),
+		 	array('start_date, end_date, create_time, update_time', 'safe'),
+		 	array('formattedStartDate,formattedEndDate',  'required'),
+			// The following rule is used by search().
+			// Please remove those attributes that should not be searched.
+			array('id_event, start_date, end_date, description, create_time, create_user_id, update_time, update_user_id', 'safe', 'on' => 'search'), );
 	}
 
 	/**
@@ -87,8 +91,47 @@ class Event extends CActiveRecord {
 	}
 
 	public function getFormattedStartDate() {
-		$valami = "ez valami";
-		return $this -> start_date;
+		// return $this -> start_date;
+		$format_1 = 'Y-m-d';
+		$format_2 = 'Y-m-d';//format coming from web page
+		$format_3 = 'Y-m-d H:i:s';//format coming from mysql
+		$date = null;
+		$formatted_date = "";
+		
+		if (!isset($this -> start_date) )  
+			return "";
+		$date = DateTime::createFromFormat($format_2,  $this -> start_date);
+		if ( $date == false )
+			$date = DateTime::createFromFormat($format_3,  $this -> start_date);
+		// var_dump($date);
+		return  $date == false ? "" : $date->format($format_1) ;
+		
+	}
+	
+	public function setFormattedStartDate($start_date){
+		$this->start_date = $start_date;
+	}
+	
+	public function getFormattedEndDate() {
+		// return $this -> start_date;
+		$format_1 = 'Y-m-d';
+		$format_2 = 'Y-m-d';//format coming from web page
+		$format_3 = 'Y-m-d H:i:s';//format coming from mysql
+		$date = null;
+		$formatted_date = "";
+		
+		if (!isset($this -> end_date) )  
+			return "";
+		$date = DateTime::createFromFormat($format_2,  $this -> end_date);
+		if ( $date == false )
+			$date = DateTime::createFromFormat($format_3,  $this -> end_date);
+		// var_dump($date);
+		return  $date == false ? "" : $date->format($format_1) ;
+		
+	}
+	
+	public function setFormattedEndDate($end_date){
+		$this->end_date = $end_date;
 	}
 
 	public function getCreateUserName(){
