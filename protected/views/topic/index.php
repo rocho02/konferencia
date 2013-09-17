@@ -7,12 +7,12 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Create Topic', 'url'=>array('create')),
-	array('label'=>'Manage Topic', 'url'=>array('admin')),
+	array('label'=>Yii::t("app",'Create Topic'), 'url'=>array('create')),
+	array('label'=>Yii::t("app",'Manage Topic'), 'url'=>array('admin')),
 );
 ?>
 
-<h1>Topics</h1>
+<h1>Témák</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,

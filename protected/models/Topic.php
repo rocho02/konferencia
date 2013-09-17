@@ -67,13 +67,13 @@ class Topic extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id_topic' => 'Id Topic',
-			'name_topic' => 'Name Topic',
-			'description' => 'Description',
-			'create_time' => 'Create Time',
-			'create_user_id' => 'Create User',
-			'update_time' => 'Update Time',
-			'update_user_id' => 'Update User',
+			'id_topic' => Yii::t("app",'Id Topic'),
+			'name_topic' => Yii::t("app",'Name Topic'),
+			'description' => Yii::t("app",'Description'),
+			'create_time' => Yii::t("app",'Create Time'),
+			'create_user_id' => Yii::t("app",'Create User'),
+			'update_time' => Yii::t("app",'Update Time'),
+			'update_user_id' => Yii::t("app",'Update User'),
 		);
 	}
 
@@ -100,4 +100,35 @@ class Topic extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+	public function getCreateUserName(){
+		$username = "";
+		if ( isset( $this->createUser  ) ){
+			$username = $this->createUser->username;
+		}
+		return $username;
+	}
+	
+	protected function beforeSave() {
+		if (null !== Yii::app() -> user)
+			$id = Yii::app() -> user -> id;
+		else
+			$id = 1;
+		if ($this -> isNewRecord)
+			$this -> create_user_id = $id;
+		$this -> update_user_id = $id;
+		return parent::beforeSave();
+	}
+	
+	public function behaviors()
+	{
+		return array(
+		'CTimestampBehavior' => array(
+		'class' => 'zii.behaviors.CTimestampBehavior',
+		'createAttribute' => 'create_time',
+		'updateAttribute' => 'update_time',
+		'setUpdateOnCreate' => true,
+		),
+		);
+	}
+	
 }

@@ -8,8 +8,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Topic', 'url'=>array('index')),
-	array('label'=>'Create Topic', 'url'=>array('create')),
+	array('label'=>Yii::t("app",'List Topic'), 'url'=>array('index')),
+	array('label'=>Yii::t("app",'Create Topic'), 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -26,7 +26,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Topics</h1>
+<h1>Téma testreszabása</h1>
 
 <p>
 You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
@@ -50,8 +50,8 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'description',
 		'create_time',
 		'create_user_id',
-		'update_time',
 		/*
+		'update_time',
 		'update_user_id',
 		*/
 		array(
