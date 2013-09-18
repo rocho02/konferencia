@@ -49,7 +49,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'name_topic',
 		'description',
 		'create_time',
-		'create_user_id',
+		'createUserName',
 		/*
 		'update_time',
 		'update_user_id',
