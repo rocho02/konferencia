@@ -1,0 +1,172 @@
+Tisztelt Horváth Gábor!
+
+
+
+A cím körül-belül ilyesmi lehetne: Webes konferencia-menedzsment rendszer
+fejlesztése
+
+
+Főbb résztevékenységek:
+1) Irodalomkutatás
+2) Követelmények meghatározása
+3) Fejlesztés megtervezése (UML ÉS !használhatóság, felhasználói élmény,
+ember-gép interakció figyelembevételével!)
+4) Implementálás és tesztelés
+
+
+Az alábbi alap funkciókra gondoltam:
+ - Jogosultság kezelés (vendég, előadó, admin, szervező, stb)
+ - Cikkek begyűjtése (cikk feltöltő bizonyos paramétereknek megfelelően,
+ahol ezek megtekinthetőek)
+ - Cikk bíráló rész (a feltöltött cikkek elolvashatóak bizonyos részek
+kitakarásával és a bíráló értékelést kaphat, amit megkap a felhasználó)
+ - Regisztráció (itt nagyon dinamikusnak kell lennie az űrlapnak, sőt
+kimondottan jó lenne, ha "összerakható" lenne)
+ - Programfüzet készítő rész (az elfogadott és regisztrált cikkek
+ütemezhetőek)
+ - Üzenetküldő (elég, ha a felsőbb emberek küldenek a
+vendégeknek/előadóknak stb, de ez részlet kérdése)
+ - vCard  és egyéb hasonló elektronikus határidő bejegyzés készítése
+(elektronikus névjegykártya és például a felhasználó letöltheti a
+calendar app-jába, hogy mikor lesz az előadás)
+ - Mindennek exportálhatónak kéne lennie (pdf-be mindenképp és az
+időpontokat vagy excelbe, vagy wordbe is).
+
+
+A felületnek egyszerűnek, intuitívnak és bármilyen eszközről (bármilyen
+rendszerrel/böngészővel) megtekinthetőnek kellene lennie (természetesen
+reális keretek között).
+
+
+Annyi elvárásom szokott lenni, hogy heti egy e-mailt kérek legalább (ez
+inkább keep-alive funkciókra van, nem feltétlenül kell új eredményt elérni
+minden héten, megértem, ha épp más dolog is közbejött). Ennek oka, hogy
+néhány hallgató eltűnik, vagy túl későn kap észbe. Valamint az első félév
+végén min. 12-20 oldalas összefoglaló az elvégzett munkáról (ha csak
+irodalomkutatás, akkor minden cikkről/könyvről 1-2 sor, ha csak az UML,
+akkor az ábrák és némi magyarázat).
+
+
+
+
+
+Tetszőleges a programnyelv (ésszerű keretek között), a leírt funkciók
+lényegesek.
+
+Esetleg érdemes lenne a négy pontot mondatba foglalni, valamint a
+"követelmények" részből is lehetne pár soros bekezdést írni. (Összesen kb.
+6-10 sornyi.)
+
+Külső konzulenst nem biztos, hogy tudok találni, de ha kell körbekérdezek.
+Ha van saját külső konzulens, akkor egyszerűbb a dolog. (DE figyelni kell
+a szabályokra!)
+
+Az aláírás külön is megoldható, szólni kell az ügyintézőnek (Gizi néni),
+hogy tegye a dobozomba és majd aláírom, mert megbeszéltük. Ha mindenképp
+szeretné személyesen intézni, akkor eddig a legvalószínűbb, hogy
+hétfőn/kedden leszek legközelebb, de előtte kérnék még egy e-mailt a
+pontosítás érdekében.
+
+
+
+Tisztelt Kolléga!
+
+Az első félévre konkrét megkötésem nincs a minőséget és mennyiséget
+leszámítva. Általában az a szokás, hogy ilyenkor történik az
+irodalomfeldolgozás, háttérkutatás a tervek elkészítése.
+
+Érdemes az adott alkalmazásról szóló "state of the art" stílusú cikkeit
+elolvasni, esetleg néhány különösen kiemelkedő márkát közelebbről
+megvizsgálni.
+
+Esetleg nem árt megnézni, hogy milyen funkciók vannak más célra szánt, de
+hasonlóan nagy mennyiségű embert koordináló alkalmazásoknál (mint például
+a közösségi oldalak). Ezek hogyan lehetnének alkalmazhatóak.
+
+Természetesen olyan irodalamak feldolgozása sem árt, amelyek a
+programozást segítik, a keretrendszert ismertetik (amennyiben szükség van
+rá, ha nincs, akkor csak nem hivatkozott, hanem felhasznált irodalomnak
+számít).
+
+Hasznos lehet még a szoftvertervezéssel és használhatósággal,
+Human-Computar Interaction-nal foglalkozni, vagy a user experiance
+dolgokkal.
+
+Legalább 40-50 hivatkozás (könyv, folyóiratcikk, szabadalom,
+konferenciakiadvány) kéne a dolgozatba.
+
+
+A félév végén ha nem történt kódolás, akkor egy összefoglaló dolgozat kéne
+az elvégzett munkáról. Ez persze már lehet része a diplomadolgozatnak,
+vagy akár különálló munka is lehet (persze akkor dupla munka lesz vele).
+
+Amennyiben további kérdése van, keressen!
+
+
+Tisztelt Kolléga!
+
+Alapvetően a felsoroltak jók. Ami fontos, hogy ez a rész nem lehet
+(sokkal) több, mint a dolgozat 1/3 része (2/3-nak teljesen saját munkának
+kell lennie).
+
+Wikipédiáról erősen nem javasolt anyagot használni. A webes hivatkozásokat
+nem nagyon szeretik (persze előfordul, hogy ez szükséges, mert nincs jobb
+forrás). A legjobb az lenne, ha könyvekre, cikkekre történne hivatkozás
+(acm, google scholar, stb).
+
+Ha szószerinti idézet (vagy fordítás), akkor idézőjelbe kell tenni a
+szöveget, más stílussal írni és jelölni a forrást.
+Ha át van fogalmazva, de a leírtakhoz szükséges háttértudás egy vagy több
+dokumentumhoz köthető, akkor a szöveg normál stílusú, de hivatkozni kell a
+forrásokat.
+
+Előfordulhat az is, hogy egy adott könyvből konkrét gondolatok nem
+kerültek átemelésre a dolgozatba, de mondjuk a feladat végrehajtásához
+(például programozáshoz, adatbázis tervezéshez valamilyen könyv került
+felhasználásra), ez a felhasznált irodalom, ezekre nincs hivatkozás a
+szövegben, de fel kell tűntetni az irodalomjegyzékben.
+
+A hivatkozások formátumára eltérő szabványok vannak. Talán a sablonban ki
+van kötve, hogy melyiket kell használni. Ha az előírás nem köti ki a
+formátumot, akkor én sem, viszont egységesen kell formázni a
+hivatkozásokat (tehát egy adott módszerrel, ami természetesen
+cikk/könyv/elektronikus anyag estén másképp néz ki!).
+
+
+Iránymutatás:
+http://libweb.anglia.ac.uk/referencing/harvard.htm?harvard_id=64#64
+http://www.chicagomanualofstyle.org/tools_citationguide.html
+http://www4.samford.edu/schools/pharmacy/dic/amaquickref07.pdf
+Esetleg a Springer LNCS (proceedings) iránymutatásában látható
+hivatkozások a legjobbak.
+
+
+Tisztelt Kolléga!
+
+Tartalmilag jónak tűnik.
+
+Plágiumkereső szoftveren átmenne a dolgozat? Tehát nem csak átírása
+(szavak kihagyása/hozzáadása révén) a forrásoknak, hanem teljesen saját
+megfogalmazású mondatok és csak a tartalom egyezik?
+
+A formátumot majd a tényleges dolgozathoz le kell cserélni, de erre a
+félévre megfelel.
+A külső forrásból származó képeket ugyanúgy kell kezelni, mintha idézet
+lenne. Érdemesebb lenne átszerkeszteni (sajátot csinálni) a végleges
+dolgozatban.
+
+Az első félévben rendes vizsgás tárgynak minősül, tehát a vizsgaidőszak
+végéig lehet leadni (azért egy-két héttel a vége előtt jó lenne, ha
+megkapnám).
+
+A végleges dolgozatban a hivatkozások a dolgozat végére (a melléklet
+előtti fejezetbe), az irodalomjegyzékbe kerül számozva.
+
+
+Az első félévben a formátum még annyira nem számít, mivel csak én fogom
+látni és értékelni. Ennek megfelelően nincs komolyabb formátumbeli
+megkötés (csak azért érdemes a véglegeshez hasonló stílust használni, hogy
+könnyebb legyen az átemelés). Mivel csak az értékeléshez kell ebben a
+félévben a dolgozat, elegendő elektronikusan benyújtani, nem kell
+nyomtatni.
+
