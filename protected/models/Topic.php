@@ -70,7 +70,7 @@ class Topic extends CActiveRecord
 	{
 		return array(
 			'id_topic' => Yii::t("app",'Id Topic'),
-			'name_topic' => Yii::t("app",'Name Topic'),
+			'name_topic' => Yii::t("app",'Name Topic'),	
 			'description' => Yii::t("app",'Description'),
 			'create_time' => Yii::t("app",'Create Time'),
 			'create_user_id' => Yii::t("app",'Create User'),
