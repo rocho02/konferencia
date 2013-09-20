@@ -17,6 +17,8 @@ return array(
 		'application.models.*',
 		'application.components.*',
 		'application.modules.auth.models.*',
+		'application.modules.rights.*',
+		'application.modules.rights.components.*'
 	),
 
 	'modules'=>array(
@@ -28,6 +30,10 @@ return array(
 			'ipFilters'=>array('127.0.0.1','::1'),
 		),
 		'auth',
+		'rights'=>array(
+			//'superUserName' =>'admin',
+			'install' => 'false'
+		),
 	),
 
 	// application components
@@ -35,6 +41,7 @@ return array(
 		'user'=>array(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
+			'class'=>'RWebUser',
 		),
 		// uncomment the following to enable URLs in path-format
 		/*
@@ -82,11 +89,13 @@ return array(
 			),
 		),
 		'authManager'=>array(
-			'class'=>'CDbAuthManager',
+			//'class'=>'CDbAuthManager',
+			'class'=>'RDbAuthManager',
 			'connectionID'=>'db',
 			'itemTable' =>'tbl_auth_item',
 			'itemChildTable' =>'tbl_auth_item_child',
 			'assignmentTable' =>'tbl_auth_assignment',
+			'rightsTable' =>'tbl_rights',
 		),
 	),
 
