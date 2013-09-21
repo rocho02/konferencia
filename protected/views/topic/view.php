@@ -15,14 +15,24 @@ $this->menu=array(
 	array('label'=>Yii::t("app",'Manage Topic'), 'url'=>array('admin')),
 );
 ?>
-
-<h1><?php echo $model->id_topic; ?>. számú téma</h1>
-
-<?php $this->widget('zii.widgets.CDetailView', array(
+<?php /*?>
+<h1><?php  echo $model->id_topic; ?>. számú téma</h1>
+<?php  */?>
+<?php /* $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
 		'name_topic',
 		'description',
 		'createUserName',
 	),
+)); */?>
+
+
+<h1><?php echo   $model->name_topic; ?></h1>
+<?php echo $model->description	?>
+	
+<br>
+<h2><?php echo Yii::t('app', 'Comments')?></h2>
+<?php $this->renderPartial('comment.views.comment.commentList', array(
+    'model'=>$model
 )); ?>

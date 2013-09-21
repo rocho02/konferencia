@@ -42,7 +42,8 @@ class Topic extends CActiveRecord
 		return array(
 			array('name_topic', 'required'),
 			array('create_user_id, update_user_id', 'numerical', 'integerOnly'=>true),
-			array('name_topic, description', 'length', 'max'=>255),
+			array('name_topic', 'length', 'max'=>255),
+			array('description', 'length', 'max'=>20000),
 			array('create_time, update_time', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -124,12 +125,19 @@ class Topic extends CActiveRecord
 	public function behaviors()
 	{
 		return array(
-		'CTimestampBehavior' => array(
-		'class' => 'zii.behaviors.CTimestampBehavior',
-		'createAttribute' => 'create_time',
-		'updateAttribute' => 'update_time',
-		'setUpdateOnCreate' => true,
-		),
+			'CTimestampBehavior' => array(
+				'class' => 'zii.behaviors.CTimestampBehavior',
+				'createAttribute' => 'create_time',
+				'updateAttribute' => 'update_time',
+				'setUpdateOnCreate' => true,
+			),
+			'commentable' => array(
+                'class' => 'ext.comment-module.behaviors.CommentableBehavior',
+                // name of the table created in last step
+                'mapTable' => 'tbl_topic_comments_nm',
+                // name of column to related model id in mapTable
+                'mapRelatedColumn' => 'id_topic'
+            ),
 		);
 	}
 	

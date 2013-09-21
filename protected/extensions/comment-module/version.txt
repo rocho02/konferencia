@@ -1,0 +1,8 @@
+comment-module-0.6.0
+
+github
+https://github.com/yiiext/comment-module/
+
+yii framework extensions
+
+http://www.yiiframework.com/extension/comment-module/

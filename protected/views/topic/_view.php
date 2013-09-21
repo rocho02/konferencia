@@ -10,7 +10,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('description')); ?>:</b>
-	<?php echo CHtml::encode($data->description); ?>
+	<?php echo $data->description; ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('create_user_id')); ?>:</b>

@@ -1,5 +1,6 @@
 <?php
 return array(
+'Comments' => "Kommentek",
 'Create' => 'Létrehoz',
 'Create Event' => 'Konferencia létrehozása',
 'Create Time' => 'Létrehozás ideje',

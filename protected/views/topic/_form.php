@@ -2,6 +2,8 @@
 /* @var $this TopicController */
 /* @var $model Topic */
 /* @var $form CActiveForm */
+
+Yii::import('ext.imperavi-redactor-widget.ImperaviRedactorWidget');
 ?>
 
 <div class="form">
@@ -23,7 +25,14 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'description'); ?>
-		<?php echo $form->textArea($model,'description',array('cols'=>50,'rows'=>5,'size'=>60,'maxlength'=>255)); ?>
+		<?php //echo $form->textArea($model,'description',array('cols'=>50,'rows'=>5,'size'=>60,'maxlength'=>255)); ?>
+		<?php 
+		$this->widget('ImperaviRedactorWidget',array(
+		    'model'=>$model,
+		    'attribute'=>'description',
+		    'options' => array('minHeight'=>'200'),
+		));
+		?>
 		<?php echo $form->error($model,'description'); ?>
 	</div>
 

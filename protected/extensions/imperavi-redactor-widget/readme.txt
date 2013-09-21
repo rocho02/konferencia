@@ -1,0 +1,1 @@
+https://github.com/yiiext/imperavi-redactor-widget
