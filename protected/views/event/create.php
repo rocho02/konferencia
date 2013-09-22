@@ -8,8 +8,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>Yii::t("app",'List Event'), 'url'=>array('index')),
-	array('label'=>Yii::t("app",'Manage Event'), 'url'=>array('admin')),
+	array('label'=>Yii::t("app",'List Event'), 'url'=>array('index'),'visible'=>Yii::app()->user->checkAccess('Event.Index') ),
+	array('label'=>Yii::t("app",'Manage Event'), 'url'=>array('admin'),'visible'=>true ),
 );
 ?>
 
