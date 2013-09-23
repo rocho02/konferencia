@@ -9,10 +9,10 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>Yii::t("app",'List Event'), 'url'=>array('index')),
-	array('label'=>Yii::t("app",'Create Event'), 'url'=>array('create')),
-	array('label'=>Yii::t("app",'View Event'), 'url'=>array('view', 'id'=>$model->id_event)),
-	array('label'=>Yii::t("app",'Manage Event'), 'url'=>array('admin')),
+	array('label'=>Yii::t("app",'List Event'), 'url'=>array('index'),'visible'=>Yii::app()->user->checkAccess('Event.Update') ),
+	array('label'=>Yii::t("app",'Create Event'), 'url'=>array('create'),'visible'=>true),
+	array('label'=>Yii::t("app",'View Event'), 'url'=>array('view', 'id'=>$model->id_event),'visible'=>true),
+	array('label'=>Yii::t("app",'Manage Event'), 'url'=>array('admin'),'visible'=>true),
 );
 ?>
 
