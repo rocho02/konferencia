@@ -7,8 +7,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=> Yii::t("app",'Create Event'), 'url'=>array('create')),
-	array('label'=> Yii::t("app",'Manage Event'), 'url'=>array('admin')),
+	array('label'=> Yii::t("app",'Create Event'), 'url'=>array('create'),'visible'=>Yii::app()->user->checkAccess('Event.Create') ),
+	array('label'=> Yii::t("app",'Manage Event'), 'url'=>array('admin'),'visible'=>true),
 );
 ?>
 
