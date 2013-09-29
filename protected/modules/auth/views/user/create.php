@@ -9,10 +9,10 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	array('label'=>'List User', 'url'=>array('index')),
-	array('label'=>'Manage User', 'url'=>array('admin')),
+	array('label'=>Yii::t("app",'Manage User'), 'url'=>array('admin')),
 );
 ?>
 
-<h1>Create User</h1>
+<h1>Új felhasználó létrehozása</h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

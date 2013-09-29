@@ -78,9 +78,9 @@ class User extends AuthBaseActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'username' => 'Username',
-			'email' => 'Email',
-			'password' => 'Password',
+			'username' => Yii::t("app",'Username'),
+			'email' => Yii::t("app",'Email'),
+			'password' => Yii::t("app",'Password'),
 			'last_login_time' => 'Last Login Time',
 			'create_time' => 'Create Time',
 			'create_user_id' => 'Create User',

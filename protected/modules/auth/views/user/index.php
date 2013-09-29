@@ -12,7 +12,7 @@ $this->menu=array(
 );
 ?>
 
-<h1>Felhasználók</h1>
+<h1>Felhasználók listázása</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,

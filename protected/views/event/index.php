@@ -12,7 +12,7 @@ $this->menu=array(
 );
 ?>
 
-<h1>Konferenciák</h1>
+<h1>Konferenciák listázása</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,
