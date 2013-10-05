@@ -11,8 +11,10 @@
  * @property string $update_time
  * @property integer $update_user_id
  */
-class Article extends CActiveRecord
+class Article extends TimestampBehaviorSupportActiveRecord
 {
+	
+	
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -55,8 +57,9 @@ class Article extends CActiveRecord
 	{
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
-		return array(
-		);
+		$array = parent::relations();
+		$array['articleVersions'] = array(self::HAS_MANY , 'ArticleVersion', 'id_article');
+		return $array;
 	}
 
 	/**
@@ -96,4 +99,22 @@ class Article extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+	public function getHighestVersion(){
+		if ( $this->isNewRecord ){
+			return 1;
+		}
+		$version = 1;
+		$versions = $article->articleVersions;
+		$versionNumbers = array();
+		foreach( $versions as $version ){
+			$versionNumbers[] = $version->version;
+		}	
+		if ( sizeof( $versionNumbers )){
+			$version = max($versionNumbers);
+			$version += 1;
+		}
+		return $version;
+	}
+
 }

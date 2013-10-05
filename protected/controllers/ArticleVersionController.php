@@ -62,20 +62,74 @@ class ArticleVersionController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new ArticleVersion;
-
+		
+		$article  =  $this->loadArticle( $this->getIdArticle() ); 
+		
+		if ( $article == null )		
+			$article = new Article; 
+		
+		$articleVersion=new ArticleVersion;
+		
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['ArticleVersion']))
 		{
-			$model->attributes=$_POST['ArticleVersion'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id_article_version));
+			$articleVersion->attributes=$_POST['ArticleVersion'];
+			$articleVersion->flag = ArticleVersion::FLAG_NEW;
+			if ( isset( $articleVersion->id_article )  && is_numeric( $articleVersion->id_article )){
+				$article = $this->loadArticle($articleVersion->id_article);
+				if ( $article == null )
+					$article = new Article;
+			} 
+			
+			$articleVersion->document=CUploadedFile::getInstance($articleVersion,'document');
+			$articleVersion->original_file_name = $articleVersion->document->name;
+			
+			
+			if (   $articleVersion->validate() ){
+				$trans = Yii::app()->db->beginTransaction();
+				try{
+					$saveSuccess = true;
+					//save article object if needed
+					if ( $article->isNewRecord ){
+						$article->file_name = $articleVersion->original_file_name;
+						$articleVersion->version = 1;
+						$saveSuccess = $article->save();
+					}
+					
+					//save article version object, but before set the reference for article
+					$relative_dir = "article" . DIRECTORY_SEPARATOR . $article->id_article;
+					if ( $saveSuccess ){
+						$articleVersion->path = $relative_dir  . DIRECTORY_SEPARATOR . $articleVersion->version;
+						$articleVersion->id_article = $article->id_article;
+						$articleVersion->version = $article->getHighestVersion();	
+						$saveSuccess = $articleVersion->save(false);
+					}
+					
+					
+					$absolute_dir_path  =  Yii::app()->basePath . DIRECTORY_SEPARATOR . $relative_dir;
+					if ($saveSuccess ){ 
+						if ( !file_exists( $absolute_dir_path  ) ){
+						 	mkdir( $absolute_dir_path ,0775,true )	;					
+						}
+						$articleVersion->document->saveAs( $absolute_dir_path .  DIRECTORY_SEPARATOR . $articleVersion->version );
+					}
+					
+					$trans->commit();
+				}catch(Exception $ex){
+					 $trans->rollback();
+				}
+				
+			}
+			
+			//if($articleVersion->save())
+			$this->redirect(array('article/view','id'=>$articleVersion->id_article ) );
 		}
 
 		$this->render('create',array(
-			'model'=>$model,
+			'articleVersion'=>$articleVersion,
+			'article'=>$article,
 		));
 	}
 
@@ -170,4 +224,15 @@ class ArticleVersionController extends Controller
 			Yii::app()->end();
 		}
 	}
+	
+	function getIdArticle(){
+		return HTTPUtil::pg("article");
+	}
+	
+	function loadArticle($id){
+		if ( $id == null)
+		 	return null;
+		return $model=Article::model()->findByPk($id);
+	}
+	
 }

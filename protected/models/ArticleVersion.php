@@ -15,8 +15,14 @@
  * @property string $update_time
  * @property integer $update_user_id
  */
-class ArticleVersion extends CActiveRecord
+class ArticleVersion extends TimestampBehaviorSupportActiveRecord
 {
+	const FLAG_NEW = 1;
+	const FLAG_REJECTED = 2;
+	const FLAG_ACCEPTED = 3;
+	
+	 public $document;
+	
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -59,8 +65,8 @@ class ArticleVersion extends CActiveRecord
 	{
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
-		return array(
-		);
+		$array = parent::relations();
+		return $array;
 	}
 
 	/**
@@ -108,4 +114,13 @@ class ArticleVersion extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+	
+	function getStatusText(){
+		switch($this->flag){
+			case self::FLAG_ACCEPTED : return Yii::t('app','Accepted');
+			case self::FLAG_REJECTED : return Yii::t('app','Rejected');
+			case self::FLAG_NEW : return Yii::t('app','New');
+		}
+	}
+	
 }
