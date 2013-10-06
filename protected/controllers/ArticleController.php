@@ -124,7 +124,12 @@ class ArticleController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Article');
+		
+		$criteria = new CDbCriteria;
+		$criteria->condition='create_user_id=:id_user';
+		$criteria->params=array(':id_user'=> Yii::app()->user->id);
+		
+		$dataProvider=new CActiveDataProvider('Article',array('criteria'=>$criteria,));
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));

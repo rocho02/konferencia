@@ -35,6 +35,7 @@
 				array('label'=>'Users', 'url'=>array('/auth/user')),
 				array('label'=>'Konferencia', 'url'=>array('/event/index')),
 				array('label'=>'Téma', 'url'=>array('/topic/index')),
+				array('label'=>'Cikkeim', 'url'=>array('/article/index'),'visible'=>!Yii::app()->user->isGuest),
 				array('label'=>'Szerepkörök', 'url'=>array('/rights'), 'visible'=>Yii::app()->user->checkAccess('admin') ),
 				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)

@@ -70,7 +70,7 @@ class Article extends TimestampBehaviorSupportActiveRecord
 		return array(
 			'id_article' => 'Id Article',
 			'file_name' => 'File Name',
-			'create_time' => 'Create Time',
+			'create_time' => 'Upload Time',
 			'create_user_id' => 'Create User',
 			'update_time' => 'Update Time',
 			'update_user_id' => 'Update User',
@@ -100,12 +100,39 @@ class Article extends TimestampBehaviorSupportActiveRecord
 		));
 	}
 
+	public function getCurrentVersion(){
+		if ( $this->isNewRecord ){
+			return null;
+		}
+		
+		$versions = $this->articleVersions;
+		$versionMap = array();
+		$versionNumbers = array();
+		foreach( $versions as $version ){
+			$versionNumbers[] = $version->version;
+			$versionMap[$version->version] = $version;
+		}	
+		if ( sizeof( $versionNumbers ) > 0){
+			$version = max($versionNumbers);
+			return $versionMap[$version];
+		}
+		return null;
+	}
+	
+	public function getCurrentVersionNumber(){
+		 $version = $this->getCurrentVersion();
+		 if ( $version == null )
+			return null;
+		 
+		 return $version->version;
+	}
+
 	public function getHighestVersion(){
 		if ( $this->isNewRecord ){
 			return 1;
 		}
 		$version = 1;
-		$versions = $article->articleVersions;
+		$versions = $this->articleVersions;
 		$versionNumbers = array();
 		foreach( $versions as $version ){
 			$versionNumbers[] = $version->version;
