@@ -2,3 +2,4 @@
 .settings
 protected/runtime/**
 assets/*
+protected/article/**
