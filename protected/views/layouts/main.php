@@ -33,6 +33,7 @@
 				array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
 				array('label'=>'Contact', 'url'=>array('/site/contact')),
 				array('label'=>'Users', 'url'=>array('/auth/user')),
+				array('label'=>'Üzenetek', 'url'=>array('/message/index')),
 				array('label'=>'Konferencia', 'url'=>array('/event/index')),
 				array('label'=>'Téma', 'url'=>array('/topic/index')),
 				array('label'=>'Cikkeim', 'url'=>array('/article/index'),'visible'=>!Yii::app()->user->isGuest),
