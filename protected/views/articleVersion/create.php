@@ -9,7 +9,7 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List ArticleVersion', 'url'=>array('article/view','id'=>$article->id_article)),
+	array('label'=>'List ArticleVersion', 'url'=>array('article/view','id'=>$article->id_article), 'visible'=>!$article->isNewRecord),
 	//array('label'=>'Manage ArticleVersion', 'url'=>array('admin')),
 );
 ?>
