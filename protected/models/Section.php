@@ -16,8 +16,11 @@
  * @property string $update_time
  * @property integer $update_user_id
  */
-class Section extends CActiveRecord
+class Section extends TimestampBehaviorSupportActiveRecord
 {
+
+	const VISIBILITY_PRIVATE = 1;
+	const VISIBILITY_PUBLIC = 2;
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -111,4 +114,12 @@ class Section extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+	
+	public static function getVisiblityOptions(){
+		return array(
+			self::VISIBILITY_PRIVATE=>Yii::t('app',"private"),
+			self::VISIBILITY_PUBLIC  =>Yii::t('app',"public"),
+		);
+	} 
+	
 }

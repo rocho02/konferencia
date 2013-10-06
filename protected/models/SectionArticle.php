@@ -12,7 +12,7 @@
  * @property string $update_time
  * @property integer $update_user_id
  */
-class SectionArticle extends CActiveRecord
+class SectionArticle extends TimestampBehaviorSupportActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

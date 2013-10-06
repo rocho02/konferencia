@@ -13,6 +13,11 @@ $this->menu=array(
 );
 ?>
 
-<h1>Create Section</h1>
+<h1><?php echo Yii::t('app', "Create Section for Event ") ?> </h1>
+<h2>
+<?php
+	echo $event->description;
+ ?>
+</h2>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

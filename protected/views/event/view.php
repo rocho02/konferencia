@@ -13,6 +13,7 @@ $this->menu=array(
 	array('label'=>Yii::t("app",'Update Event'), 'url'=>array('update', 'id'=>$model->id_event),'visible'=>true),
 	array('label'=>Yii::t("app",'Delete Event'), 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id_event),'confirm'=>'Are you sure you want to delete this item?'),'visible'=>true),
 	array('label'=>Yii::t("app",'Manage Event'), 'url'=>array('admin'),'visible'=>true),
+	array('label'=>Yii::t("app",'Create Section'), 'url'=>array('section/create','event'=>$model->id_event),'visible'=>true),
 );
 ?>
 
