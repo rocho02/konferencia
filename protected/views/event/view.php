@@ -28,3 +28,8 @@ $this->menu=array(
 		'createUserName',
 	),
 )); ?>
+<br>
+<h2> <?php echo Yii::t('app','Sections') ?></h2>
+<?php $this->renderPartial('_sections',array(
+'eventSections'=>$model->eventSections,
+)); ?>
