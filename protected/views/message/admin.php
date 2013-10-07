@@ -8,8 +8,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Message', 'url'=>array('index')),
-	array('label'=>'Create Message', 'url'=>array('create')),
+	array('label'=>Yii::t("app",'List Message'), 'url'=>array('index')),
+	array('label'=>Yii::t("app",'Create Message'), 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -26,7 +26,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Messages</h1>
+<h1>Üzenetek szerkesztése</h1>
 
 <p>
 You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>

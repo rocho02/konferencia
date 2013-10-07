@@ -67,8 +67,8 @@ class Message extends CActiveRecord
 		return array(
 			'id_message' => 'Id Message',
 			'id_sender' => 'Id Sender',
-			'subject' => 'Subject',
-			'body' => 'Body',
+			'subject' => Yii::t("app",'Subject'),
+			'body' => Yii::t("app",'Body'),
 			'flag' => 'Flag',
 			'create_time' => 'Create Time',
 		);

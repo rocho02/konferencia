@@ -29,7 +29,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'body'); ?>
-		<?php echo $form->textField($model,'body',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->textArea($model,'body',array('cols'=>50,'rows'=>5,'size'=>60,'maxlength'=>255)); ?>
 		<?php echo $form->error($model,'body'); ?>
 	</div>
 
@@ -46,7 +46,7 @@
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+		<?php echo CHtml::submitButton($model->isNewRecord ? Yii::t("app",'Create') : 'Save'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

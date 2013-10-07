@@ -8,15 +8,15 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Message', 'url'=>array('index')),
-	array('label'=>'Create Message', 'url'=>array('create')),
-	array('label'=>'Update Message', 'url'=>array('update', 'id'=>$model->id_message)),
-	array('label'=>'Delete Message', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id_message),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Message', 'url'=>array('admin')),
+	array('label'=>Yii::t("app",'List Message'), 'url'=>array('index')),
+	array('label'=>Yii::t("app",'Create Message'), 'url'=>array('create')),
+	array('label'=>Yii::t("app",'Update Message'), 'url'=>array('update', 'id'=>$model->id_message)),
+	array('label'=>Yii::t("app",'Delete Message'), 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id_message),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>Yii::t("app",'Manage Message'), 'url'=>array('admin')),
 );
 ?>
 
-<h1>View Message #<?php echo $model->id_message; ?></h1>
+<h1><?php echo $model->subject; ?> tárgyú üzenet szerkesztése</h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,

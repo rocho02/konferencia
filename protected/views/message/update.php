@@ -9,13 +9,13 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Message', 'url'=>array('index')),
-	array('label'=>'Create Message', 'url'=>array('create')),
-	array('label'=>'View Message', 'url'=>array('view', 'id'=>$model->id_message)),
-	array('label'=>'Manage Message', 'url'=>array('admin')),
+	array('label'=>Yii::t("app",'List Message'), 'url'=>array('index')),
+	array('label'=>Yii::t("app",'Create Message'), 'url'=>array('create')),
+	array('label'=>Yii::t("app",'View Message'), 'url'=>array('view', 'id'=>$model->id_message)),
+	array('label'=>Yii::t("app",'Manage Message'), 'url'=>array('admin')),
 );
 ?>
 
-<h1>Update Message <?php echo $model->id_message; ?></h1>
+<h1><?php echo $model->subject; ?> tárgyú üzenet szerkesztése</h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
