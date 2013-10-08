@@ -55,6 +55,7 @@ class Event extends CActiveRecord {
 		return array(
 					 'updateUser' => array(self::BELONGS_TO, 'User', 'update_user_id'),
 					 'createUser' => array(self::BELONGS_TO, 'User', 'create_user_id'),
+					 'eventSections' => array(self::HAS_MANY, 'Section', 'id_event'),
 					);
 	}
 	

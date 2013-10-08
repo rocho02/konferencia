@@ -1,6 +1,6 @@
 <?php
 
-class EventController extends Controller
+class SectionArticleController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -62,16 +62,16 @@ class EventController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new Event;
+		$model=new SectionArticle;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Event']))
+		if(isset($_POST['SectionArticle']))
 		{
-			$model->attributes=$_POST['Event'];
+			$model->attributes=$_POST['SectionArticle'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id_event));
+				$this->redirect(array('view','id'=>$model->id_section_article));
 		}
 
 		$this->render('create',array(
@@ -91,11 +91,11 @@ class EventController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Event']))
+		if(isset($_POST['SectionArticle']))
 		{
-			$model->attributes=$_POST['Event'];
+			$model->attributes=$_POST['SectionArticle'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id_event));
+				$this->redirect(array('view','id'=>$model->id_section_article));
 		}
 
 		$this->render('update',array(
@@ -122,13 +122,7 @@ class EventController extends Controller
 	 */
 	public function actionIndex()
 	{
-		
-		$criteria = new CDbCriteria;
-		$criteria->condition='create_user_id=:id_user';
-		$criteria->params=array(':id_user'=> Yii::app()->user->id);
-		
-		
-		$dataProvider=new CActiveDataProvider('Event',array('criteria'=>$criteria,));
+		$dataProvider=new CActiveDataProvider('SectionArticle');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -139,25 +133,26 @@ class EventController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new Event('search');
+		$model=new SectionArticle('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Event']))
-			$model->attributes=$_GET['Event'];
+		if(isset($_GET['SectionArticle']))
+			$model->attributes=$_GET['SectionArticle'];
 
 		$this->render('admin',array(
 			'model'=>$model,
 		));
 	}
+
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
-	 * @return Event the loaded model
+	 * @return SectionArticle the loaded model
 	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model=Event::model()->findByPk($id);
+		$model=SectionArticle::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -165,11 +160,11 @@ class EventController extends Controller
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param Event $model the model to be validated
+	 * @param SectionArticle $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='event-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='section-article-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
