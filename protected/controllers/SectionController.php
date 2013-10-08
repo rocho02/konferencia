@@ -15,7 +15,7 @@ class SectionController extends Controller {
 	public function filters() {
 		return array('accessControl', // perform access control for CRUD operations
 		'postOnly + delete', // we only allow deletion via POST request
-		'eventContext + create'// we need an event to create a section
+		'eventContext + create,index'// we need an event to create a section or list sections
 		);
 	}
 
@@ -97,8 +97,15 @@ class SectionController extends Controller {
 	 * Lists all models.
 	 */
 	public function actionIndex() {
-		$dataProvider = new CActiveDataProvider('Section');
-		$this -> render('index', array('dataProvider' => $dataProvider, ));
+		
+		$criteria = new CDbCriteria;
+		$criteria->condition='id_event=:id_event';
+		$criteria->params=array(':id_event'=> $this->_event->id_event);
+		
+		
+		
+		$dataProvider = new CActiveDataProvider('Section',array('criteria'=>$criteria,));
+		$this -> render('index', array('dataProvider' => $dataProvider,'event'=>$this->_event ));
 	}
 
 	/**

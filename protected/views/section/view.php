@@ -8,11 +8,11 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Section', 'url'=>array('index')),
-	array('label'=>'Create Section', 'url'=>array('create')),
+	array('label'=>'List Section', 'url'=>array('index','event'=>$model->id_event)),
+	//array('label'=>'Create Section', 'url'=>array('create')),
 	array('label'=>'Update Section', 'url'=>array('update', 'id'=>$model->id_section)),
 	array('label'=>'Delete Section', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id_section),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Section', 'url'=>array('admin')),
+	//array('label'=>'Manage Section', 'url'=>array('admin')),
 );
 ?>
 

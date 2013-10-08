@@ -9,10 +9,10 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Section', 'url'=>array('index')),
-	array('label'=>'Create Section', 'url'=>array('create')),
+	array('label'=>'List Section', 'url'=>array('index','event'=>$model->id_event)),
+	//array('label'=>'Create Section', 'url'=>array('create')),
 	array('label'=>'View Section', 'url'=>array('view', 'id'=>$model->id_section)),
-	array('label'=>'Manage Section', 'url'=>array('admin')),
+	//array('label'=>'Manage Section', 'url'=>array('admin')),
 );
 ?>
 
