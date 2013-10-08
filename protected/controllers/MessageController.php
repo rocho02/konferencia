@@ -70,6 +70,7 @@ class MessageController extends Controller
 		if(isset($_POST['Message']))
 		{
 			$model->attributes=$_POST['Message'];
+			$model->id_sender = Yii::app()->user->id;
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id_message));
 		}

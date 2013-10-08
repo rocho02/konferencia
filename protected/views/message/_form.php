@@ -33,18 +33,6 @@
 		<?php echo $form->error($model,'body'); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'flag'); ?>
-		<?php echo $form->textField($model,'flag'); ?>
-		<?php echo $form->error($model,'flag'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'create_time'); ?>
-		<?php echo $form->textField($model,'create_time'); ?>
-		<?php echo $form->error($model,'create_time'); ?>
-	</div>
-
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? Yii::t("app",'Create') : 'Save'); ?>
 	</div>

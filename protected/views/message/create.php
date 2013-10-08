@@ -8,8 +8,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>Yii::t("app",'List Message'), 'url'=>array('index')),
-	array('label'=>Yii::t("app",'Manage Message'), 'url'=>array('admin')),
+	array('label'=>Yii::t("app",'List Message'), 'url'=>array('index'),'visible'=>true),
+	array('label'=>Yii::t("app",'Manage Message'), 'url'=>array('admin'),'visible'=>true),
 );
 ?>
 
