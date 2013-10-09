@@ -96,4 +96,21 @@ class Message extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
-}
+	public function getSenderUserName(){
+		$username = "";
+		if ( isset( $this->createUser  ) ){
+			$username = $this->createUser->username;
+		}
+		return $username;
+	}
+	protected function beforeSave() {
+		if (null !== Yii::app() -> user)
+			$id = Yii::app() -> user -> id;
+		else
+			$id = 1;
+		if ($this -> isNewRecord)
+			$this -> id_sender = $id;
+		return parent::beforeSave();
+	}
+
+	}

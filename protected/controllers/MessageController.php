@@ -171,4 +171,9 @@ class MessageController extends Controller
 			Yii::app()->end();
 		}
 	}
+	function getAllUser(){
+ 		$users = User::model()->findAll();
+ 		return  CHtml::listData($users,'id', 'username');
+	}
+	
 }

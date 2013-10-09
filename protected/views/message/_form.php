@@ -17,7 +17,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'id_sender'); ?>
-		<?php echo $form->textField($model,'id_sender'); ?>
+		<?php echo $form->listBox($model,'id_sender',$this->getAllUser(),array( 'style'=>"width: 250px")); ?>
 		<?php echo $form->error($model,'id_sender'); ?>
 	</div>
 

@@ -10,7 +10,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('id_sender')); ?>:</b>
-	<?php echo CHtml::encode($data->id_sender); ?>
+	<?php echo CHtml::encode($data->getSenderUserName()); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('subject')); ?>:</b>
