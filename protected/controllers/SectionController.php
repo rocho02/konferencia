@@ -8,6 +8,7 @@ class SectionController extends Controller {
 	public $layout = '//layouts/column2';
 	
 	private $_event = null;
+	private $_section = null;
 
 	/**
 	 * @return array action filters
@@ -15,7 +16,8 @@ class SectionController extends Controller {
 	public function filters() {
 		return array('accessControl', // perform access control for CRUD operations
 		'postOnly + delete', // we only allow deletion via POST request
-		'eventContext + create,index'// we need an event to create a section or list sections
+		'eventContext + create,index',// we need an event to create a section or list sections
+		'sectionContext +  addArticle'// we need an event to create a section or list sections
 		);
 	}
 
@@ -27,7 +29,7 @@ class SectionController extends Controller {
 	public function accessRules() {
 		return array( array('allow', // allow all users to perform 'index' and 'view' actions
 		'actions' => array('index', 'view'), 'users' => array('*'), ), array('allow', // allow authenticated user to perform 'create' and 'update' actions
-		'actions' => array('create', 'update'), 'users' => array('@'), ), array('allow', // allow admin user to perform 'admin' and 'delete' actions
+		'actions' => array('create', 'update', 'addArticle'), 'users' => array('@'), ), array('allow', // allow admin user to perform 'admin' and 'delete' actions
 		'actions' => array('admin', 'delete'), 'users' => array('admin'), ), array('deny', // deny all users
 		'users' => array('*'), ), );
 	}
@@ -107,6 +109,11 @@ class SectionController extends Controller {
 		$dataProvider = new CActiveDataProvider('Section',array('criteria'=>$criteria,));
 		$this -> render('index', array('dataProvider' => $dataProvider,'event'=>$this->_event ));
 	}
+	
+	public function actionAddArticle() {
+		
+		$this -> render('addArticle', array( 'section'=>$this->_section ));
+	}
 
 	/**
 	 * Manages all models.
@@ -152,6 +159,13 @@ class SectionController extends Controller {
 			throw new CHttpException(404, 'The requested page does not exist.');
 		return $model;
 	}
+	
+	public function loadSection($id) {
+		$model = Section::model() -> findByPk($id);
+		if ($model === null)
+			throw new CHttpException(404, 'The requested page does not exist.');
+		return $model;
+	}
 
 
 		/**
@@ -168,6 +182,17 @@ class SectionController extends Controller {
 			$this->_event = $this->loadEvent($_GET['event']);
 		else
 			throw new CHttpException(403,'Must specify aan event before	performing this action.');
+		//complete the running of other filters and execute the requested action
+		$filterChain->run();
+	}
+	
+	public function filterSectionContext($filterChain)
+	{
+		//set the project identifier based on GET input request variables
+		if(isset($_GET['section']))
+			$this->_section = $this->loadSection($_GET['section']);
+		else
+			throw new CHttpException(403,'Must specify a section before	performing this action.');
 		//complete the running of other filters and execute the requested action
 		$filterChain->run();
 	}

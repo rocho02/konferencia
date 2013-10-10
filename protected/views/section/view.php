@@ -13,6 +13,7 @@ $this->menu=array(
 	array('label'=>'Update Section', 'url'=>array('update', 'id'=>$model->id_section)),
 	array('label'=>'Delete Section', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id_section),'confirm'=>'Are you sure you want to delete this item?')),
 	//array('label'=>'Manage Section', 'url'=>array('admin')),
+	array('label'=>'Attach document', 'url'=>array('addArticle', 'section'=>$model->id_section)),
 );
 ?>
 

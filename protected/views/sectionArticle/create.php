@@ -13,6 +13,6 @@ $this->menu=array(
 );
 ?>
 
-<h1>Create SectionArticle</h1>
+<h1>Attach article</h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
