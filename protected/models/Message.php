@@ -13,6 +13,7 @@
  */
 class Message extends CActiveRecord
 {
+	public $recepient;
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -56,7 +57,7 @@ class Message extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-		);
+      'senderUser' => array(self::BELONGS_TO, 'User', 'id_sender'));
 	}
 
 	/**
@@ -65,12 +66,13 @@ class Message extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id_message' => 'Id Message',
-			'id_sender' => 'Id Sender',
+			'id_message' => Yii::t("app",'Id Message'),
+			'recepient' => Yii::t("app",'Recepient'),
+			'id_sender' => Yii::t("app",'Id Sender'),
 			'subject' => Yii::t("app",'Subject'),
 			'body' => Yii::t("app",'Body'),
-			'flag' => 'Flag',
-			'create_time' => 'Create Time',
+			'flag' => Yii::t("app",'Flag'),
+			'create_time' => Yii::t("app",'Create Time'),
 		);
 	}
 
@@ -96,13 +98,15 @@ class Message extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
-	public function getSenderUserName(){
-		$username = "";
-		if ( isset( $this->createUser  ) ){
-			$username = $this->createUser->username;
-		}
-		return $username;
-	}
+
+	public function getSenderUsername(){
+  		$username = "";
+  		if ( isset( $this->senderUser  ) ){
+  		 $username = $this->senderUser->username;
+ 	 }
+  	return $username;
+ 	}
+	
 	protected function beforeSave() {
 		if (null !== Yii::app() -> user)
 			$id = Yii::app() -> user -> id;

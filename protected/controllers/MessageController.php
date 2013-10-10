@@ -71,14 +71,20 @@ class MessageController extends Controller
 		{
 			$model->attributes=$_POST['Message'];
 			$model->id_sender = Yii::app()->user->id;
-			if($model->save())
+			if($model->save()){
+			$recepient = new UserMessage;
+				$recepient->id_message = $model->id_message;
+				$recepient->id_recepient = $model->recepient;
+				$recepient->status = 0;
+
+				$recepient->save();
 				$this->redirect(array('view','id'=>$model->id_message));
 		}
 
 		$this->render('create',array(
 			'model'=>$model,
 		));
-	}
+	}}
 
 	/**
 	 * Updates a particular model.

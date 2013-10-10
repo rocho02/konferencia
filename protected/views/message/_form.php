@@ -16,9 +16,9 @@
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'id_sender'); ?>
-		<?php echo $form->listBox($model,'id_sender',$this->getAllUser(),array( 'style'=>"width: 250px")); ?>
-		<?php echo $form->error($model,'id_sender'); ?>
+		<?php echo $form->labelEx($model,'recepient'); ?>
+		<?php echo $form->listBox($model,'recepient',$this->getAllUser(),array( 'style'=>"width: 250px")); ?>
+		<?php echo $form->error($model,'recepient'); ?>
 	</div>
 
 	<div class="row">

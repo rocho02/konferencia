@@ -31,6 +31,7 @@ return array(
 'Operations' => 'Műveletek',
 'Password' => 'Jelszó',
 'Password Repeat' => 'Jelszó újra',
+'Recepient' => 'Címzett(ek)',
 'Sections' => 'Szekciók',
 'Subject' => 'Tárgy',
 'Start Date' => 'Kezdő Dátum',
