@@ -32,7 +32,7 @@ class MessageController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','incoming'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -51,8 +51,18 @@ class MessageController extends Controller
 	 */
 	public function actionView($id)
 	{
+		$message = Message::model()->with('userMessages.recepient')->findByPk($id);
+		$userMessages = $message->userMessages;
+		
+		$dataProvider = new CArrayDataProvider( $userMessages, array(
+   			'keyField' => 'id_recepient', // PRIMARY KEY attribute of $list member objects
+   			'id' => 'recepients'  // ID of the data provider itself
+		));
+		
 		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+			'model'=>$message,
+			//'recepients'=>$recepients,
+			'dataProvider' => $dataProvider,
 		));
 	}
 
@@ -70,21 +80,24 @@ class MessageController extends Controller
 		if(isset($_POST['Message']))
 		{
 			$model->attributes=$_POST['Message'];
+			
 			$model->id_sender = Yii::app()->user->id;
 			if($model->save()){
-			$recepient = new UserMessage;
-				$recepient->id_message = $model->id_message;
-				$recepient->id_recepient = $model->recepient;
-				$recepient->status = 0;
-
-				$recepient->save();
+				foreach( $model->recepient as $r ){
+					$recepient = new UserMessage;
+					$recepient->id_message = $model->id_message;
+					$recepient->id_recepient = $r;
+					$recepient->status = Message::STATUS_NEW;
+					$recepient->save();
+				}
 				$this->redirect(array('view','id'=>$model->id_message));
+			}
 		}
 
 		$this->render('create',array(
 			'model'=>$model,
 		));
-	}}
+	}
 
 	/**
 	 * Updates a particular model.
@@ -129,6 +142,20 @@ class MessageController extends Controller
 	 */
 	public function actionIndex()
 	{
+		$dataProvider=new CActiveDataProvider('Message');
+		$this->render('index',array(
+			'dataProvider'=>$dataProvider,
+		));
+	}
+	
+	
+	/**
+	 * Lists all models.
+	 */
+	public function actionIncoming()
+	{
+		$messages = Message::model()->with('userMessages')->findByPk($id);
+		
 		$dataProvider=new CActiveDataProvider('Message');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,

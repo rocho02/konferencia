@@ -29,3 +29,9 @@ $this->menu=array(
 		'create_time',
 	),
 )); ?>
+<br/class="<br/>">
+<h2><?php  echo Yii::t('app','Recepients') ?></h2>
+<?php $this->widget('zii.widgets.CListView', array(
+	'dataProvider'=>$dataProvider,
+	'itemView'=>'_view_user',
+)); ?>

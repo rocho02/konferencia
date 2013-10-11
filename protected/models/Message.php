@@ -13,7 +13,11 @@
  */
 class Message extends CActiveRecord
 {
+	const STATUS_NEW = 0;
+	const STATUS_READ = 1;
+	
 	public $recepient;
+	
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -42,7 +46,7 @@ class Message extends CActiveRecord
 		return array(
 			array('id_sender, flag', 'numerical', 'integerOnly'=>true),
 			array('subject, body', 'length', 'max'=>255),
-			array('create_time', 'safe'),
+			array('create_time,recepient', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id_message, id_sender, subject, body, flag, create_time', 'safe', 'on'=>'search'),
@@ -57,7 +61,10 @@ class Message extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-      'senderUser' => array(self::BELONGS_TO, 'User', 'id_sender'));
+      'senderUser' => array(self::BELONGS_TO, 'User', 'id_sender'),
+	  'userMessages' => array(self::HAS_MANY, 'UserMessage', 'id_message'),
+      'recepients' => array(self::HAS_MANY, 'User', 'id_recepient','through' => 'userMessages'),
+	  );
 	}
 
 	/**
@@ -117,4 +124,8 @@ class Message extends CActiveRecord
 		return parent::beforeSave();
 	}
 
+
+	public function setRecepient($v){
+		$this->recepient = $v;
+	}
 	}
