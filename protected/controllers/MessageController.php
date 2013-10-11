@@ -32,7 +32,7 @@ class MessageController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','incoming'),
+				'actions'=>array('create','update','incoming','read'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -149,6 +149,28 @@ class MessageController extends Controller
 	}
 	
 	
+	public function actionRead($id){
+		$message = Message::model()->findByPk($id);
+		
+		
+		$criteria = new CDbCriteria;
+		$criteria->condition ="id_message=:id_message and id_recepient=:id_recepient";
+		
+		$criteria->params=array(':id_message'=>$id,':id_recepient'=>Yii::app()->user->id);
+		$userMessage=UserMessage::model()->find($criteria);
+		
+
+		if ( $userMessage->status == Message::STATUS_NEW){
+			$userMessage->status = Message::STATUS_READ;
+			$userMessage->save();		
+		}
+		
+		$this->render('read',array(
+			'model'=>$message,
+			'userMessage'=>$userMessage
+		));
+	}
+	
 	/**
 	 * Lists all models.
 	 */
@@ -158,6 +180,7 @@ class MessageController extends Controller
 		//$criteria->with = array('userMessages' => array('condition' => 'id_recepient= ' .Yii::app()->user->id));
 		
 		$messages = Message::model()->with(array( 'userMessages'=>array('condition'=>'id_recepient=' .Yii::app()->user->id ) ))->findAll( );
+		
 		
 		$dataProvider = new CArrayDataProvider( $messages, array(
    			'keyField' => 'id_message', // PRIMARY KEY attribute of $list member objects
@@ -169,7 +192,7 @@ class MessageController extends Controller
 		
 		//$dataProvider=new CActiveDataProvider('Message',array('criteria' => $criteria ));
 		//$dataProvider=new CArrayDataProvider('Message',array('criteria' => $criteria ));
-		$this->render('index',array(
+		$this->render('incoming',array(
 			'dataProvider'=>$dataProvider,
 		));
 	}
