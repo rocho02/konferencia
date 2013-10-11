@@ -154,9 +154,21 @@ class MessageController extends Controller
 	 */
 	public function actionIncoming()
 	{
-		$messages = Message::model()->with('userMessages')->findByPk($id);
+		//$criteria = new CDbCriteria;
+		//$criteria->with = array('userMessages' => array('condition' => 'id_recepient= ' .Yii::app()->user->id));
 		
-		$dataProvider=new CActiveDataProvider('Message');
+		$messages = Message::model()->with(array( 'userMessages'=>array('condition'=>'id_recepient=' .Yii::app()->user->id ) ))->findAll( );
+		
+		$dataProvider = new CArrayDataProvider( $messages, array(
+   			'keyField' => 'id_message', // PRIMARY KEY attribute of $list member objects
+   			'id' => 'messages'  // ID of the data provider itself
+		));
+		
+		
+		
+		
+		//$dataProvider=new CActiveDataProvider('Message',array('criteria' => $criteria ));
+		//$dataProvider=new CArrayDataProvider('Message',array('criteria' => $criteria ));
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
