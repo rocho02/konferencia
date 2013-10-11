@@ -8,7 +8,6 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	array('label'=>Yii::t("app",'Create Message'), 'url'=>array('create')),
-	array('label'=>Yii::t("app",'Manage Message'), 'url'=>array('admin')),
 );
 ?>
 

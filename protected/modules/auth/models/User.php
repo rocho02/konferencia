@@ -77,15 +77,16 @@ class User extends AuthBaseActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
+			'id' => Yii::t("app",'ID'),
 			'username' => Yii::t("app",'Username'),
 			'email' => Yii::t("app",'Email'),
 			'password' => Yii::t("app",'Password'),
-			'last_login_time' => 'Last Login Time',
-			'create_time' => 'Create Time',
-			'create_user_id' => 'Create User',
-			'update_time' => 'Update Time',
-			'update_user_id' => 'Update User',
+			'password_repeat' => Yii::t("app",'Password Repeat'),
+			'last_login_time' => Yii::t("app",'Last Login Time'),
+			'create_time' => Yii::t("app",'Create Time'),
+			'create_user_id' => Yii::t("app",'Create User'),
+			'update_time' => Yii::t("app",'Update Time'),
+			'update_user_id' => Yii::t("app",'UpdateUser'),
 		);
 	}
 
@@ -152,6 +153,14 @@ class User extends AuthBaseActiveRecord
 		if ($createUser === null )return " - ";
 		 
 		return $createUser->username;
+	}
+	
+	public function getUpdateUserName(){
+		$updateUser =User::model()->find('id=?',array( $this->update_user_id ));
+		
+		if ($updateUser === null )return " - ";
+		 
+		return $updateUser->username;
 	}
 	
 	

@@ -7,7 +7,7 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Create User', 'url'=>array('create')),
+	array('label'=>Yii::t("app",'CreateUser'), 'url'=>array('create')),
 	array('label'=>Yii::t("app",'Manage User'), 'url'=>array('admin')),
 );
 ?>
