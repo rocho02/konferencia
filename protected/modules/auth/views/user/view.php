@@ -9,7 +9,7 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	array('label'=>Yii::t("app",'List User'), 'url'=>array('index')),
-	array('label'=>'Create User', 'url'=>array('create')),
+	array('label'=>Yii::t("app",'CreateUser'), 'url'=>array('create')),
 	array('label'=>Yii::t("app",'Update User'), 'url'=>array('update', 'id'=>$model->id)),
 	array('label'=>Yii::t("app",'Delete User'), 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
 	array('label'=>Yii::t("app",'Manage User'), 'url'=>array('admin')),
@@ -32,6 +32,9 @@ $this->menu=array(
 		),
 			
 		'update_time',
-		'update_user_id',
+		array(
+		'name'=>'update_user_id',
+		'value'=>CHtml::encode($model->getUUserName())
+		),
 	),
 )); ?>

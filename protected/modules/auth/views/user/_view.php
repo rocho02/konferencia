@@ -26,17 +26,19 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('create_user_id')); ?>:</b>
-	<?php echo CHtml::encode($data->create_user_id); ?>
+	<?php echo CHtml::encode($data-> getCreateUserName()); ?>
 	<br />
 
+	<b><?php echo CHtml::encode($data->getAttributeLabel('update_user_id')); ?>:</b>
+	<?php echo CHtml::encode($data->getUpdateUserName()); ?>
+	<br />
+	
 	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('update_time')); ?>:</b>
 	<?php echo CHtml::encode($data->update_time); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('update_user_id')); ?>:</b>
-	<?php echo CHtml::encode($data->update_user_id); ?>
-	<br />
+	
 
 	*/ ?>
 
