@@ -21,10 +21,6 @@
 	<?php echo CHtml::encode($data->body); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('flag')); ?>:</b>
-	<?php echo CHtml::encode($data->flag); ?>
-	<br />
-
 	<b><?php echo CHtml::encode($data->getAttributeLabel('create_time')); ?>:</b>
 	<?php echo CHtml::encode($data->create_time); ?>
 	<br />

@@ -10,9 +10,7 @@ $this->breadcrumbs=array(
 $this->menu=array(
 	array('label'=>Yii::t("app",'List Message'), 'url'=>array('index')),
 	array('label'=>Yii::t("app",'Create Message'), 'url'=>array('create')),
-	array('label'=>Yii::t("app",'Update Message'), 'url'=>array('update', 'id'=>$model->id_message)),
 	array('label'=>Yii::t("app",'Delete Message'), 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id_message),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>Yii::t("app",'Manage Message'), 'url'=>array('admin')),
 );
 ?>
 
@@ -22,10 +20,12 @@ $this->menu=array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id_message',
-		'id_sender',
+		array(
+		'name'=>'id_sender',
+		'value'=>CHtml::encode($model->getSenderUserName())
+		),
 		'subject',
 		'body',
-		'flag',
 		'create_time',
 	),
 )); ?>

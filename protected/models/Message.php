@@ -11,7 +11,7 @@
  * @property integer $flag
  * @property string $create_time
  */
-class Message extends CActiveRecord
+class Message extends TimestampBehaviorSupportActiveRecord 
 {
 	const STATUS_NEW = 0;
 	const STATUS_READ = 1;
