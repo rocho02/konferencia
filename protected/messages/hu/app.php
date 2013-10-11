@@ -37,6 +37,8 @@ return array(
 'Password' => 'Jelszó',
 'Password Repeat' => 'Jelszó újra',
 'Read' => 'Elolvasott',
+'Read Message' =>'Üzenet olvasása',
+'Recepient' => 'Címzett(ek)',
 'Recepients' => 'Címzett(ek)',
 'Sections' => 'Szekciók',
 'Subject' => 'Tárgy',

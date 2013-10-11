@@ -19,7 +19,7 @@ $this->menu=array(
 <h1><?php echo Yii::t('app','Read Message') ?></h1>
 
 <span style="display: inline-block; width: 120px;">
-<b><?php echo CHtml::encode($model->getAttributeLabel('Sender')); ?>:</b>
+<b><?php echo CHtml::encode($model->getAttributeLabel('Küldő')); ?>:</b>
 </span>
 <span style=" display: inline-block; border: 1px solid black; width: 400px; padding: 3px; height:20px; line-height: 20px; vertical-align: middle;">
 <?php echo CHtml::encode($model->getSenderUserName()); ?>
@@ -27,7 +27,7 @@ $this->menu=array(
 <br />
 
 <span style="display: inline-block; width: 120px;">	
-<b><?php echo CHtml::encode($model->getAttributeLabel('Subject')); ?>:</b>
+<b><?php echo CHtml::encode($model->getAttributeLabel('Tárgy')); ?>:</b>
 </span>
 <span style="margin-top: 5px; display: inline-block; border: 1px solid black; width: 400px; padding: 3px; height:20px; line-height: 20px; vertical-align: middle;">
 <?php echo   CHtml::encode(   $model->subject) ; ?>
