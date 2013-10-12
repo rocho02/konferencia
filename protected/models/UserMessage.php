@@ -53,6 +53,7 @@ class UserMessage extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'recepient' => array( self::BELONGS_TO, 'User','id_recepient' ),
+			'message' => array( self::BELONGS_TO, 'Message','id_message' ),
 		);
 	}
 

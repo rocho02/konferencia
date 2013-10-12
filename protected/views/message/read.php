@@ -8,11 +8,9 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>Yii::t("app",'List Message'), 'url'=>array('index')),
+	array('label'=>Yii::t("app",'Sent Message'), 'url'=>array('index')),
 	array('label'=>Yii::t("app",'Create Message'), 'url'=>array('create')),
-	array('label'=>Yii::t("app",'Update Message'), 'url'=>array('update', 'id'=>$model->id_message)),
-	array('label'=>Yii::t("app",'Delete Message'), 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id_message),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>Yii::t("app",'Manage Message'), 'url'=>array('admin')),
+	array('label'=>Yii::t("app",'Incoming Messages'), 'url'=>array('incoming')),
 );
 ?>
 
@@ -34,6 +32,4 @@ $this->menu=array(
 </span>
 <br />
 
-<div style="border: 1px solid black; width: 600px; margin-top: 20px; min-height: 200px; padding: 3px;">
-	<?php echo   CHtml::encode(   $model->body  ) ; ?>
-</div>
+<?php echo   CHtml::activeTextarea( $model ,'body' ,array('cols'=>65,'rows'=>10, 'readonly'=>'readonly', 'style'=>'margin-top: 20px;' )  ) ; ?>

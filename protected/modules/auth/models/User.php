@@ -68,6 +68,8 @@ class User extends AuthBaseActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'userMessages' => array(self::HAS_MANY, 'UserMessage', 'id_recepient'),
+      		'messages' => array(self::HAS_MANY, 'Message', 'id_message','through' => 'userMessages'),
 		);
 	}
 

@@ -8,7 +8,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>Yii::t("app",'List Message'), 'url'=>array('index'),'visible'=>true),
+	array('label'=>Yii::t("app",'Sent Messages'), 'url'=>array('index'),'visible'=>true),
+	array('label'=>Yii::t("app",'Incoming Messages'), 'url'=>array('/message/incoming')),
 );
 ?>
 

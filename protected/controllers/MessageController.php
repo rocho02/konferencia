@@ -179,7 +179,12 @@ class MessageController extends Controller
 		//$criteria = new CDbCriteria;
 		//$criteria->with = array('userMessages' => array('condition' => 'id_recepient= ' .Yii::app()->user->id));
 		
-		$messages = Message::model()->with(array( 'userMessages'=>array('condition'=>'id_recepient=' .Yii::app()->user->id ) ))->findAll( );
+		$messages = Message::model()->with(
+			array( 
+			'userMessages.recepient'=>array('condition'=>'id_recepient=' .Yii::app()->user->id ,'joinType'=>'INNER JOIN', 'order'=>'status,userMessages.create_time desc'),
+			//'recepients' =>array('joinType'=>'INNER JOIN',),
+			'senderUser' =>array('joinType'=>'INNER JOIN',),
+			 ))->findAll( );
 		
 		
 		$dataProvider = new CArrayDataProvider( $messages, array(

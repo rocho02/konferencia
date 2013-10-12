@@ -8,27 +8,29 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>Yii::t("app",'List Message'), 'url'=>array('index')),
+	array('label'=>Yii::t("app",'Sent Messages'), 'url'=>array('index')),
 	array('label'=>Yii::t("app",'Create Message'), 'url'=>array('create')),
-	array('label'=>Yii::t("app",'Delete Message'), 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id_message),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>Yii::t("app",'Incoming Messages'), 'url'=>array('/message/incoming')),
 );
 ?>
 
-<h1><?php echo $model->subject; ?> tárgyú üzenet szerkesztése</h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'id_message',
 		array(
 		'name'=>'id_sender',
 		'value'=>CHtml::encode($model->getSenderUserName())
 		),
-		'subject',
-		'body',
 		'create_time',
+		'subject',
 	),
 )); ?>
+
+<div style='border: 1px solid black; width: 600px; min-height: 200px; padding: 5px; margin-top: 20px;'>
+	<?php echo $model->body ?>
+</div>
+
 <br/class="<br/>">
 <h2><?php  echo Yii::t('app','Recepients') ?></h2>
 <?php $this->widget('zii.widgets.CListView', array(
