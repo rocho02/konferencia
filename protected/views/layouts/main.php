@@ -29,15 +29,16 @@
 	<div id="mainmenu">
 		<?php $this->widget('zii.widgets.CMenu',array(
 			'items'=>array(
-				array('label'=>'Home', 'url'=>array('/site/index')),
-				array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
-				array('label'=>'Contact', 'url'=>array('/site/contact')),
+				array('label'=>'Kezdőlap', 'url'=>array('/site/index')),
+				array('label'=>'Rólunk', 'url'=>array('/site/page', 'view'=>'about')),
+				array('label'=>'Kapcsolat', 'url'=>array('/site/contact')),
 				array('label'=>'Felhasználók', 'url'=>array('/auth/user')),
 				array('label'=>'Üzenetek', 'url'=>array('/message/incoming')),
 				array('label'=>'Konferencia', 'url'=>array('/event/index')),
 				array('label'=>'Téma', 'url'=>array('/topic/index')),
 				array('label'=>'Cikkeim', 'url'=>array('/article/index'),'visible'=>!Yii::app()->user->isGuest),
 				array('label'=>'Szerepkörök', 'url'=>array('/rights'), 'visible'=>Yii::app()->user->checkAccess('admin') ),
+				array('label'=>'Regisztráció', 'url'=>array('auth/user/register'), 'visible'=>Yii::app()->user->isGuest),
 				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
 			),
