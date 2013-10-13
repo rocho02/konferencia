@@ -4,19 +4,23 @@ class m131013_085714_alter_user_register extends CDbMigration
 {
 	public function up()
 	{
-		$sql = "ALTER TABLE tbl_user	ADD column title string default ''"	;
+		$sql = "ALTER TABLE tbl_user	ADD column title varchar(250) default ''"	;
 			
 		$this->execute($sql);	
 	
-		$sql = "ALTER TABLE tbl_user	ADD column full_name string default ''"	;
+		$sql = "ALTER TABLE tbl_user	ADD column name varchar(250) default ''"	;
 			
 		$this->execute($sql);	
 		
-		$sql = "ALTER TABLE tbl_user ADD column born_date datetime default NULL"	;
+		$sql = "ALTER TABLE tbl_user	ADD column surname varchar(250) default ''"	;
+			
+		$this->execute($sql);
+		
+		$sql = "ALTER TABLE tbl_user ADD column birthday datetime default NULL"	;
 			
 		$this->execute($sql);	
 		
-		$sql = "ALTER TABLE tbl_user	ADD column address string default ''"	;
+		$sql = "ALTER TABLE tbl_user	ADD column address varchar(500) default ''"	;
 			
 		$this->execute($sql);		
 	}

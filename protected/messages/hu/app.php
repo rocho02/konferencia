@@ -1,5 +1,7 @@
 <?php
 return array(
+'Address' => 'Lakcím',
+'Birthday' => 'Születési idő',
 'Body' => 'Üzenet szövege',
 'Comments' => "Kommentek",
 'Create' => 'Létrehoz',
@@ -32,6 +34,7 @@ return array(
 'Manage Message' => 'Üzenetek szerkesztése',
 'Manage Topic' => 'Téma testreszabása',
 'Manage User' => 'Felhasználók menedzselése',
+'Name' => 'Név',
 'Name Topic' => 'Téma neve',
 'New' => 'Új',
 'Operations' => 'Műveletek',
@@ -46,6 +49,8 @@ return array(
 'Subject' => 'Tárgy',
 'Start Date' => 'Kezdő Dátum',
 'Status' => 'Státusz',
+'Surname' => 'Vezetéknév',
+'Title' => 'Titulus',
 'Update Event' => 'Konferencia szerkesztése',
 'Update Message' => 'Üzenet frissítése',
 'Update Time' =>'Frissítés ideje',

@@ -81,6 +81,11 @@ class User extends AuthBaseActiveRecord
 		return array(
 			'id' => Yii::t("app",'ID'),
 			'username' => Yii::t("app",'Username'),
+			'title' => Yii::t("app",'Title'),
+			'surname' => Yii::t("app",'Surname'),
+			'name' => Yii::t("app",'Name'),
+			'birthday' => Yii::t("app",'Birthday'),
+			'address' => Yii::t("app",'Address'),
 			'email' => Yii::t("app",'Email'),
 			'password' => Yii::t("app",'Password'),
 			'password_repeat' => Yii::t("app",'Password Repeat'),
