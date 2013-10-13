@@ -57,8 +57,8 @@ class SectionArticle extends TimestampBehaviorSupportActiveRecord
 		// class name for the relations automatically generated below.
 		
 		$relations = parent::relations();
-		$relations['section'] = array(self::HAS_ONE, 'Section', 'id_section',  );
-		$relations['article'] = array(self::HAS_ONE, 'Article', 'id_article',  );
+		$relations['section'] = array(self::BELONGS_TO, 'Section', 'id_section',  );
+		$relations['article'] = array(self::BELONGS_TO, 'Article', 'id_article',  );
 		return $relations;
 	}
 

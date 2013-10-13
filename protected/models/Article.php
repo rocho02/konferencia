@@ -59,6 +59,7 @@ class Article extends TimestampBehaviorSupportActiveRecord
 		// class name for the relations automatically generated below.
 		$array = parent::relations();
 		$array['articleVersions'] = array(self::HAS_MANY , 'ArticleVersion', 'id_article');
+		$array['sectionArticles'] = array(self::HAS_MANY , 'SectionArticle', 'id_article');
 		return $array;
 	}
 

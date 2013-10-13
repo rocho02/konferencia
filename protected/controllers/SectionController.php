@@ -110,9 +110,23 @@ class SectionController extends Controller {
 		$this -> render('index', array('dataProvider' => $dataProvider,'event'=>$this->_event ));
 	}
 	
-	public function actionAddArticle() {
-		
-		$this -> render('addArticle', array( 'section'=>$this->_section ));
+	public function actionAddArticle($section) {
+		/*
+		 * */
+		$articles = Article::model()->with(
+			array(
+				'sectionArticles'=>array('on'=>'sectionArticles.id_section=' .$section)
+			)
+		)->findAll( );
+		/*
+		$messages = Message::model()->with(
+			array( 
+			'userMessages.recepient'=>array('condition'=>'id_recepient=' .Yii::app()->user->id ,'joinType'=>'INNER JOIN', 'order'=>'status,userMessages.create_time desc'),
+			//'recepients' =>array('joinType'=>'INNER JOIN',),
+			'senderUser' =>array('joinType'=>'INNER JOIN',),
+			 ))->findAll( );
+		*/
+		$this -> render('addArticle', array( 'section'=>$this->_section,'articles'=>$articles ));
 	}
 
 	/**
@@ -196,6 +210,7 @@ class SectionController extends Controller {
 		//complete the running of other filters and execute the requested action
 		$filterChain->run();
 	}
+
 
 
 }
