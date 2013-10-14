@@ -34,7 +34,7 @@ $this->menu=array(
 		'update_time',
 		array(
 		'name'=>'update_user_id',
-		'value'=>CHtml::encode($model->getUUserName())
+		'value'=>CHtml::encode($model->username)
 		),
 	),
 )); ?>
