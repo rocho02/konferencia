@@ -1,19 +1,22 @@
 <?php
 /* @var $this SectionController */
-/* @var $model Section 
- * @var $articles Articles 
+/* @var $model SectionAddArticleForm 
  * */
 
 $this->breadcrumbs=array(
-	'Sections'=>array('index','event'=>$section->id_event),
-	$section->title =>array('view','id'=>$section->id_section),
+	'Sections'=>array('index','event'=>$model->section->id_event),
+	 $model->section->title =>array('view','id'=>$model->section->id_section),
 	'Add Articles'
 );
 ?>
 
 <?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'message-form',
+	'id'=>'addarticle-form',
 	'enableAjaxValidation'=>false,
+	'enableClientValidation'=>true,
+	'clientOptions'=>array(
+		'validateOnSubmit'=>true,
+		)
 )); ?>
 
 <table>
@@ -23,12 +26,15 @@ $this->breadcrumbs=array(
 		<td>Cikk Cime</td>
 	</tr>
 </thead>	
+<?php echo $form->labelEx($model,'selectedArticles'); ?>
+<?php echo $form->error($model,'selectedArticles'); ?>
 <?php
-foreach($articles as $article){
+
+foreach($model->articles as $article){
 	$attached = sizeof($article->sectionArticles ) > 0;
 	?>
 	<tr>
-		<td><?php echo CHtml::checkbox('attached',$attached,array( 'value'=>$article->id_article, 'readonly'=> $attached ? 'readonly' : '')) ?></td>
+		<td><?php echo CHtml::checkbox('SectionAddArticleForm[selectedArticles][]',$attached,array( 'id'=>'chk_article_'.$article->id_article, 'value'=>$article->id_article, 'disabled'=> $attached ? 'disabled' : '')) ?></td>
 		<td><?php echo $article->file_name ?></td>
 	</tr>
 	<?php

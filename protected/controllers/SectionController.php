@@ -39,7 +39,9 @@ class SectionController extends Controller {
 	 * @param integer $id the ID of the model to be displayed
 	 */
 	public function actionView($id) {
-		$this -> render('view', array('model' => $this -> loadModel($id), ));
+		$section = $this -> loadModel($id);
+		$articles = Article::model()->with( array('sectionArticles'=>array( 'on'=>'sectionArticles.id_section=' .$section->id_section, 'joinType' =>'INNER JOIN' )	)	)->findAll( );
+		$this -> render('view', array('model' =>$section,'articles'=>$articles ));
 	}
 
 	/**
@@ -110,23 +112,46 @@ class SectionController extends Controller {
 		$this -> render('index', array('dataProvider' => $dataProvider,'event'=>$this->_event ));
 	}
 	
+	
+	
+	
 	public function actionAddArticle($section) {
 		/*
 		 * */
-		$articles = Article::model()->with(
-			array(
-				'sectionArticles'=>array('on'=>'sectionArticles.id_section=' .$section)
-			)
-		)->findAll( );
-		/*
-		$messages = Message::model()->with(
-			array( 
-			'userMessages.recepient'=>array('condition'=>'id_recepient=' .Yii::app()->user->id ,'joinType'=>'INNER JOIN', 'order'=>'status,userMessages.create_time desc'),
-			//'recepients' =>array('joinType'=>'INNER JOIN',),
-			'senderUser' =>array('joinType'=>'INNER JOIN',),
-			 ))->findAll( );
-		*/
-		$this -> render('addArticle', array( 'section'=>$this->_section,'articles'=>$articles ));
+		 
+		$form = new SectionAddArticleForm;
+		$articles = Article::model()->with(	array('sectionArticles'=>array('on'=>'sectionArticles.id_section=' .$section)	)	)->findAll( );
+		$form->articles = $articles;
+		$form->section = $this->_section;
+		
+		if (isset($_POST['SectionAddArticleForm'])){
+			$form -> attributes = $_POST['SectionAddArticleForm'];
+			//print_r($form->selectedArticles);	
+			
+			if ( $form->validate()){
+				print_r( $form->getErrors() );	
+				$trans = Yii::app()->db->beginTransaction();
+				try{
+					foreach($form->selectedArticles as $idArticle){
+						$sa = new SectionArticle;
+						$sa->id_section = $form->section->id_section;
+						$sa->id_article  = $idArticle;
+						$sa->save();
+					}
+					$trans->commit();
+					$this -> redirect(array('view', 'id' => $form -> section -> id_section));
+				}catch(Exception $e){
+					$trans->rollback();
+					throw $e;
+				}		
+			}			
+		}
+		
+		
+			
+		
+		
+		$this -> render('addArticle', array( 'model'=>$form ));
 	}
 
 	/**
@@ -149,7 +174,7 @@ class SectionController extends Controller {
 	 * @return Section the loaded model
 	 * @throws CHttpException
 	 */
-	public function loadModel($id) {
+	public function loadModel($id, $articles = false) {
 		$model = Section::model() -> findByPk($id);
 		if ($model === null)
 			throw new CHttpException(404, 'The requested page does not exist.');
