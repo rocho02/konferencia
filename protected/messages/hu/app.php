@@ -54,6 +54,7 @@ return array(
 'Status' => 'Státusz',
 'Surname' => 'Vezetéknév',
 'Title' => 'Titulus',
+'Titlee' => 'Cím',
 'Update Event' => 'Konferencia szerkesztése',
 'Update Message' => 'Üzenet frissítése',
 'Update Time' =>'Frissítés ideje',

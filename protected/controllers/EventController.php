@@ -63,7 +63,7 @@ class EventController extends Controller
 	public function actionCreate()
 	{
 		$model=new Event;
-
+		$model->visibility = Section::VISIBILITY_PUBLIC;
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 

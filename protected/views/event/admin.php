@@ -51,6 +51,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'description',
 		'create_time',
 		'create_user_id',
+		'visibility',
 		/*
 		'update_time',
 		'update_user_id',

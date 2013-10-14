@@ -26,6 +26,7 @@ $this->menu=array(
 		'formattedStartDate',
 		'formattedEndDate',
 		'description',
+		'visibility',
 		'createUserName',
 	),
 )); ?>

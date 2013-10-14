@@ -8,12 +8,16 @@
  * @property string $start_date
  * @property string $end_date
  * @property string $description
+ * @property integer $visibility
  * @property string $create_time
  * @property integer $create_user_id
  * @property string $update_time
  * @property integer $update_user_id
  */
 class Event extends CActiveRecord {
+	
+	const VISIBILITY_PRIVATE = 1;
+	const VISIBILITY_PUBLIC = 2;
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -37,13 +41,13 @@ class Event extends CActiveRecord {
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array( 
-			array('create_user_id, update_user_id', 'numerical', 'integerOnly' => true),
+			array('create_user_id, update_user_id, visibility', 'numerical', 'integerOnly' => true),
 		 	array('description', 'length', 'max' => 255),
 		 	array('start_date, end_date, create_time, update_time', 'safe'),
 		 	array('formattedStartDate,formattedEndDate',  'required'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id_event, start_date, end_date, description, create_time, create_user_id, update_time, update_user_id', 'safe', 'on' => 'search'), );
+			array('id_event, start_date, end_date, description, create_time, create_user_id, update_time, update_user_id, visibility', 'safe', 'on' => 'search'), );
 	}
 
 	/**
@@ -66,7 +70,16 @@ class Event extends CActiveRecord {
 	 * @return array customized attribute labels (name=>label)
 	 */
 	public function attributeLabels() {
-		return array('id_event' => Yii::t("app", 'Id Event'), 'start_date' => Yii::t("app", 'Start Date'), 'end_date' => Yii::t("app", 'End Date'), 'description' => Yii::t("app", 'Description'), 'create_time' => Yii::t("app", 'Create Time'), 'create_user_id' => Yii::t("app", 'Create User'), 'update_time' => Yii::t("app", 'Update Time'), 'update_user_id' => Yii::t("app", 'Update User'), );
+		return array(
+		'id_event' => Yii::t("app", 'Id Event'), 
+		'start_date' => Yii::t("app", 'Start Date'), 
+		'end_date' => Yii::t("app", 'End Date'), 
+		'description' => Yii::t("app", 'Description'), 
+		'visibility' => Yii::t("app", 'Visibility'),
+		'create_time' => Yii::t("app", 'Create Time'), 
+		'create_user_id' => Yii::t("app", 'Create User'), 
+		'update_time' => Yii::t("app", 'Update Time'), 
+		'update_user_id' => Yii::t("app", 'Update User'), );
 	}
 
 	/**
@@ -83,6 +96,7 @@ class Event extends CActiveRecord {
 		$criteria -> compare('start_date', $this -> start_date, true);
 		$criteria -> compare('end_date', $this -> end_date, true);
 		$criteria -> compare('description', $this -> description, true);
+		$criteria -> compare('visibility',$this->visibility);
 		$criteria -> compare('create_time', $this -> create_time, true);
 		$criteria -> compare('create_user_id', $this -> create_user_id);
 		$criteria -> compare('update_time', $this -> update_time, true);
@@ -169,5 +183,11 @@ class Event extends CActiveRecord {
 		),
 		);
 	}
-
+	
+	public static function getVisiblityOptions(){
+		return array(
+			self::VISIBILITY_PRIVATE=>Yii::t('app',"private"),
+			self::VISIBILITY_PUBLIC  =>Yii::t('app',"public"),
+		);
+	} 
 }

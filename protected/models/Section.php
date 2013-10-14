@@ -74,17 +74,17 @@ class Section extends TimestampBehaviorSupportActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id_section' => 'Id Section',
-			'title' => 'Title',
-			'description' => 'Description',
-			'start_time' => 'Start Time',
-			'end_time' => 'End Time',
-			'visibility' => 'Visibility',
-			'id_event' => 'Id Event',
-			'create_time' => 'Create Time',
-			'create_user_id' => 'Create User',
-			'update_time' => 'Update Time',
-			'update_user_id' => 'Update User',
+			'id_section' => Yii::t("app",'Id Section'),
+			'title' => Yii::t("app",'Titlee'),
+			'description' => Yii::t("app",'Description'),
+			'start_time' => Yii::t("app",'Start Time'),
+			'end_time' => Yii::t("app",'End Time'),
+			'visibility' => Yii::t("app",'Visibility'),
+			'id_event' => Yii::t("app",'Id Event'),
+			'create_time' => Yii::t("app",'Create Time'),
+			'create_user_id' => Yii::t("app",'Create User'),
+			'update_time' => Yii::t("app",'Update Time'),
+			'update_user_id' => Yii::t("app",'Update User'),
 		);
 	}
 

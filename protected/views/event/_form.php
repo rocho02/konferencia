@@ -63,6 +63,12 @@
 		<?php echo $form->textArea($model,'description',array('cols'=>50,'rows'=>5,'size'=>60,'maxlength'=>255)); ?>
 		<?php echo $form->error($model,'description'); ?>
 	</div>
+	
+	<div class="row compactRadioGroup">
+		<?php echo $form->labelEx($model,'visibility'); ?>
+		<?php echo $form->radioButtonList($model,'visibility', Section::getVisiblityOptions(),array('separator'=> ' 	') ); ?>
+		<?php echo $form->error($model,'visibility'); ?>
+	</div>
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? Yii::t("app", 'Create') : Yii::t("app",'Save')); ?>

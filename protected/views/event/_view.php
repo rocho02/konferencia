@@ -19,6 +19,10 @@
 	<b><?php echo CHtml::encode($data->getAttributeLabel('create_user_id')); ?>:</b>
 	<?php echo CHtml::encode($data->getCreateUserName()); ?>
 	<br />
+	
+	<b><?php echo CHtml::encode($data->getAttributeLabel('visibility')); ?>:</b>
+	<?php echo CHtml::encode($data->visibility); ?>
+	<br />
 
 	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('update_user_id')); ?>:</b>
