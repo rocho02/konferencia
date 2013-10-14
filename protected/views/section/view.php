@@ -13,6 +13,7 @@ $this->menu=array(
 	array('label'=>'Update Section', 'url'=>array('update', 'id'=>$model->id_section)),
 	array('label'=>'Delete Section', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id_section),'confirm'=>'Are you sure you want to delete this item?')),
 	//array('label'=>'Manage Section', 'url'=>array('admin')),
+	array('label'=>'Attach document', 'url'=>array('addArticle', 'section'=>$model->id_section)),
 );
 ?>
 
@@ -34,3 +35,19 @@ $this->menu=array(
 		'update_user_id',
 	),
 )); ?>
+<br>
+<br>
+<h3>Attached Files</h3>
+<?php 
+	$i = 0;
+	foreach ($articles as $a) {
+		  $this->widget('zii.widgets.CDetailView', array(
+	'data'=>$a,
+	'itemCssClass' =>$i%2 ? array('even') : array('odd'),
+	'attributes'=>array(
+	 	'file_name'
+	),
+));  
+$i++;
+	}
+?>
