@@ -76,7 +76,7 @@ class Section extends TimestampBehaviorSupportActiveRecord
 	{
 		return array(
 			'id_section' => Yii::t("app",'Id Section'),
-			'title' => Yii::t("app",'Titlee'),
+			'title' => Yii::t("app",'Title'),
 			'description' => Yii::t("app",'Description'),
 			'start_time' => Yii::t("app",'Start Time'),
 			'end_time' => Yii::t("app",'End Time'),

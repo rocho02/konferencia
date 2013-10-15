@@ -3,7 +3,21 @@
 /* @var $model Event */
 /* @var $form CActiveForm */
 ?>
+<style>
+	
+	DIV#content DIV.compactRadioGroup {
+}
+ 
+DIV#content .compactRadioGroup LABEL,
+DIV#content .compactRadioGroup INPUT {
+    display: inline;
+}
 
+DIV#content .compactRadioGroup LABEL{
+	padding-right: 20px;
+}
+	
+</style>
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(

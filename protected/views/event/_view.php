@@ -6,7 +6,7 @@
 <div class="view">
 	
 	<b><?php echo CHtml::encode($data->getAttributeLabel('title')); ?>:</b>
-	<?php echo CHtml::encode($data->visibility); ?>
+	<?php echo CHtml::encode($data->title); ?>
 	<br />
 	
 	<b><?php echo CHtml::encode($data->getAttributeLabel('start_date')); ?>:</b>
@@ -26,8 +26,10 @@
 	<br />
 	
 	<b><?php echo CHtml::encode($data->getAttributeLabel('visibility')); ?>:</b>
-	<?php echo CHtml::encode($data->visibility); ?>
-	<br />
+ 	<?php 
+  	$visibilityOptions = Event::getVisiblityOptions();
+  	echo CHtml::encode( $data->visibility == null ? "-" : $visibilityOptions[$data->visibility] ); ?>
+	 <br />
 
 	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('update_user_id')); ?>:</b>

@@ -17,7 +17,7 @@ $this->menu=array(
 );
 ?>
 
-<h1>View Section #<?php echo $model->id_section; ?></h1>
+<h1>Szekció <?php echo $model->title; ?></h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
@@ -37,7 +37,7 @@ $this->menu=array(
 )); ?>
 <br>
 <br>
-<h3>Attached Files</h3>
+<h3>Csatolt fájlok</h3>
 <?php 
 	$i = 0;
 	foreach ($articles as $a) {

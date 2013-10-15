@@ -11,9 +11,9 @@ $this->menu=array(
 	//array('label'=>'Create Section', 'url'=>array('create')),
 	//array('label'=>'Manage Section', 'url'=>array('admin')),
 );
-?>'
+?>
 
-<h1>Sections</h1>
+<h1>Szekciók</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,

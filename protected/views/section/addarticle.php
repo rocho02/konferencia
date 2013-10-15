@@ -23,7 +23,7 @@ $this->breadcrumbs=array(
 <thead>
 	<tr>
 		<td></td>
-		<td>Cikk Cime</td>
+		<td>Cikk címe</td>
 	</tr>
 </thead>	
 <?php echo $form->labelEx($model,'selectedArticles'); ?>

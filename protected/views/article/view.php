@@ -8,16 +8,16 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Article', 'url'=>array('index')),
-	array('label'=>'Create Article', 'url'=>array('articleVersion/create')),
+	array('label'=>Yii::t("app",'List Article'), 'url'=>array('index')),
+	array('label'=>Yii::t("app",'Create Article'), 'url'=>array('articleVersion/create')),
 	//array('label'=>'Update Article', 'url'=>array('update', 'id'=>$model->id_article)),
 	//array('label'=>'Delete Article', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id_article),'confirm'=>'Are you sure you want to delete this item?')),
 	//array('label'=>'Manage Article', 'url'=>array('admin')),
-	array('label'=>'Upload New Version', 'url'=>array('articleVersion/create','article'=>$model->id_article)),
+	array('label'=>Yii::t("app",'Upload New Version'), 'url'=>array('articleVersion/create','article'=>$model->id_article)),
 );
 ?>
 
-<h1>View Article #<?php echo $model->id_article; ?></h1>
+<h1>Cikk nézet#<?php echo $model->id_article; ?></h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
@@ -29,7 +29,7 @@ $this->menu=array(
 	),
 )); ?>
 <br>
-<h3>Attached to sections</h3>
+<h3>Szekcióhoz csatolva</h3>
 <?php /* echo "Attached to sections: " . sizeof( $model->sectionArticles ) ; */?>
 <?php 
 /*

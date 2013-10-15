@@ -72,7 +72,7 @@ class Event extends CActiveRecord {
 	public function attributeLabels() {
 		return array(
 		'id_event' => Yii::t("app", 'Id Event'), 
-		'title' => Yii::t("app", 'Titlee'),
+		'title' => Yii::t("app", 'Title'),
 		'start_date' => Yii::t("app", 'Start Date'), 
 		'end_date' => Yii::t("app", 'End Date'), 
 		'description' => Yii::t("app", 'Description'), 

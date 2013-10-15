@@ -8,11 +8,11 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Article', 'url'=>array('index')),
-	array('label'=>'Manage Article', 'url'=>array('admin')),
+	array('label'=>Yii::t("app",'List Article'), 'url'=>array('index')),
+	array('label'=>Yii::t("app",'Manage Article'), 'url'=>array('admin')),
 );
 ?>
 
-<h1>Create Article</h1>
+<h1>Cikk hozzáadása</h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

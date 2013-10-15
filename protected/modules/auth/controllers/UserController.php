@@ -46,7 +46,7 @@ class UserController extends Controller
 	}
 
 	public function actionRegister(){
-		$model=new User;
+		$model=new User('register');
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -54,6 +54,8 @@ class UserController extends Controller
 		if(isset($_POST['User']))
 		{
 			$model->attributes=$_POST['User'];
+			$model->create_user_id = 1;
+			$model->update_user_id = 1;
 			if($model->save())
 				$this->redirect(array('/site/login'));
 		}

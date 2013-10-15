@@ -9,7 +9,7 @@ abstract class AuthBaseActiveRecord extends CActiveRecord
 	 */
 	protected function beforeSave()
 	{
-		if(null !== Yii::app()->user)
+		if(null !== Yii::app()->user &&  Yii::app()->user->isGuest == false)
 			$id=Yii::app()->user->id;
 		else
 			$id=1;
