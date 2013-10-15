@@ -23,6 +23,7 @@ $this->menu=array(
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
+		'title',
 		'formattedStartDate',
 		'formattedEndDate',
 		'description',

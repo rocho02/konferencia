@@ -35,7 +35,6 @@
 				array('label'=>'Felhasználók', 'url'=>array('/auth/user'),'visible'=>!Yii::app()->user->isGuest),
 				array('label'=>'Üzenetek', 'url'=>array('/message/incoming'),'visible'=>!Yii::app()->user->isGuest),
 				array('label'=>'Konferencia', 'url'=>array('/event/index')),
-				array('label'=>'Téma', 'url'=>array('/topic/index'),'visible'=>!Yii::app()->user->isGuest),
 				array('label'=>'Cikkeim', 'url'=>array('/article/index'),'visible'=>!Yii::app()->user->isGuest),
 				array('label'=>'Szerepkörök', 'url'=>array('/rights'), 'visible'=>Yii::app()->user->checkAccess('admin') ),
 				array('label'=>'Regisztráció', 'url'=>array('auth/user/register'), 'visible'=>Yii::app()->user->isGuest),

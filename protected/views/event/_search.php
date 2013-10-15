@@ -15,6 +15,11 @@
 		<?php echo $form->label($model,'id_event'); ?>
 		<?php echo $form->textField($model,'id_event'); ?>
 	</div>
+	
+	<div class="row">
+		<?php echo $form->label($model,'title'); ?>
+		<?php echo $form->textField($model,'title'); ?>
+	</div>
 
 	<div class="row">
 		<?php echo $form->label($model,'start_date'); ?>
