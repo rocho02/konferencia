@@ -52,7 +52,7 @@ class ArticleController extends Controller
 	public function actionView($id)
 	{
 		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+			'model'=>$this->loadModel($id,true),
 		));
 	}
 
@@ -157,11 +157,18 @@ class ArticleController extends Controller
 	 * @return Article the loaded model
 	 * @throws CHttpException
 	 */
-	public function loadModel($id)
+	public function loadModel($id,$withSection = false)
 	{
-		$model=Article::model()->findByPk($id);
+		$model;
+		if ( $withSection ){
+			$model= Article::model()->with('sectionArticles.section')->findByPk($id);
+		}else{
+			$model=Article::model()->findByPk($id);
+		}
+		
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
+		
 		return $model;
 	}
 

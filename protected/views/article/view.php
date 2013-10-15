@@ -29,6 +29,26 @@ $this->menu=array(
 	),
 )); ?>
 <br>
+<h3>Attached to sections</h3>
+<?php /* echo "Attached to sections: " . sizeof( $model->sectionArticles ) ; */?>
+<?php 
+/*
+	$this->renderPartial('_view_sections',array(
+		'model'=>$model->sectionArticles,
+	));
+*/
+?>
+<?php
+/*
+ */
+ $this->widget('zii.widgets.CListView', array(
+	'dataProvider'=>new CArrayDataProvider($model->sectionArticles, array('keyField'=>'id_section_article' ,'id' =>'clw_sections')),
+	'itemView'=>'_view_sections',
+));
+?>
+
+
+<br>
 <h2> <?php echo Yii::t('app','Versions') ?></h2>
 <?php $this->renderPartial('_versions',array(
 'articleVersions'=>$model->articleVersions,

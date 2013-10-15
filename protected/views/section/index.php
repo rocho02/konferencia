@@ -7,11 +7,11 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Event', 'url'=>array('event/view','id'=>$event->id_event)),
+	array('label'=> Yii::t('app','Event') , 'url'=>array('event/view','id'=>$event->id_event)),
 	//array('label'=>'Create Section', 'url'=>array('create')),
 	//array('label'=>'Manage Section', 'url'=>array('admin')),
 );
-?>
+?>'
 
 <h1>Sections</h1>
 

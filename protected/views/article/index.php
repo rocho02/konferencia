@@ -7,7 +7,7 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Create Article', 'url'=>array('articleVersion/create')),
+	array('label'=> Yii::t('app','Create Article'), 'url'=>array('articleVersion/create')),
 	//array('label'=>'Manage Article', 'url'=>array('admin')),
 );
 ?>

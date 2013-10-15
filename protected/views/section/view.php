@@ -3,17 +3,17 @@
 /* @var $model Section */
 
 $this->breadcrumbs=array(
-	'Sections'=>array('index'),
+	'Sections'=>array('index', 'event'=> $model->id_event ),
 	$model->title,
 );
 
 $this->menu=array(
-	array('label'=>'List Section', 'url'=>array('index','event'=>$model->id_event)),
+	array('label'=>Yii::t('app', 'List Section' ), 'url'=>array('index','event'=>$model->id_event)),
 	//array('label'=>'Create Section', 'url'=>array('create')),
-	array('label'=>'Update Section', 'url'=>array('update', 'id'=>$model->id_section)),
-	array('label'=>'Delete Section', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id_section),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>Yii::t('app','Update Section'), 'url'=>array('update', 'id'=>$model->id_section)),
+	array('label'=>Yii::t('app','Delete Section'), 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id_section),'confirm'=>'Are you sure you want to delete this item?')),
 	//array('label'=>'Manage Section', 'url'=>array('admin')),
-	array('label'=>'Attach document', 'url'=>array('addArticle', 'section'=>$model->id_section)),
+	array('label'=>Yii::t('app','Attach article'), 'url'=>array('addArticle', 'section'=>$model->id_section)),
 );
 ?>
 
