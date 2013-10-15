@@ -4,6 +4,11 @@
 ?>
 
 <div class="view">
+	
+	<b><?php echo CHtml::encode($data->getAttributeLabel('title')); ?>:</b>
+	<?php echo CHtml::encode($data->visibility); ?>
+	<br />
+	
 	<b><?php echo CHtml::encode($data->getAttributeLabel('start_date')); ?>:</b>
 	<?php echo CHtml::link(CHtml::encode($data->formattedStartDate), array('view', 'id'=>$data->id_event)); ?>
 	<br />
