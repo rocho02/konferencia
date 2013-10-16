@@ -57,6 +57,7 @@ return array(
 'Sent Message'=>'Elküldőtt üzenetek',
 'Sections' => 'Szekciók',
 'Subject' => 'Tárgy',
+'Save' => 'Mentés',
 'Start Date' => 'Kezdő Dátum',
 'Start Time' => 'Kezdő Időpont',
 'Status' => 'Státusz',
