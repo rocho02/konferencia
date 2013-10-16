@@ -7,7 +7,7 @@ return array(
 'Comments' => "Kommentek",
 'Create' => 'Létrehoz',
 'Create Article' => 'Cikk létrehozása',
-'Create Event' => 'Konferencia létrehozása',
+'Create Event' => 'Új konferencia',
 'Create Message' => 'Új üzenet',
 'Create Section' =>'Szekció létrehozása',
 'Create Time' => 'Létrehozás ideje',

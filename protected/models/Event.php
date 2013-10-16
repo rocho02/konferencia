@@ -15,7 +15,8 @@
  * @property integer $update_user_id
  */
 class Event extends CActiveRecord {
-	
+	public $start_hour, $start_min;
+	public $end_hour, $end_min;
 	const VISIBILITY_PRIVATE = 1;
 	const VISIBILITY_PUBLIC = 2;
 	/**
@@ -43,7 +44,7 @@ class Event extends CActiveRecord {
 		return array( 
 			array('create_user_id, update_user_id, visibility', 'numerical', 'integerOnly' => true),
 		 	array('description', 'length', 'max' => 255),
-		 	array('start_date, end_date, create_time, update_time, title', 'safe'),
+		 	array('start_date, end_date, create_time, update_time, title, start_hour, start_min, end_hour, end_min', 'safe'),
 		 	array('formattedStartDate,formattedEndDate',  'required'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -74,7 +75,9 @@ class Event extends CActiveRecord {
 		'id_event' => Yii::t("app", 'Id Event'), 
 		'title' => Yii::t("app", 'Title'),
 		'start_date' => Yii::t("app", 'Start Date'), 
+		'start_min' => Yii::t("app", 'Start Time'), 
 		'end_date' => Yii::t("app", 'End Date'), 
+		'end_min' => Yii::t("app", 'End Time'), 
 		'description' => Yii::t("app", 'Description'), 
 		'visibility' => Yii::t("app", 'Visibility'),
 		'create_time' => Yii::t("app", 'Create Time'), 
@@ -96,7 +99,11 @@ class Event extends CActiveRecord {
 		$criteria -> compare('id_event', $this -> id_event);
 		$criteria -> compare('title', $this -> title);
 		$criteria -> compare('start_date', $this -> start_date, true);
+		$criteria -> compare('start_hour', $this -> start_hour, true);
+		$criteria -> compare('start_min', $this -> start_min, true);
 		$criteria -> compare('end_date', $this -> end_date, true);
+		$criteria -> compare('end_hour', $this -> end_hour, true);
+		$criteria -> compare('end_min', $this -> end_min, true);
 		$criteria -> compare('description', $this -> description, true);
 		$criteria -> compare('visibility',$this->visibility);
 		$criteria -> compare('create_time', $this -> create_time, true);

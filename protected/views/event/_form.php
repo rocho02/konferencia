@@ -56,6 +56,14 @@ DIV#content .compactRadioGroup LABEL{
 		
 		<?php echo $form->error($model,'formattedStartDate'); ?>
 	</div>
+	
+	<div class="row">
+		<?php echo $form->labelEx($model,'start_min'); ?>
+		<?php echo $form->textField($model,'start_hour',array('size'=>2,'maxlength'=>2)); ?>  
+		<?php echo $form->error($model,'start_hour'); ?>
+		<?php echo $form->textField($model,'start_min',array('size'=>2,'maxlength'=>2)); ?>
+		<?php echo $form->error($model,'start_min'); ?>
+	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'end_date'); ?>
@@ -76,6 +84,14 @@ DIV#content .compactRadioGroup LABEL{
 		));
 		?>
 		<?php echo $form->error($model,'formattedEndDate'); ?>
+	</div>
+
+<div class="row">
+		<?php echo $form->labelEx($model,'end_min'); ?>
+		<?php echo $form->textField($model,'end_hour',array('size'=>2,'maxlength'=>2)); ?>  
+		<?php echo $form->error($model,'end_hour'); ?>
+		<?php echo $form->textField($model,'end_min',array('size'=>2,'maxlength'=>2)); ?>
+		<?php echo $form->error($model,'end_min'); ?>
 	</div>
 
 	<div class="row">
