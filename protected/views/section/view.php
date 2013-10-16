@@ -38,6 +38,12 @@ $this->menu=array(
 <br>
 <br>
 <h3>Csatolt fájlok</h3>
+
+<?php $this->widget('zii.widgets.CListView', array(
+	'dataProvider'=>$articleDataProvider,
+	'itemView'=>'_view_article',
+)); ?>
+
 <?php 
 	$i = 0;
 	foreach ($articles as $a) {

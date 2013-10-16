@@ -41,7 +41,10 @@ class SectionController extends Controller {
 	public function actionView($id) {
 		$section = $this -> loadModel($id);
 		$articles = Article::model()->with( array('sectionArticles'=>array( 'on'=>'sectionArticles.id_section=' .$section->id_section, 'joinType' =>'INNER JOIN' )	)	)->findAll( );
-		$this -> render('view', array('model' =>$section,'articles'=>$articles ));
+		
+		$articleDataProvider  = new CArrayDataProvider($articles, array('keyField' => 'id_article','id'=>'articleDP'));
+		
+		$this -> render('view', array('model' =>$section,'articles'=>$articles ,'articleDataProvider'=>$articleDataProvider));
 	}
 
 	/**
