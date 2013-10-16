@@ -186,10 +186,60 @@ class Event extends CActiveRecord {
 		);
 	}
 	
+	
+	public function assignUser($idUser, $role)
+	{
+		$command = Yii::app()->db->createCommand();
+		$command->insert('tbl_user_event_assignment', array(
+		'role'=>$role,
+		'id_user'=>$idUser,
+		'id_event'=>$this->id_event,
+		));
+	}
+	
+	
+	public function removeUser($idUser)
+	{
+		$command = Yii::app()->db->createCommand();
+		$command->delete(
+		'tbl_user_event_assignment',
+		'id_user=:id_user AND id_event=:id_event',
+		array(':id_user'=>$idUser,':id_event'=>$this->id_event));
+	}
+	
+	
+	public function allowCurrentUser( $role ){
+		$sql = "SELECT * FROM tbl_user_event_assignment WHERE id_event=:id_event AND id_user=:id_user AND role=:role";
+		$command = Yii::app()->db->createCommand($sql);
+		$command->bindValue(":id_event", $this->id_event, PDO::PARAM_INT);
+		$command->bindValue(":id_user", Yii::app()->user->getId(), PDO::PARAM_INT);
+		$command->bindValue(":role", $role, PDO::PARAM_STR);
+		return $command->execute()==1;
+	}
+	
+	
 	public static function getVisiblityOptions(){
 		return array(
 			self::VISIBILITY_PRIVATE=>Yii::t('app',"private"),
 			self::VISIBILITY_PUBLIC  =>Yii::t('app',"public"),
 		);
 	} 
-}
+
+	/**
+	* Returns an array of available roles in which a user can be placed	when being added to an event
+	*/
+	public static function getUserRoleOptions()	{
+		return CHtml::listData(Yii::app()->authManager->getRoles(), 'name',	'name');
+	}
+	
+	/*
+	* Determines whether or not a user is already part of an event
+	*/
+	public function isUserInEvent($user){
+		$sql = "SELECT id_user FROM tbl_user_event_assignment WHERE id_event=:id_event AND id_user=:id_user";
+		$command = Yii::app()->db->createCommand($sql);
+		$command->bindValue(":id_event", $this->id_event, PDO::PARAM_INT);
+		$command->bindValue(":id_user", $user->id, PDO::PARAM_INT);
+		return $command->execute()==1;
+	}
+	}

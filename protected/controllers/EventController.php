@@ -32,7 +32,7 @@ class EventController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','addUser'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -70,8 +70,20 @@ class EventController extends Controller
 		if(isset($_POST['Event']))
 		{
 			$model->attributes=$_POST['Event'];
-			if($model->save())
+			if($model->save()){
+	
+		 		//assign the user creating the new project as an owner of the project, 
+                //so they have access to all project features
+                $form=new EventUserForm;
+                $form->username = Yii::app()->user->name;
+                $form->event = $model;
+                $form->role = 'Event.Create';
+                if($form->validate()){
+				   $form->assign();
+				}
+					
 				$this->redirect(array('view','id'=>$model->id_event));
+			}
 		}
 
 		$this->render('create',array(
@@ -175,4 +187,34 @@ class EventController extends Controller
 			Yii::app()->end();
 		}
 	}
+	
+	/**
+		* Provides a form so that project administrators can
+		* associate other users to the project
+	*/
+	public function actionAdduser($id)
+	{
+		$event = $this->loadModel($id);
+		if(!Yii::app()->user->checkAccess('Event.Create',	array('event'=>$event))){
+			throw new CHttpException(403,'You are not authorized to performthis action.');
+		}
+		$form=new EventUserForm;
+		// collect user input data
+		if(isset($_POST['EventUserForm'])){
+			$form->attributes=$_POST['EventUserForm'];
+			$form->event = $event;
+			// validate user input
+			if($form->validate()){
+				if($form->assign()){
+					Yii::app()->user->setFlash('success',$form->username . "has been added to the event." );
+					//reset the form for another user to be associated if desired
+					$form->unsetAttributes();
+					$form->clearErrors();
+				}
+			}
+		}
+		$form->event = $event;
+		$this->render('adduser',array('model'=>$form));
+	}
+	
 }
