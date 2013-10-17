@@ -70,6 +70,7 @@ class EventController extends Controller
 		if(isset($_POST['Event']))
 		{
 			$model->attributes=$_POST['Event'];
+			
 			if($model->save()){
 	
 		 		//assign the user creating the new project as an owner of the project, 
