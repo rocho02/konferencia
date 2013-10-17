@@ -3,13 +3,16 @@
 /* @var $model Opinion */
 
 $this->breadcrumbs=array(
-	'Opinions'=>array('index'),
+	Yii::t('app','Events')=>array('event/index'),
+	Yii::t('app','Event')=>array('event/view','id'=>$section->id_event),
+	Yii::t('app','Sections')=>array('section/index','event'=>$section->id_event),
+	Yii::t('app','Section')=>array('section/view','id'=>$section->id_section),
 	'Create',
 );
 
 $this->menu=array(
-	array('label'=>'List Opinion', 'url'=>array('index')),
-	array('label'=>'Manage Opinion', 'url'=>array('admin')),
+	//array('label'=>'List Opinion', 'url'=>array('index')),
+	//array('label'=>'Manage Opinion', 'url'=>array('admin')),
 );
 ?>
 

@@ -12,6 +12,10 @@
 
 <div class="row">
 	<?php echo $form->labelEx($model,'rating'); ?>
-	<?php echo $form->textField($model,'rating'); ?>
+	<?php /* echo $form->textField($model,'rating'); */?>
+		<div>
+		  <?php   $this->widget('CStarRating',array('model'=> $model, 'attribute' => 'rating')) ; ?>
+		  <div style="clear: both;"></div>
+		</div>
 	<?php echo $form->error($model,'rating'); ?>
 </div>

@@ -9,7 +9,8 @@ class OpinionController extends Controller
 	public $layout='//layouts/column2';
 
 	public $_article = null;
-
+	public $_section = null;
+	
 	/**
 	 * @return array action filters
 	 */
@@ -18,7 +19,8 @@ class OpinionController extends Controller
 		return array(
 			'accessControl', // perform access control for CRUD operations
 			'postOnly + delete', // we only allow deletion via POST request
-			'ArticleContext + create'
+			'ArticleContext + create, index',
+			'SectionContext + create, index, view'
 		);
 	}
 
@@ -56,6 +58,7 @@ class OpinionController extends Controller
 	{
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
+			'section'=>$this->_section
 		));
 	}
 
@@ -67,20 +70,38 @@ class OpinionController extends Controller
 	{
 		$model=new Opinion;
 		$aspect = new OpinionAspect;
-		
+		$model->id_article = $this->_article->id_article;
+		$model->id_article_version = $this->_article->getCurrentVersion()->id_article_version;
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Opinion']))
+		if(isset($_POST['Opinion']) && isset($_POST['OpinionAspect']))
 		{
 			$model->attributes=$_POST['Opinion'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id_opinion));
+			$aspect->attributes=$_POST['OpinionAspect'];
+			
+			if ( $model->validate() && $aspect->validate()){
+			
+			$trans = Yii::app()->db->beginTransaction();
+			try{
+			
+				$model->save( );
+				$aspect->id_opinion = $model->id_opinion;
+				$aspect->save( );
+			 	$trans->commit();
+				$this->redirect(array('view','id'=>$model->id_opinion,'section'=>$this->_section->id_section));
+			}catch(Exception $e){
+				$trans->rollback();
+			}	
+			 
+			}
 		}
 
 		$this->render('create',array(
 			'model'=>$model,
 			'aspect'=>$aspect,
+			'section'=>$this->_section,
+			'article'=>$this->_article
 		));
 	}
 
@@ -92,11 +113,11 @@ class OpinionController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
-
+		
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Opinion']))
+		if(isset($_POST['Opinion']) && isset($_POST['OpinionAspect']))
 		{
 			$model->attributes=$_POST['Opinion'];
 			if($model->save())
@@ -127,9 +148,26 @@ class OpinionController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Opinion');
+		$criteria = new CDBCriteria;
+		$criteria->condition = 't.id_article ='.$this->_article->id_article;
+		$criteria->order=' t.create_time desc';
+		
+		$opinions = Opinion::model()
+		->with(
+			 array( 
+			 'aspects'=>array('joinType'=>'INNER JOIN'),
+			 'createUser'=>array('joinType'=>'INNER JOIN'),
+			 'article.sectionArticles'=>array('joinType'=>'INNER JOIN' ,'on'=>'sectionArticles.id_section = ' . $this->_section->id_section),
+			 	 )
+			  )
+		->findAll($criteria);
+		
+		//$dataProvider = new CActiveDataProvider('Opinion', array('criteria'=>$criteria));
+		$dataProvider = new CArrayDataProvider($opinions,array('keyField'=>'id_opinion' , 'id'=>'dp_opinions'));
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
+			'article' =>$this->_article,
+			'section'=>$this->_section
 		));
 	}
 
@@ -189,4 +227,19 @@ class OpinionController extends Controller
 		$filterChain->run();
 		
 	}
+	
+	
+	public function filterSectionContext($filterChain){
+		
+		if(isset($_GET['section'])){
+			$this->_section = Section::model()->findByPk($_GET['section']);
+			if ($this->_section === null)
+				throw new CHttpException(404, 'The requested page does not exist.');	
+		}else
+			throw new CHttpException(403,'Must specify a section before	performing this action.');
+		//complete the running of other filters and execute the requested action
+		$filterChain->run();
+		
+	}
+	
 }

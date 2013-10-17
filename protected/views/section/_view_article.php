@@ -13,6 +13,6 @@
 	 	<?php echo 'Flag:' . $data->getCurrentVersion()->flag;   ?>
 	</div>
 	<div>
-	 	<?php echo CHtml::link( CHtml::encode( Yii::t('app' ,'Write Opinion') ) ,array('opinion/create', 'article'=>$data->id_article))   ?>
+	 	<?php echo CHtml::link( CHtml::encode( Yii::t('app' ,'Write Opinion') ) ,array('opinion/create', 'article'=>$data->id_article ,'section' => $data->sectionArticles[0]->id_section ))   ?>
 	</div>
 </div>

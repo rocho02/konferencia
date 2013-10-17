@@ -41,9 +41,9 @@ class Opinion extends TimestampBehaviorSupportActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_article, id_article_version', 'required'),
+			array('status', 'required'),
 			array('id_article, id_article_version, status, create_user_id, update_user_id', 'numerical', 'integerOnly'=>true),
-			array('create_time, update_time', 'safe'),
+			array('id_article, id_article_version,create_time, update_time', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id_opinion, id_article, id_article_version, status, create_time, create_user_id, update_time, update_user_id', 'safe', 'on'=>'search'),
@@ -57,8 +57,10 @@ class Opinion extends TimestampBehaviorSupportActiveRecord
 	{
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
-		return array(
-		);
+		$rel = parent::relations();
+		$rel['aspects']=array(self::HAS_MANY, 'OpinionAspect', 'id_opinion');
+		$rel['article']=array(self::BELONGS_TO, 'Article', 'id_article');
+		return $rel;
 	}
 
 	/**

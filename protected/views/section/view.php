@@ -44,16 +44,3 @@ $this->menu=array(
 	'itemView'=>'_view_article',
 )); ?>
 
-<?php 
-	$i = 0;
-	foreach ($articles as $a) {
-		  $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$a,
-	'itemCssClass' =>$i%2 ? array('even') : array('odd'),
-	'attributes'=>array(
-	 	'file_name'
-	),
-));  
-$i++;
-	}
-?>

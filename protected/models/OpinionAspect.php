@@ -42,10 +42,10 @@ class OpinionAspect extends TimestampBehaviorSupportActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_opinion', 'required'),
+			array('summary,rating,opinion', 'required'),
 			array('id_opinion, rating, create_user_id, update_user_id', 'numerical', 'integerOnly'=>true),
 			array('summary, opinion', 'length', 'max'=>255),
-			array('create_time, update_time', 'safe'),
+			array('id_opinion,create_time, update_time', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id_opinion_aspect, id_opinion, summary, opinion, rating, create_time, create_user_id, update_time, update_user_id', 'safe', 'on'=>'search'),

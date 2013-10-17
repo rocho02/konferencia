@@ -60,6 +60,7 @@ class Article extends TimestampBehaviorSupportActiveRecord
 		$array = parent::relations();
 		$array['articleVersions'] = array(self::HAS_MANY , 'ArticleVersion', 'id_article');
 		$array['sectionArticles'] = array(self::HAS_MANY , 'SectionArticle', 'id_article');
+		//$array['sectionArticle'] = array(self::HAS_MANY , 'SectionArticle', 'id_article' , 'on'=>'sectionArticle.id_article='.$this->id_article) ;
 		return $array;
 	}
 
@@ -144,5 +145,7 @@ class Article extends TimestampBehaviorSupportActiveRecord
 		}
 		return $version;
 	}
+	
+	
 
 }
