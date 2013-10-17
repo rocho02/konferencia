@@ -30,7 +30,7 @@ $this->menu=array(
 		<?php echo Yii::t('app','Rating:') ?>
 	</div>
 	
-	<?php  $this->widget('CStarRating',array('model'=> $model->aspects[0], 'attribute' => 'rating' )) ; ?>
+	<?php  $this->widget('CStarRating',array('model'=> $model->aspects[0], 'attribute' => 'rating', "readOnly"=>true )) ; ?>
 	<div style="clear: both;"></div>
 </div>
 <br />
