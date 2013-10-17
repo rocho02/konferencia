@@ -5,11 +5,11 @@
 
 <div class="view">
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('Sender')); ?>:</b>
+	<b><?php echo CHtml::encode($data->getAttributeLabel(Yii::t("app", 'Sender'))); ?>:</b>
 	<?php echo CHtml::encode($data->getSenderUserName()); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('Subject')); ?>:</b>
+	<b><?php echo CHtml::encode($data->getAttributeLabel(Yii::t("app", 'Subject'))); ?>:</b>
 	<?php echo  CHtml::link(  CHtml::encode(   $data->subject) , array('read','id'=>$data->id_message)); ?>
 	<br />
 
@@ -17,7 +17,7 @@
 	<?php echo CHtml::encode( $data->create_time); ?>
 	<br />
 	
-	<b><?php echo CHtml::encode($data->getAttributeLabel('Status')); ?>:</b>
+	<b><?php echo CHtml::encode($data->getAttributeLabel(Yii::t("app", 'Status'))); ?>:</b>
 	<?php
 		
 		$userMessage = $data->userMessages[0];

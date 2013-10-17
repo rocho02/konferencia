@@ -8,7 +8,7 @@
 	<b><?php echo CHtml::encode($data->getAttributeLabel( Yii::t('app','Username'))); ?>:</b>
 	<?php echo CHtml::encode($data->recepient->username); ?>
 	<br />
-	<b><?php echo CHtml::encode($data->getAttributeLabel( Yii::t('app','Status'))); ?>:</b>
+	<b><?php echo CHtml::encode($data->getAttributeLabel( Yii::t('app','status'))); ?>:</b>
 	<?php
 		if ( $data->status == Message::STATUS_NEW ){
 			echo CHtml::encode( Yii::t('app','New') ); 

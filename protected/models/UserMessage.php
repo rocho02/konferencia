@@ -63,10 +63,10 @@ class UserMessage extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id_user_message' => 'Id User Message',
-			'id_recepient' => 'Id Recepient',
-			'id_message' => 'Id Message',
-			'status' => 'Status',
+			'id_user_message' => Yii::t("app",'Id User Message'),
+			'id_recepient' => Yii::t("app",'Id Recepient'),
+			'id_message' => Yii::t("app",'Id Message'),
+			'status' => Yii::t("app",'Status'),
 		);
 	}
 

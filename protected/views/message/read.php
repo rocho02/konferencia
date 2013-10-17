@@ -11,6 +11,7 @@ $this->menu=array(
 	array('label'=>Yii::t("app",'Sent Message'), 'url'=>array('index')),
 	array('label'=>Yii::t("app",'Create Message'), 'url'=>array('create')),
 	array('label'=>Yii::t("app",'Incoming Messages'), 'url'=>array('incoming')),
+	array('label'=>Yii::t('app','Delete Message'), 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id_message),'confirm'=>'Biztosan törli ezt az üzenetet?')),
 );
 ?>
 

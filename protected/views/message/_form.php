@@ -34,7 +34,7 @@
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? Yii::t("app",'Create') : 'Save'); ?>
+		<?php echo CHtml::submitButton($model->isNewRecord ? Yii::t("app",'Send') : 'Save'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

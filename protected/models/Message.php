@@ -64,7 +64,7 @@ class Message extends TimestampBehaviorSupportActiveRecord
       'senderUser' => array(self::BELONGS_TO, 'User', 'id_sender'),
 	  'userMessages' => array(self::HAS_MANY, 'UserMessage', 'id_message'),
       'recepients' => array(self::HAS_MANY, 'User', 'id_recepient','through' => 'userMessages'),
-	  );
+      );
 	}
 
 	/**
