@@ -1,6 +1,6 @@
 <?php
 
-class EventController extends Controller
+class OpinionAspectController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -32,7 +32,7 @@ class EventController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','addUser'),
+				'actions'=>array('create','update'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -62,28 +62,16 @@ class EventController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new Event;
-		$model->visibility = Section::VISIBILITY_PUBLIC;
+		$model=new OpinionAspect;
+
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Event']))
+		if(isset($_POST['OpinionAspect']))
 		{
-			$model->attributes=$_POST['Event'];
-			if($model->save()){
-	
-		 		//assign the user creating the new project as an owner of the project, 
-                //so they have access to all project features
-                $form=new EventUserForm;
-                $form->username = Yii::app()->user->name;
-                $form->event = $model;
-                $form->role = 'Event.Create';
-                if($form->validate()){
-				   $form->assign();
-				}
-					
-				$this->redirect(array('view','id'=>$model->id_event));
-			}
+			$model->attributes=$_POST['OpinionAspect'];
+			if($model->save())
+				$this->redirect(array('view','id'=>$model->id_opinion_aspect));
 		}
 
 		$this->render('create',array(
@@ -103,11 +91,11 @@ class EventController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Event']))
+		if(isset($_POST['OpinionAspect']))
 		{
-			$model->attributes=$_POST['Event'];
+			$model->attributes=$_POST['OpinionAspect'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id_event));
+				$this->redirect(array('view','id'=>$model->id_opinion_aspect));
 		}
 
 		$this->render('update',array(
@@ -134,13 +122,7 @@ class EventController extends Controller
 	 */
 	public function actionIndex()
 	{
-		
-		$criteria = new CDbCriteria;
-		$criteria->condition='create_user_id=:id_user';
-		$criteria->params=array(':id_user'=> Yii::app()->user->id);
-		
-		
-		$dataProvider=new CActiveDataProvider('Event',array('criteria'=>$criteria,));
+		$dataProvider=new CActiveDataProvider('OpinionAspect');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -151,25 +133,26 @@ class EventController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new Event('search');
+		$model=new OpinionAspect('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Event']))
-			$model->attributes=$_GET['Event'];
+		if(isset($_GET['OpinionAspect']))
+			$model->attributes=$_GET['OpinionAspect'];
 
 		$this->render('admin',array(
 			'model'=>$model,
 		));
 	}
+
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
-	 * @return Event the loaded model
+	 * @return OpinionAspect the loaded model
 	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model=Event::model()->findByPk($id);
+		$model=OpinionAspect::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -177,44 +160,14 @@ class EventController extends Controller
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param Event $model the model to be validated
+	 * @param OpinionAspect $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='event-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='opinion-aspect-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
 	}
-	
-	/**
-		* Provides a form so that project administrators can
-		* associate other users to the project
-	*/
-	public function actionAdduser($id)
-	{
-		$event = $this->loadModel($id);
-		if(!Yii::app()->user->checkAccess('Event.Create',	array('event'=>$event))){
-			throw new CHttpException(403,'You are not authorized to performthis action.');
-		}
-		$form=new EventUserForm;
-		// collect user input data
-		if(isset($_POST['EventUserForm'])){
-			$form->attributes=$_POST['EventUserForm'];
-			$form->event = $event;
-			// validate user input
-			if($form->validate()){
-				if($form->assign()){
-					Yii::app()->user->setFlash('success',$form->username . "has been added to the event." );
-					//reset the form for another user to be associated if desired
-					$form->unsetAttributes();
-					$form->clearErrors();
-				}
-			}
-		}
-		$form->event = $event;
-		$this->render('adduser',array('model'=>$form));
-	}
-	
 }
