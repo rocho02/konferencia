@@ -1,6 +1,8 @@
 <?php
 return array(
 'Address' => 'Lakcím',
+'Article' => 'Cikk',
+'Articles' => 'Cikkek',
 'Attach article' => 'Cikk csatolása',
 'Birthday' => 'Születési idő',
 'Body' => 'Üzenet szövege',
@@ -24,6 +26,7 @@ return array(
 'End Date'   => 'Befejezési Dátum',
 'End Time' => 'Befejezési Időpont',
 'Event' => 'Konferencia',
+'Events' => 'Konferenciák',
 'Event Sections' => 'Konferencia szekciói',
 'ID'=>'Azonosító',
 'Id Event' => 'Azonosító',
@@ -48,6 +51,8 @@ return array(
 'Name Topic' => 'Téma neve',
 'New' => 'Új',
 'Operations' => 'Műveletek',
+'Opinion' => 'Bírálat',
+'Opinions' => 'Bírálatok',
 'Password' => 'Jelszó',
 'Password Repeat' => 'Jelszó újra',
 'Read' => 'Olvasott',
@@ -55,6 +60,7 @@ return array(
 'Recepient' => 'Címzett(ek)',
 'Recepients' => 'Címzett(ek)',
 'Sent Message'=>'Elküldőtt üzenetek',
+'Section' => 'Szekció',
 'Sections' => 'Szekciók',
 'Subject' => 'Tárgy',
 'Save' => 'Mentés',

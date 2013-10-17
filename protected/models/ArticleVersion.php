@@ -122,5 +122,13 @@ class ArticleVersion extends TimestampBehaviorSupportActiveRecord
 			case self::FLAG_NEW : return Yii::t('app','New');
 		}
 	}
+
+	public static function getStatusOptions(){
+		return array(
+			self::FLAG_ACCEPTED => Yii::t('app','Accepted'),
+			self::FLAG_REJECTED => Yii::t('app','Rejected'),
+			self::FLAG_NEW => Yii::t('app','New'),
+		);
+	}
 	
 }

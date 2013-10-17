@@ -38,16 +38,9 @@ $this->menu=array(
 <br>
 <br>
 <h3>Csatolt fájlok</h3>
-<?php 
-	$i = 0;
-	foreach ($articles as $a) {
-		  $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$a,
-	'itemCssClass' =>$i%2 ? array('even') : array('odd'),
-	'attributes'=>array(
-	 	'file_name'
-	),
-));  
-$i++;
-	}
-?>
+
+<?php $this->widget('zii.widgets.CListView', array(
+	'dataProvider'=>$articleDataProvider,
+	'itemView'=>'_view_article',
+)); ?>
+
