@@ -85,7 +85,7 @@ class Section extends TimestampBehaviorSupportActiveRecord
 			'create_time' => Yii::t("app",'Create Time'),
 			'create_user_id' => Yii::t("app",'Create User'),
 			'update_time' => Yii::t("app",'Update Time'),
-			'update_user_id' => Yii::t("app",'Update User'),
+			'update_user_id' => Yii::t("app",'UpdateUser'),
 		);
 	}
 

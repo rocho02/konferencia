@@ -16,6 +16,6 @@ $this->menu=array(
 );
 ?>
 
-<h1><?php echo $model->id_event; ?>. számú konferencia frissítése</h1>
+<h1><?php echo $model->title; ?> szerkesztése</h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

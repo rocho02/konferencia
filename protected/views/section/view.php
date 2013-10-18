@@ -17,7 +17,7 @@ $this->menu=array(
 );
 ?>
 
-<h1>Szekció <?php echo $model->title; ?></h1>
+<h1><?php echo $model->title; ?> szekció</h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,

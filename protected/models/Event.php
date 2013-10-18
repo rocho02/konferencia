@@ -44,8 +44,8 @@ class Event extends CActiveRecord {
 		return array( 
 			array('create_user_id, update_user_id, visibility', 'numerical', 'integerOnly' => true),
 		 	array('description', 'length', 'max' => 255),
-		 	array('start_date, end_date, create_time, update_time, title, start_hour, start_min, end_hour, end_min', 'safe'),
-		 	array('formattedStartDate,formattedEndDate',  'required'),
+		 	array('create_time, update_time, start_hour, start_min, end_hour, end_min', 'safe'),
+		 	array('formattedStartDate,formattedEndDate,title,start_date, end_date,',  'required'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id_event, start_date, end_date, description, create_time, create_user_id, update_time, update_user_id, visibility', 'safe', 'on' => 'search'), );
@@ -83,7 +83,10 @@ class Event extends CActiveRecord {
 		'create_time' => Yii::t("app", 'Create Time'), 
 		'create_user_id' => Yii::t("app", 'Create User'), 
 		'update_time' => Yii::t("app", 'Update Time'), 
-		'update_user_id' => Yii::t("app", 'Update User'), );
+		'update_user_id' => Yii::t("app", 'Update User'), 
+		'createUserName' => Yii::t("app", 'Create User'),
+		'role' => Yii::t("app", 'Role'),
+		);
 	}
 
 	/**
@@ -117,7 +120,7 @@ class Event extends CActiveRecord {
 	public function getFormattedStartDate() {
 		// return $this -> start_date;
 		$format_1 = 'Y-m-d';
-		$format_2 = 'Y-m-d';//format coming from web page
+		$format_2 = 'Y-m-d H:i';//format coming from web page
 		$format_3 = 'Y-m-d H:i:s';//format coming from mysql
 		$date = null;
 		$formatted_date = "";
@@ -139,7 +142,7 @@ class Event extends CActiveRecord {
 	public function getFormattedEndDate() {
 		// return $this -> start_date;
 		$format_1 = 'Y-m-d';
-		$format_2 = 'Y-m-d';//format coming from web page
+		$format_2 = 'Y-m-d H:i';//format coming from web page
 		$format_3 = 'Y-m-d H:i:s';//format coming from mysql
 		$date = null;
 		$formatted_date = "";
@@ -227,8 +230,8 @@ class Event extends CActiveRecord {
 	
 	public static function getVisiblityOptions(){
 		return array(
-			self::VISIBILITY_PRIVATE=>Yii::t('app',"private"),
-			self::VISIBILITY_PUBLIC  =>Yii::t('app',"public"),
+			self::VISIBILITY_PRIVATE=>"private",
+			self::VISIBILITY_PUBLIC  =>"public",
 		);
 	} 
 

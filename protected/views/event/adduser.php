@@ -4,10 +4,10 @@
 		$model->event->title=>array('view','id'=>$model->event->id_event),'Add User',
 	);
 	$this->menu=array(
-		array('label'=>'Back To Event', 'url'=>array('view','id'=>$model->event->id_event)),
+		array('label'=>Yii::t("app",'Back To Event'), 'url'=>array('view','id'=>$model->event->id_event)),
 	);
 ?>
-<h1>Add User To <?php echo $model->event->title; ?></h1>
+<h1>Konferencia szervező hozzárendelése a(z) <?php echo $model->event->title; ?> konferenciához</h1>
 <?php if(Yii::app()->user->hasFlash('success')):?>
 	<div class="successMessage">
 		<?php echo Yii::app()->user->getFlash('success'); ?>
@@ -17,7 +17,7 @@
 	<?php $form=$this->beginWidget('CActiveForm'); ?>
 	<p class="note">Fields with <span class="required">*</span> are	required.</p>
 	<div class="row">
-		<?php echo $form->labelEx($model,'username'); ?>
+		<?php echo $form->labelEx($model,Yii::t("app",'Username')); ?>
 		<?php
 			$this->widget('zii.widgets.jui.CJuiAutoComplete', array(
 				'name'=>'username',
@@ -38,7 +38,7 @@
 		<?php echo $form->error($model,'role'); ?>
 	</div>
 	<div class="row buttons">
-		<?php echo CHtml::submitButton('Add User'); ?>
+		<?php echo CHtml::submitButton(Yii::t("app",'Add')); ?>
 	</div>
 	<?php $this->endWidget(); ?>
 </div>
