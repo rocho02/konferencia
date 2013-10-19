@@ -45,7 +45,7 @@ return array(
 'Last Login Time' => 'Utolsó bejelentkezés ideje',
 'List Event' => 'Konferenciák listázás',
 'List Message' => 'Üzenetek listázása',
-'List Section' => 'Szekciók listázása',
+'List Section' => 'Konferencia szekcióinak listázása',
 'List Topic' => 'Témák listázása',
 'List User' => 'Felhasználók listázása',
 'Manage Event' => 'Konferenciák menedzselése',
