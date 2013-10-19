@@ -7,7 +7,7 @@
 		array('label'=>Yii::t("app",'Back To Event'), 'url'=>array('view','id'=>$model->event->id_event)),
 	);
 ?>
-<h1>Konferencia szervező hozzárendelése a(z) <?php echo $model->event->title; ?> konferenciához</h1>
+<h1>Konferenciaszervező hozzárendelése a(z) <?php echo $model->event->title; ?> konferenciához</h1>
 <?php if(Yii::app()->user->hasFlash('success')):?>
 	<div class="successMessage">
 		<?php echo Yii::app()->user->getFlash('success'); ?>

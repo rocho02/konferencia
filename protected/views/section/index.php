@@ -13,7 +13,7 @@ $this->menu=array(
 );
 ?>
 
-<h1>Szekciók</h1>
+<h1>Konferencia szekciói</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,
