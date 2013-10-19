@@ -28,8 +28,7 @@
 	<b><?php echo CHtml::encode($data->getAttributeLabel('visibility')); ?>:</b>
  	<?php $visibilityOptions = Event::getVisiblityOptions();
   	echo CHtml::encode( $data->visibility == null ? "-" : $visibilityOptions[$data->visibility] ); ?>
-	<br />
-
+	
 	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('update_user_id')); ?>:</b>
 	<?php echo CHtml::encode($data->update_user_id); ?>

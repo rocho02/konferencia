@@ -15,6 +15,7 @@ return array(
 'Create Event' => 'Új konferencia',
 'Create Message' => 'Új üzenet',
 'Create Section' =>'Szekció létrehozása',
+'Create Section for Event' => 'Szekció létrehozása konferenciához',
 'Create Time' => 'Létrehozás ideje',
 'Create Topic' => 'Téma létrehozása',
 'Create User' => 'Létrehozó felhasználó',

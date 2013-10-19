@@ -113,6 +113,7 @@ class Event extends CActiveRecord {
 		$criteria -> compare('create_user_id', $this -> create_user_id);
 		$criteria -> compare('update_time', $this -> update_time, true);
 		$criteria -> compare('update_user_id', $this -> update_user_id);
+		$criteria->compare('visibility',$this->visibility);
 
 		return new CActiveDataProvider($this, array('criteria' => $criteria, ));
 	}

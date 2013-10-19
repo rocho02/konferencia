@@ -18,7 +18,8 @@
  */
 class Section extends TimestampBehaviorSupportActiveRecord
 {
-
+	public $start_hour, $start_min;
+	public $end_hour, $end_min;
 	const VISIBILITY_PRIVATE = 1;
 	const VISIBILITY_PUBLIC = 2;
 	/**
@@ -78,8 +79,10 @@ class Section extends TimestampBehaviorSupportActiveRecord
 			'id_section' => Yii::t("app",'Id Section'),
 			'title' => Yii::t("app",'Title'),
 			'description' => Yii::t("app",'Description'),
-			'start_time' => Yii::t("app",'Start Time'),
-			'end_time' => Yii::t("app",'End Time'),
+			'start_time' => Yii::t("app",'Start Date'),
+			'start_min' => Yii::t("app", 'Start Time'), 
+			'end_time' => Yii::t("app",'End Date'),
+			'end_min' => Yii::t("app", 'End Time'), 
 			'visibility' => Yii::t("app",'Visibility'),
 			'id_event' => Yii::t("app",'Id Event'),
 			'create_time' => Yii::t("app",'Create Time'),
@@ -111,10 +114,58 @@ class Section extends TimestampBehaviorSupportActiveRecord
 		$criteria->compare('create_user_id',$this->create_user_id);
 		$criteria->compare('update_time',$this->update_time,true);
 		$criteria->compare('update_user_id',$this->update_user_id);
+		$criteria -> compare('start_hour', $this -> start_hour, true);
+		$criteria -> compare('start_min', $this -> start_min, true);
+		$criteria -> compare('end_hour', $this -> end_hour, true);
+		$criteria -> compare('end_min', $this -> end_min, true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+	
+	public function getFormattedStartDate() {
+		// return $this -> start_date;
+		$format_1 = 'Y-m-d';
+		$format_2 = 'Y-m-d H:i';//format coming from web page
+		$format_3 = 'Y-m-d H:i:s';//format coming from mysql
+		$date = null;
+		$formatted_date = "";
+		
+		if (!isset($this -> start_time) )  
+			return "";
+		$date = DateTime::createFromFormat($format_2,  $this -> start_time);
+		if ( $date == false )
+			$date = DateTime::createFromFormat($format_3,  $this -> start_time);
+		// var_dump($date);
+		return  $date == false ? "" : $date->format($format_1) ;
+		
+	}
+	
+	public function setFormattedStartDate($start_time){
+		$this->start_time = $start_time;
+	}
+	
+	public function getFormattedEndDate() {
+		// return $this -> start_date;
+		$format_1 = 'Y-m-d';
+		$format_2 = 'Y-m-d H:i';//format coming from web page
+		$format_3 = 'Y-m-d H:i:s';//format coming from mysql
+		$date = null;
+		$formatted_date = "";
+		
+		if (!isset($this -> end_time) )  
+			return "";
+		$date = DateTime::createFromFormat($format_2,  $this -> end_time);
+		if ( $date == false )
+			$date = DateTime::createFromFormat($format_3,  $this -> end_time);
+		// var_dump($date);
+		return  $date == false ? "" : $date->format($format_1) ;
+		
+	}
+	
+	public function setFormattedEndDate($end_time){
+		$this->end_time = $end_time;
 	}
 	
 	public static function getVisiblityOptions(){

@@ -63,14 +63,13 @@ class EventController extends Controller
 	public function actionCreate()
 	{
 		$model=new Event;
-		$model->visibility = Section::VISIBILITY_PUBLIC;
+		$model->visibility = Event::VISIBILITY_PUBLIC;
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['Event']))
 		{
 			$model->attributes=$_POST['Event'];
-			
 			$model->start_date = $this->fixDateTime($model->start_date,$model->start_hour,$model->start_min);
 			$model->end_date = $this->fixDateTime($model->end_date,$model->end_hour,$model->end_min);
 			
@@ -240,7 +239,7 @@ class EventController extends Controller
  		 
      	$d2 = date("Y-m-d H:i", $ts);
   		return $d2;
- }
+ 		}
 	}
 	
 

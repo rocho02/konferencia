@@ -58,8 +58,13 @@ class SectionController extends Controller {
 		// $this->performAjaxValidation($model);
 
 		if (isset($_POST['Section'])) {
+			
 			$model -> attributes = $_POST['Section'];
+			$model->start_time = $this->fixDateTime($model->start_time,$model->start_hour,$model->start_min);
+			$model->end_time = $this->fixDateTime($model->end_time,$model->end_hour,$model->end_min);
+			
 			$model->id_event = $this->_event->id_event;
+			
 			if ($model -> save())
 				$this -> redirect(array('event/view', 'id' => $this->_event -> id_event ));
 		}
@@ -239,6 +244,14 @@ class SectionController extends Controller {
 		$filterChain->run();
 	}
 
+	function fixDateTime($date,$hour,$min){
+  		$ts = strtotime($date);
 
+ 		 $ts = $ts + ( $hour *60 *60 );
+ 		 $ts = $ts + ($min * 60); 
+ 		 
+     	$d2 = date("Y-m-d H:i", $ts);
+  		return $d2;
+ 		}
 
 }

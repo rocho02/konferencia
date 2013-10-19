@@ -22,7 +22,8 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('visibility')); ?>:</b>
-	<?php echo CHtml::encode($data->visibility); ?>
+	<?php $visibilityOptions = Event::getVisiblityOptions();
+  	echo CHtml::encode( $data->visibility == null ? "-" : $visibilityOptions[$data->visibility] ); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('id_event')); ?>:</b>

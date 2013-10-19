@@ -13,10 +13,10 @@ $this->menu=array(
 );
 ?>
 
-<h1><?php echo Yii::t('app', "Create Section for Event ") ?> </h1>
+<h1><?php echo Yii::t('app', "Create Section for Event") ?> </h1>
 <h2>
 <?php
-	echo $event->description;
+	echo $event->title;
  ?>
 </h2>
 

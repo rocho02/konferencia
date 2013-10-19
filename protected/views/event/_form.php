@@ -86,7 +86,7 @@ DIV#content .compactRadioGroup LABEL{
 		<?php echo $form->error($model,'formattedEndDate'); ?>
 	</div>
 
-<div class="row">
+	<div class="row">
 		<?php echo $form->labelEx($model,'end_min'); ?>
 		<?php echo $form->textField($model,'end_hour',array('size'=>2,'maxlength'=>2)); ?>  
 		<?php echo $form->error($model,'end_hour'); ?>
