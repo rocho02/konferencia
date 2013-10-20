@@ -32,7 +32,7 @@ class ArticleController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array( 'update'),
+				'actions'=>array( 'update', 'articleDownload'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -183,5 +183,42 @@ class ArticleController extends Controller
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
+	}
+	
+	public function actionArticleDownload(){
+		
+		$id_article = $_GET['id_article'];
+		$id_article_version = $_GET['id_article_version'];
+		
+		$article = Article::model()->findByPk($id_article);
+		$articleVersion = ArticleVersion::model()->findByPk(array('id_article'=>$id_article, 'id_article_version'=>$id_article_version));
+		
+		$yourfile = Yii::app()->basePath . DIRECTORY_SEPARATOR . $articleVersion->path;
+		$fp = @fopen($yourfile, 'rb');
+
+	    if (strstr($_SERVER['HTTP_USER_AGENT'], "MSIE"))
+		{
+			header('Content-Type: "application/octet-stream"');
+			header('Content-Disposition: attachment; filename="' . $articleVersion->original_file_name .  '"');
+			header('Expires: 0');
+			header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+			header("Content-Transfer-Encoding: binary");
+			header('Pragma: public');
+			header("Content-Length: ".filesize($yourfile));
+		}
+		else
+		{
+			header('Content-Type: "application/octet-stream"');
+			header('Content-Disposition: attachment; filename="' . $articleVersion->original_file_name .  '"');
+			header("Content-Transfer-Encoding: binary");
+			header('Expires: 0');
+			header('Pragma: no-cache');
+			header("Content-Length: ".filesize($yourfile));
+		}
+		
+		fpassthru($fp);
+		fclose($fp);
+		/*
+		 */
 	}
 }

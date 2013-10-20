@@ -1,6 +1,6 @@
 <?php
 
-class EventController extends Controller
+class EventController extends EMController
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -32,7 +32,7 @@ class EventController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','addUser'),
+				'actions'=>array('create','update','addUser','opinions'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -70,6 +70,9 @@ class EventController extends Controller
 		if(isset($_POST['Event']))
 		{
 			$model->attributes=$_POST['Event'];
+			$model->start_date = $this->fixDateTime($model->start_date,$model->start_hour,$model->start_min);
+			
+			print $model->start_date;
 			if($model->save()){
 	
 		 		//assign the user creating the new project as an owner of the project, 
@@ -77,7 +80,7 @@ class EventController extends Controller
                 $form=new EventUserForm;
                 $form->username = Yii::app()->user->name;
                 $form->event = $model;
-                $form->role = 'Event.Create';
+                $form->role = Event::ROLE_EVENT_ADMIN;
                 if($form->validate()){
 				   $form->assign();
 				}
@@ -90,6 +93,17 @@ class EventController extends Controller
 			'model'=>$model,
 		));
 	}
+/***/
+	function fixDateTime($date,$hour,$min){
+		$ts = strtotime($date);
+
+		$ts = $ts + ( $hour *60 *60 );
+		$ts = $ts + ($min * 60);	
+	 
+    	$d2 =	date("Y-m-d H:i", $ts);
+		return $d2;
+	}
+
 
 	/**
 	 * Updates a particular model.
@@ -108,6 +122,9 @@ class EventController extends Controller
 			$model->attributes=$_POST['Event'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id_event));
+		}else{
+			$model->start_hour =   date('H', strtotime($model->start_date) );
+			$model->start_min =   date('i', strtotime($model->start_date) );
 		}
 
 		$this->render('update',array(
@@ -136,11 +153,20 @@ class EventController extends Controller
 	{
 		
 		$criteria = new CDbCriteria;
-		$criteria->condition='create_user_id=:id_user';
+		$criteria->condition='userAssignments.id_user=:id_user ';
 		$criteria->params=array(':id_user'=> Yii::app()->user->id);
 		
 		
-		$dataProvider=new CActiveDataProvider('Event',array('criteria'=>$criteria,));
+		$events = Event::model()->with(
+			array(
+				'userAssignments' => array( 'on' =>"role ='".Event::ROLE_EVENT_ADMIN."'  "),
+				'users' => array( ),
+				'createUser' => array( ),
+			)
+		)->findAll($criteria);
+		
+		//$dataProvider=new CActiveDataProvider('Event',array(  'criteria'=>$criteria,));
+		$dataProvider = new CArrayDataProvider( $events, array('keyField' =>'id_event', 'id'=>'dp_events'));
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -160,6 +186,33 @@ class EventController extends Controller
 			'model'=>$model,
 		));
 	}
+	
+	public function actionOpinions($id){
+		
+		$event = $this->loadModel($id);
+	
+		$criteria = new CDbCriteria;
+		$criteria->order = 't.id_opinion desc';
+		//$criteria->condition = 'article.id_article not in ( select id_article form tbl_article xa inner join article_version xav on  xa.id_article = xav.id_article and xav.id_article = '.ArticleVersion::FLAG_ACCEPTED.')';
+		
+		$opinions = Opinion::model()
+		->with(
+			array(
+				'aspects'=>array('joinType'=>'INNER JOIN'),
+				'article'=>array('joinType'=>'INNER JOIN', /* 'on'=>'article.id_article not in ( select xa.id_article from tbl_article xa inner join tbl_article_version xav on xa.id_article = xav.id_article and xav.flag= '.ArticleVersion::FLAG_ACCEPTED.')' */),
+				'article.sectionArticles'=>array('joinType'=>'INNER JOIN'),
+				'article.sectionArticles.section'=>array('joinType'=>'INNER JOIN' ,'on'=>'section.id_event='.$event->id_event ),
+			)
+		)
+		->findAll($criteria);
+		$dataProvider = new CArrayDataProvider($opinions,array('keyField'=>'id_opinion' , 'id'=>'dp_opinions' ));
+		$this->render('opinions',array(
+			'dataProvider'=>$dataProvider,
+			'event'=>$event,
+		));
+	}
+	
+	
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
@@ -195,7 +248,7 @@ class EventController extends Controller
 	public function actionAdduser($id)
 	{
 		$event = $this->loadModel($id);
-		if(!Yii::app()->user->checkAccess('Event.Create',	array('event'=>$event))){
+		if(!Yii::app()->user->checkAccess( Event::ROLE_EVENT_ADMIN ,	array('event'=>$event))){
 			throw new CHttpException(403,'You are not authorized to performthis action.');
 		}
 		$form=new EventUserForm;
@@ -216,5 +269,6 @@ class EventController extends Controller
 		$form->event = $event;
 		$this->render('adduser',array('model'=>$form));
 	}
+	
 	
 }

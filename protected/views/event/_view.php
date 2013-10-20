@@ -6,11 +6,11 @@
 <div class="view">
 	
 	<b><?php echo CHtml::encode($data->getAttributeLabel('title')); ?>:</b>
-	<?php echo CHtml::encode($data->title); ?>
+	<?php echo CHtml::link(CHtml::encode($data->title), array('view', 'id'=>$data->id_event)); ?>
 	<br />
 	
 	<b><?php echo CHtml::encode($data->getAttributeLabel('start_date')); ?>:</b>
-	<?php echo CHtml::link(CHtml::encode($data->formattedStartDate), array('view', 'id'=>$data->id_event)); ?>
+	<?php echo  CHtml::encode($data->formattedStartDate) ; ?>
 	<br />
 	
 	<b><?php echo CHtml::encode($data->getAttributeLabel('start_min')); ?>:</b>

@@ -19,6 +19,9 @@ class Event extends CActiveRecord {
 	public $end_hour, $end_min;
 	const VISIBILITY_PRIVATE = 1;
 	const VISIBILITY_PUBLIC = 2;
+	
+	const ROLE_EVENT_ADMIN = "Event.Admin";
+	
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -61,6 +64,8 @@ class Event extends CActiveRecord {
 					 'updateUser' => array(self::BELONGS_TO, 'User', 'update_user_id'),
 					 'createUser' => array(self::BELONGS_TO, 'User', 'create_user_id'),
 					 'eventSections' => array(self::HAS_MANY, 'Section', 'id_event'),
+					 'userAssignments' => array(self::HAS_MANY, 'UserEventAssignment', 'id_event'),
+					 'users' => array(self::HAS_MANY, 'User', 'id_user','through'=>'userAssignments'),
 					);
 	}
 	
@@ -117,7 +122,7 @@ class Event extends CActiveRecord {
 	public function getFormattedStartDate() {
 		// return $this -> start_date;
 		$format_1 = 'Y-m-d';
-		$format_2 = 'Y-m-d';//format coming from web page
+		$format_2 = 'Y-m-d H:i';//format coming from web page
 		$format_3 = 'Y-m-d H:i:s';//format coming from mysql
 		$date = null;
 		$formatted_date = "";
