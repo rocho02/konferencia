@@ -71,6 +71,8 @@ class User extends AuthBaseActiveRecord
 		return array(
 			'userMessages' => array(self::HAS_MANY, 'UserMessage', 'id_recepient'),
       		'messages' => array(self::HAS_MANY, 'Message', 'id_message','through' => 'userMessages'),
+      		'eventAssignments' => array(self::HAS_MANY, 'UserEventAssignment', 'id_user' ),
+      		'events' => array(self::HAS_MANY, 'Event', 'id_event' ,'through' => 'eventAssignments'),
 		);
 	}
 

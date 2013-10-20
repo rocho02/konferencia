@@ -10,6 +10,7 @@ class OpinionController extends Controller
 
 	public $_article = null;
 	public $_section = null;
+	public $_opinion = null;
 	
 	/**
 	 * @return array action filters
@@ -20,7 +21,8 @@ class OpinionController extends Controller
 			'accessControl', // perform access control for CRUD operations
 			'postOnly + delete', // we only allow deletion via POST request
 			'ArticleContext + create, index',
-			'SectionContext + create, index, view'
+			'SectionContext + create, index, view, eventAccept',
+			'OpinionContext + eventAccept'
 		);
 	}
 
@@ -37,7 +39,7 @@ class OpinionController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update', 'eventAccept'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -240,6 +242,58 @@ class OpinionController extends Controller
 		//complete the running of other filters and execute the requested action
 		$filterChain->run();
 		
+	}
+
+	public function filterOpinionContext($filterChain){
+		
+		if(isset($_GET['opinion'])){
+			$this->_opinion = Opinion::model()->findByPk($_GET['opinion']);
+			if ($this->_opinion === null)
+				throw new CHttpException(404, 'The requested page does not exist.');	
+		}else
+			throw new CHttpException(403,'Must specify an opinion before	performing this action.');
+		//complete the running of other filters and execute the requested action
+		$filterChain->run();
+		
+	}
+
+
+	public function actionEventAccept(){
+		
+		$model = new EventOpinionAcceptForm;
+		$article = Article::model()->findByPk($this->_opinion->id_article);
+		
+		$model->section = $this->_section;
+		$model->opinion = $this->_opinion;
+		$model->article = $article;
+		$model->articleVersion = ArticleVersion::model()->find(
+			array(
+				'condition'=>'id_article=:id_article and id_article_version = :id_article_version' ,
+				'params' => array(':id_article'=>$this->_opinion->id_article,':id_article_version'=>$this->_opinion->id_article_version)
+			)
+		);
+		
+		//print_r($model->articleVersion);
+		
+		if ( isset( $_POST['EventOpinionAcceptForm'] ) ){
+			
+			$model->attributes=$_POST['EventOpinionAcceptForm'];
+				
+			$model->articleVersion->flag	 =isset($model->_accept) ?  ArticleVersion::FLAG_ACCEPTED : ArticleVersion::FLAG_REJECTED;
+			
+			$model->articleVersion->save();
+			
+			$this->redirect( array( 'event/opinions',  'id'=>$this->_section->id_event  ) );
+		} 
+		
+		
+		
+		$this->render('event_accept',array(
+			'model'=>$model
+		));
+		/*
+		 * 
+		 */
 	}
 	
 }
