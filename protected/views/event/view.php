@@ -16,6 +16,7 @@ $this->menu=array(
 	array('label'=>Yii::t("app",'Create Section'), 'url'=>array('section/create','event'=>$model->id_event),'visible'=>true),
 	array('label'=>Yii::t("app",'Event Sections'), 'url'=>array('section/index','event'=>$model->id_event),'visible'=>true),
 	array('label'=>'Add User To event', 'url'=>array('event/adduser','id'=>$model->id_event)),
+	array('label'=>Yii::t("app",'Add User To event'), 'url'=>array('event/adduser','id'=>$model->id_event)),
 	array('label'=>'Article Opinions', 'url'=>array('event/opinions','id'=>$model->id_event)),
 );
 ?>
@@ -26,8 +27,8 @@ $this->menu=array(
 	'data'=>$model,
 	'attributes'=>array(
 		'title',
-		'formattedStartDate',
-		'formattedEndDate',
+		'start_date',
+		'end_date',
 		'description',
 		'visibility',
 		'createUserName',

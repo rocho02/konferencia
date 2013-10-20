@@ -22,14 +22,16 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('visibility')); ?>:</b>
-	<?php echo CHtml::encode($data->visibility); ?>
+	<?php $visibilityOptions = Event::getVisiblityOptions();
+  	echo CHtml::encode( $data->visibility == null ? "-" : $visibilityOptions[$data->visibility] ); ?>
 	<br />
-
+	
+	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('id_event')); ?>:</b>
 	<?php echo CHtml::encode($data->id_event); ?>
 	<br />
 
-	<?php /*
+	
 	<b><?php echo CHtml::encode($data->getAttributeLabel('create_time')); ?>:</b>
 	<?php echo CHtml::encode($data->create_time); ?>
 	<br />

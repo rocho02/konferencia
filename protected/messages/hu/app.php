@@ -1,9 +1,12 @@
 <?php
 return array(
+'Add' => 'Hozzáadás',
+'Add User To event' => 'Konferencia szervező hozzáadása',
 'Address' => 'Lakcím',
 'Article' => 'Cikk',
 'Articles' => 'Cikkek',
-'Attach article' => 'Cikk csatolása',
+'Attach article' => 'Cikk csatolása szekcióhoz',
+'Back To Event' => 'Vissza a konferenciához',
 'Birthday' => 'Születési idő',
 'Body' => 'Üzenet szövege',
 'Comments' => "Kommentek",
@@ -12,10 +15,12 @@ return array(
 'Create Event' => 'Új konferencia',
 'Create Message' => 'Új üzenet',
 'Create Section' =>'Szekció létrehozása',
+'Create Section for Event' => 'Szekció létrehozása konferenciához',
 'Create Time' => 'Létrehozás ideje',
 'Create Topic' => 'Téma létrehozása',
 'Create User' => 'Létrehozó felhasználó',
 'CreateUser' => 'Új felhasználó',
+'Delete Article' => 'Cikk törlése',
 'Delete Event' => 'Konferencia törlése',
 'Delete Message' => 'Üzenet törlése',
 'Delete Section' => 'Szekció törlése',
@@ -59,6 +64,7 @@ return array(
 'Read Message' =>'Üzenet olvasása',
 'Recepient' => 'Címzett(ek)',
 'Recepients' => 'Címzett(ek)',
+'Role' => 'Jogkör',
 'Sent Message'=>'Elküldőtt üzenetek',
 'Section' => 'Szekció',
 'Sections' => 'Szekciók',
@@ -90,6 +96,7 @@ return array(
 'View Message' => 'Üzenet megtekintése',
 'View Section' => 'Szekció megtekintése',
 'View User' => 'Profillap',
+'Visibility' => 'Láthatóság',
 //'Visibility' => 'Láthatóság',
 )
 

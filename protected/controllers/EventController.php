@@ -63,7 +63,7 @@ class EventController extends EMController
 	public function actionCreate()
 	{
 		$model=new Event;
-		$model->visibility = Section::VISIBILITY_PUBLIC;
+		$model->visibility = Event::VISIBILITY_PUBLIC;
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
@@ -71,8 +71,8 @@ class EventController extends EMController
 		{
 			$model->attributes=$_POST['Event'];
 			$model->start_date = $this->fixDateTime($model->start_date,$model->start_hour,$model->start_min);
+			$model->end_date = $this->fixDateTime($model->end_date,$model->end_hour,$model->end_min);
 			
-			print $model->start_date;
 			if($model->save()){
 	
 		 		//assign the user creating the new project as an owner of the project, 
@@ -93,16 +93,6 @@ class EventController extends EMController
 			'model'=>$model,
 		));
 	}
-/***/
-	function fixDateTime($date,$hour,$min){
-		$ts = strtotime($date);
-
-		$ts = $ts + ( $hour *60 *60 );
-		$ts = $ts + ($min * 60);	
-	 
-    	$d2 =	date("Y-m-d H:i", $ts);
-		return $d2;
-	}
 
 
 	/**
@@ -113,18 +103,26 @@ class EventController extends EMController
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
-
+		   
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['Event']))
 		{
 			$model->attributes=$_POST['Event'];
+			
+			$model->start_date = $this->fixDateTime($model->start_date,$model->start_hour,$model->start_min);
+			$model->end_date = $this->fixDateTime($model->end_date,$model->end_hour,$model->end_min);
+			
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id_event));
 		}else{
-			$model->start_hour =   date('H', strtotime($model->start_date) );
-			$model->start_min =   date('i', strtotime($model->start_date) );
+   			$model->start_hour =   date('H', strtotime($model->start_date) );
+   			$model->start_min =   date('i', strtotime($model->start_date) );
+  		
+			$model->end_hour =   date('H', strtotime($model->end_date) );
+  		    $model->end_min =   date('i', strtotime($model->end_date) );
+		
 		}
 
 		$this->render('update',array(
@@ -270,5 +268,15 @@ class EventController extends EMController
 		$this->render('adduser',array('model'=>$form));
 	}
 	
+		function fixDateTime($date,$hour,$min){
+  		$ts = strtotime($date);
+
+ 		 $ts = $ts + ( $hour *60 *60 );
+ 		 $ts = $ts + ($min * 60); 
+ 		 
+     	$d2 = date("Y-m-d H:i", $ts);
+  		return $d2;
+ 		}
+	}
 	
-}
+

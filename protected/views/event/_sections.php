@@ -5,7 +5,7 @@
 		<?php echo Yii::t('app','Title').":&nbsp" . CHtml::link(  CHtml::encode($eventSection -> title), array('section/view','id' => $eventSection->id_section) ); ?>
 	</div>
 	<div class="event_create_time">
-		Created: <?php echo date('F j, Y \a\t h:i a', strtotime($eventSection -> create_time)); ?>
+		Létrehozás ideje: <?php echo date('F j, Y \a\t h:i a', strtotime($eventSection -> create_time)); ?>
 	</div>
 	<div class="event_created_user">
 		<?php echo Yii::t('app','Create User').":&nbsp" . CHtml::encode($eventSection -> createUserName); ?>
