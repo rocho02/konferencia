@@ -59,7 +59,7 @@ class Article extends TimestampBehaviorSupportActiveRecord
 		// class name for the relations automatically generated below.
 		$array = parent::relations();
 		$array['articleVersions'] = array(self::HAS_MANY , 'ArticleVersion', 'id_article');
-		$array['acceptedVersions'] = array(self::HAS_MANY , 'ArticleVersion', 'id_article',  'joinType'=>'INNER JOIN', 'on'=>'acceptedVersions.flag <> ' . ArticleVersion::FLAG_ACCEPTED );
+		$array['acceptedVersions'] = array(self::HAS_MANY , 'ArticleVersion', 'id_article',  'joinType'=>'INNER JOIN', 'on'=>'acceptedVersions.flag = ' . ArticleVersion::FLAG_ACCEPTED );
 		$array['sectionArticles'] = array(self::HAS_MANY , 'SectionArticle', 'id_article');
 		//$array['sectionArticle'] = array(self::HAS_MANY , 'SectionArticle', 'id_article' , 'on'=>'sectionArticle.id_article='.$this->id_article) ;
 		return $array;
@@ -148,7 +148,13 @@ class Article extends TimestampBehaviorSupportActiveRecord
 	}
 	
 	public function isAccepted(){
-		return sizeof(Article::model()->with(array('acceptedVersions'))->findAll( )) > 0;
+		$criteria = new CDbCriteria;
+		$criteria->condition = 't.id_article = :id_article';
+		$criteria->params = array(
+			':id_article'=>$this->id_article
+		);
+		
+		return sizeof(Article::model()->with(array('acceptedVersions'))->findAll($criteria )) > 0;
 	}
 
 }

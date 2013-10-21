@@ -3,7 +3,9 @@
 /* @var $model Section */
 
 $this->breadcrumbs=array(
-	'Sections'=>array('index', 'event'=> $model->id_event ),
+	Yii::t('app','Events')=>array('event/index' ),
+	Yii::t('app','Event')=>array('event/view','id'=>$model->id_event ),
+	Yii::t('app','Sections')=>array('section/index', 'event'=> $model->id_event ),
 	$model->title,
 );
 

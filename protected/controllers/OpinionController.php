@@ -287,6 +287,8 @@ class OpinionController extends Controller
 		} 
 		
 		
+		print $model->article->isAccepted();
+		
 		
 		$this->render('event_accept',array(
 			'model'=>$model

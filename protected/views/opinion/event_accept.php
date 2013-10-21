@@ -5,6 +5,15 @@
 	 * */
 
 ?>
+<?php
+
+	$this->breadcrumbs = array(
+		Yii::t('app','Events')=>array('event/index'),
+		Yii::t('app','Event')=>array('event/view','id'=>$model->section->id_event),
+		Yii::t('app','Opinions')=>array('event/opinions','id'=>$model->section->id_event),
+	);
+
+?>
 <style type="text/css">
 	
 	.op-content{ font-size: 1em;}
