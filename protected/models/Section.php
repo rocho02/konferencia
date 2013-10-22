@@ -22,6 +22,8 @@ class Section extends TimestampBehaviorSupportActiveRecord
 	public $end_hour, $end_min;
 	const VISIBILITY_PRIVATE = 1;
 	const VISIBILITY_PUBLIC = 2;
+	const ROLE_SECTION_ADMIN = "Section.Admin";
+	
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -67,6 +69,8 @@ class Section extends TimestampBehaviorSupportActiveRecord
 		
 		$relations = parent::relations();
 		$relations['sectionArticles'] = array(self::HAS_MANY , 'SectionArticle', 'id_section');
+		$relations['userAssignments'] = array(self::HAS_MANY , 'UserSectionAssignment', 'id_section');
+		$relations['users'] = array(self::HAS_MANY, 'User', 'id_user','through'=>'userAssignments');
 		return  $relations;
 	}
 
@@ -174,5 +178,45 @@ class Section extends TimestampBehaviorSupportActiveRecord
 			self::VISIBILITY_PUBLIC  =>Yii::t('app',"public"),
 		);
 	} 
+
+	public function assignUser($idUser, $role)
+	{
+		$command = Yii::app()->db->createCommand();
+		$command->insert('tbl_user_section_assignment', array(
+		'role'=>$role,
+		'id_user'=>$idUser,
+		'id_section'=>$this->id_section,
+		));
+	}
 	
+	
+	public function removeUser($idUser)
+	{
+		$command = Yii::app()->db->createCommand();
+		$command->delete(
+		'tbl_user_section_assignment',
+		'id_user=:id_user AND id_section=:id_section',
+		array(':id_user'=>$idUser,':id_section'=>$this->id_section));
+	}
+	
+	
+	public function allowCurrentUser( $role ){
+		$sql = "SELECT * FROM tbl_user_section_assignment WHERE id_section=:id_section AND id_user=:id_user AND role=:role";
+		$command = Yii::app()->db->createCommand($sql);
+		$command->bindValue(":id_section", $this->id_section, PDO::PARAM_INT);
+		$command->bindValue(":id_user", Yii::app()->user->getId(), PDO::PARAM_INT);
+		$command->bindValue(":role", $role, PDO::PARAM_STR);
+		return $command->execute()==1;
+	}
+
+	/*
+	* Determines whether or not a user is already part of a section
+	*/
+	public function isUserInSection($user){
+		$sql = "SELECT id_user FROM tbl_user_section_assignment WHERE id_section=:id_section AND id_user=:id_user";
+		$command = Yii::app()->db->createCommand($sql);
+		$command->bindValue(":id_section", $this->id_event, PDO::PARAM_INT);
+		$command->bindValue(":id_user", $user->id, PDO::PARAM_INT);
+		return $command->execute()==1;
+	}	
 }

@@ -15,6 +15,8 @@ class m131016_133603_create_tbl_event_user_asssignment extends CDbMigration
 		$this->addForeignKey("fk_event_user", "tbl_user_event_assignment", "id_event", "tbl_event", "id_event", "CASCADE", "RESTRICT");
 		$this->addForeignKey("fk_user_event", "tbl_user_event_assignment", "id_user", "tbl_user", "id", "CASCADE", "RESTRICT");
 		
+		
+		
 	}
 
 	public function down()

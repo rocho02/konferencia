@@ -51,8 +51,10 @@ class EventController extends EMController
 	 */
 	public function actionView($id)
 	{
+		
+		
 		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+			'model'=>$this->loadModel($id,true),
 		));
 	}
 
@@ -218,9 +220,19 @@ class EventController extends EMController
 	 * @return Event the loaded model
 	 * @throws CHttpException
 	 */
-	public function loadModel($id)
+	public function loadModel($id,$sections=false)
 	{
-		$model=Event::model()->findByPk($id);
+		$model;
+		if ($sections == true){
+			$model = Event::model()->with(
+				array(
+					'eventSections',
+					'eventSections.userAssignments'  			
+				)
+			)->findByPk($id);
+		}else{
+			$model=Event::model()->findByPk($id);
+		}
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;

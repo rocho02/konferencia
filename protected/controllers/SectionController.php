@@ -65,8 +65,19 @@ class SectionController extends Controller {
 			
 			$model->id_event = $this->_event->id_event;
 			
-			if ($model -> save())
+			if ($model -> save()){
+					
+				$form=new SectionUserForm;
+                $form->username = Yii::app()->user->name;
+                $form->section = $model;
+                $form->role = Section::ROLE_SECTION_ADMIN;
+                if($form->validate()){
+				   $form->assign();
+				}
+				
+								
 				$this -> redirect(array('event/view', 'id' => $this->_event -> id_event ));
+			}
 		}
 
 		$this -> render('create', array('model' => $model, 'event'=> $this->_event ));
