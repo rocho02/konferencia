@@ -2,6 +2,7 @@
 /* @var $this OpinionController */
 /* @var $model Opinion */
 
+if ( $scenario == 'create'){
 $this->breadcrumbs=array(
 	Yii::t('app','Events')=>array('event/index'),
 	Yii::t('app','Event')=>array('event/view','id'=>$section->id_event),
@@ -9,6 +10,14 @@ $this->breadcrumbs=array(
 	Yii::t('app','Section')=>array('section/view','id'=>$section->id_section),
 	'Create',
 );
+}else if ( $scenario == 'judge'){
+	
+	$this->breadcrumbs=array(
+	Yii::t('app','Articles')=>array('article/index'),
+	'Create',
+);
+	
+}
 
 $this->menu=array(
 	//array('label'=>'List Opinion', 'url'=>array('index')),

@@ -61,6 +61,8 @@ class Article extends TimestampBehaviorSupportActiveRecord
 		$array['articleVersions'] = array(self::HAS_MANY , 'ArticleVersion', 'id_article');
 		$array['acceptedVersions'] = array(self::HAS_MANY , 'ArticleVersion', 'id_article',  'joinType'=>'INNER JOIN', 'on'=>'acceptedVersions.flag = ' . ArticleVersion::FLAG_ACCEPTED );
 		$array['sectionArticles'] = array(self::HAS_MANY , 'SectionArticle', 'id_article');
+		$array['userAssignments'] = array(self::HAS_MANY , 'UserArticleAssignment', 'id_article');
+		$array['users'] = array(self::HAS_MANY, 'User', 'id_user','through'=>'userAssignments');
 		//$array['sectionArticle'] = array(self::HAS_MANY , 'SectionArticle', 'id_article' , 'on'=>'sectionArticle.id_article='.$this->id_article) ;
 		return $array;
 	}

@@ -20,7 +20,7 @@ class OpinionController extends Controller
 		return array(
 			'accessControl', // perform access control for CRUD operations
 			'postOnly + delete', // we only allow deletion via POST request
-			'ArticleContext + create, index',
+			'ArticleContext + create, index, judgeCreate',
 			'SectionContext + create, index, view, eventAccept',
 			'OpinionContext + eventAccept'
 		);
@@ -39,7 +39,7 @@ class OpinionController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update', 'eventAccept'),
+				'actions'=>array('create','update', 'eventAccept','judgeCreate'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -63,6 +63,8 @@ class OpinionController extends Controller
 			'section'=>$this->_section
 		));
 	}
+
+
 
 	/**
 	 * Creates a new model.
@@ -100,12 +102,58 @@ class OpinionController extends Controller
 		}
 
 		$this->render('create',array(
+			'scenario'=>'create',
 			'model'=>$model,
 			'aspect'=>$aspect,
 			'section'=>$this->_section,
 			'article'=>$this->_article
 		));
 	}
+
+	/**
+	 * Creates a new model.
+	 * If creation is successful, the browser will be redirected to the 'view' page.
+	 */
+	public function actionJudgeCreate()
+	{
+		$model=new Opinion;
+		$aspect = new OpinionAspect;
+		$model->id_article = $this->_article->id_article;
+		$model->id_article_version = $this->_article->getCurrentVersion()->id_article_version;
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['Opinion']) && isset($_POST['OpinionAspect']))
+		{
+			$model->attributes=$_POST['Opinion'];
+			$aspect->attributes=$_POST['OpinionAspect'];
+			
+			if ( $model->validate() && $aspect->validate()){
+			
+			$trans = Yii::app()->db->beginTransaction();
+			try{
+			
+				$model->save( );
+				$aspect->id_opinion = $model->id_opinion;
+				$aspect->save( );
+			 	$trans->commit();
+				$this->redirect(array('article/judgeindex'));
+			}catch(Exception $e){
+				$trans->rollback();
+			}	
+			 
+			}
+		}
+
+		$this->render('create',array(
+			'scenario'=>'judge',
+			'model'=>$model,
+			'aspect'=>$aspect,
+			'article'=>$this->_article
+		));
+	}
+
+
 
 	/**
 	 * Updates a particular model.

@@ -32,7 +32,7 @@ class ArticleController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array( 'update', 'articleDownload'),
+				'actions'=>array( 'update', 'articleDownload','judgeindex'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -221,4 +221,30 @@ class ArticleController extends Controller
 		/*
 		 */
 	}
+
+	/**
+	 * Lists all articles to judge.
+	 */
+	public function actionJudgeindex()
+	{
+		
+		$criteria = new CDbCriteria;
+		$criteria->condition='create_user_id=:id_user';
+		$criteria->params=array(':id_user'=> Yii::app()->user->id);
+		
+		$articles  = Article::model()->with(
+			array(
+				'userAssignments' => array('joinType'=>'INNER JOIN' ,'on' =>'userAssignments.id_user='.Yii::app()->user->id ),
+				'createUser',
+				'articleVersions'
+			)
+		)->findAll();
+		
+		$dataProvider=new CArrayDataProvider($articles,array('keyField'=>'id_article','id'=>'dpArticle'  ));
+		//$dataProvider=new CActiveDataProvider('Article',array('criteria'=>$criteria,));
+		$this->render('judgeindex',array(
+			'dataProvider'=>$dataProvider,
+		));
+	}
+
 }
