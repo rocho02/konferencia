@@ -4,7 +4,7 @@
  * SectionUserForm is the data structure for keeping
  * the form data related to adding an existing user to an section. It is used by the 'Adduser' action of 'SectionController'.
  */
-class SectionUserForm extends CFormModel {
+class SectionArticleJudgeAssignment extends CFormModel {
 	/**
 	 * @var string username of the user being added to the section
 	 */
@@ -17,7 +17,7 @@ class SectionUserForm extends CFormModel {
 	 * @var object an instance of the Section AR model class
 	 */
 	public $section;
-	public $event;
+	public $article;
 	private $_user;
 	/**
 	 * Declares the validation rules.
@@ -43,8 +43,8 @@ class SectionUserForm extends CFormModel {
 		if (!$this -> hasErrors())// we only want to authenticate when no other input errors are present
 		{
 			$user = User::model() -> findByAttributes(array('username' => $this -> username));
-			if ($this -> section -> isUserInSection($user)) {
-				$this -> addError('username', 'This user has already been added to the section.');
+			if ( $this -> article -> isUserInArticle( $user ) )  {
+				$this -> addError('username', Yii::t('app','This user has already been added to the article.'));
 			} else {
 				$this -> _user = $user;
 			}
@@ -54,14 +54,14 @@ class SectionUserForm extends CFormModel {
 	public function assign() {
 		if ($this -> _user instanceof User) {
 			//assign the user, in the specified role, to the section
-			$this -> section -> assignUser($this -> _user -> id, $this -> role);
+			$this -> article -> assignUser($this -> _user -> id, $this -> role);
 			//add the association, along with the RBAC biz rule, to our RBAC hierarchy
 			$auth = Yii::app() -> authManager;
-			$bizRule = 'return isset($params["section"]) && $params["section"]->allowCurrentUser("' . $this -> role . '");';
+			$bizRule = 'return isset($params["article"]) && $params["article"]->allowCurrentUser("' . $this -> role . '");';
 			$auth -> assign($this -> role, $this -> _user -> id, $bizRule);
 			return true;
 		} else {
-			$this -> addError('username', 'Error when attempting to assign this user to the section.');
+			$this -> addError('username', 'Error when attempting to assign this user to the article.');
 			return false;
 		}
 	}

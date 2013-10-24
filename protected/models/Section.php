@@ -215,8 +215,15 @@ class Section extends TimestampBehaviorSupportActiveRecord
 	public function isUserInSection($user){
 		$sql = "SELECT id_user FROM tbl_user_section_assignment WHERE id_section=:id_section AND id_user=:id_user";
 		$command = Yii::app()->db->createCommand($sql);
-		$command->bindValue(":id_section", $this->id_event, PDO::PARAM_INT);
+		$command->bindValue(":id_section", $this->id_section, PDO::PARAM_INT);
 		$command->bindValue(":id_user", $user->id, PDO::PARAM_INT);
 		return $command->execute()==1;
+	}
+	
+	public static function getUserRoleOptions()	{
+		// return CHtml::listData(Yii::app()->authManager->getRoles(), 'name',	'name');
+		return array(
+			Section::ROLE_SECTION_ADMIN=>Yii::t('app','Section Admin')
+		);
 	}	
 }

@@ -1,6 +1,6 @@
 <?php
 
-class SectionController extends Controller {
+class SectionController extends EMController {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
@@ -17,7 +17,7 @@ class SectionController extends Controller {
 		return array('accessControl', // perform access control for CRUD operations
 		'postOnly + delete', // we only allow deletion via POST request
 		'eventContext + create,index',// we need an event to create a section or list sections
-		'sectionContext +  addArticle'// we need an event to create a section or list sections
+		'sectionContext +  addArticle, addjudge'// we need an event to create a section or list sections
 		);
 	}
 
@@ -29,7 +29,7 @@ class SectionController extends Controller {
 	public function accessRules() {
 		return array( array('allow', // allow all users to perform 'index' and 'view' actions
 		'actions' => array('index', 'view'), 'users' => array('*'), ), array('allow', // allow authenticated user to perform 'create' and 'update' actions
-		'actions' => array('create', 'update', 'addArticle'), 'users' => array('@'), ), array('allow', // allow admin user to perform 'admin' and 'delete' actions
+		'actions' => array('create', 'update', 'addArticle','adduser','addjudge'), 'users' => array('@'), ), array('allow', // allow admin user to perform 'admin' and 'delete' actions
 		'actions' => array('admin', 'delete'), 'users' => array('admin'), ), array('deny', // deny all users
 		'users' => array('*'), ), );
 	}
@@ -124,9 +124,15 @@ class SectionController extends Controller {
 		$criteria = new CDbCriteria;
 		$criteria->condition='id_event=:id_event';
 		$criteria->params=array(':id_event'=> $this->_event->id_event);
+		/*
+		$sections = array();
 		
+		if ( $this->isEventAllowed($this->_event)){
+			$sections = Section::model()->findAll();
+		}
 		
-		
+		$dataProvider = CArrayDataProvider($sections ,array('keyField' => 'id_section', 'id'=>'dpSections'));
+		*/
 		$dataProvider = new CActiveDataProvider('Section',array('criteria'=>$criteria,));
 		$this -> render('index', array('dataProvider' => $dataProvider,'event'=>$this->_event ));
 	}
@@ -184,6 +190,59 @@ class SectionController extends Controller {
 			$model -> attributes = $_GET['Section'];
 
 		$this -> render('admin', array('model' => $model, ));
+	}
+
+	/**
+		* Provides a form so that project administrators can
+		* associate other users to the project
+	*/
+	public function actionAdduser($id)
+	{
+		$section = $this->loadModel($id);
+		$event =  Event::model()->findByPk($section->id_event);
+		
+		if(!$this->isUserAllowed($event, $section)){
+			throw new CHttpException(403,'You are not authorized to performthis action.');
+		}
+		$form=new SectionUserForm;
+		// collect user input data
+		if(isset($_POST['SectionUserForm'])){
+			$form->attributes=$_POST['SectionUserForm'];
+			$form->event = $event;
+			$form->section = $section;
+			// validate user input
+			if($form->validate()){
+				if($form->assign()){
+					Yii::app()->user->setFlash('success',$form->username . "has been added to the event." );
+					//reset the form for another user to be associated if desired
+					$form->unsetAttributes();
+					$form->clearErrors();
+				}
+			}
+		}
+		$form->event = $event;
+		$form->section = $section;
+		$this->render('adduser',array('model'=>$form));
+		/*
+		 */
+	}
+	
+	function isSectionAllowed($section){
+		return Yii::app()->user->checkAccess( Section::ROLE_SECTION_ADMIN ,	array('section'=>$section));
+	}
+	
+	function isEventAllowed($event){
+		return Yii::app()->user->checkAccess( Section::ROLE_EVENT_ADMIN ,	array('event'=>$event));
+	}
+	
+	function isUserAllowed($event,$section){
+		if ( $event == null )
+			return false;
+		if ( $section == null )
+			return null;
+		
+		return  Yii::app()->user->checkAccess( Permissions::ROLE_ADMIN ,	array() ) || $this->isEventAllowed($event) || $this->isSectionAllowed($section);
+			
 	}
 
 	/**
@@ -264,5 +323,29 @@ class SectionController extends Controller {
      	$d2 = date("Y-m-d H:i", $ts);
   		return $d2;
  		}
+
+	public function actionAddjudge(){
+
+		$form = new SectionArticleJudgeAssignment;
+		
+		if(isset($_POST['SectionArticleJudgeAssignment'])){
+			
+			$form->attributes=$_POST['SectionArticleJudgeAssignment'];
+			$form->article = Article::model()->findByPk($_GET['article']);
+			
+			$form->section = $this->_section;
+			// validate user input
+			if($form->validate()){
+				if($form->assign()){
+					Yii::app()->user->setFlash('success',$form->username . "has been added to the event." );
+					//reset the form for another user to be associated if desired
+					$form->unsetAttributes();
+					$form->clearErrors();
+				}
+			}
+		}
+
+		$this->render('addjudge',array( 'model'=> $form, 'section'=>$this->_section ));		
+	}
 
 }

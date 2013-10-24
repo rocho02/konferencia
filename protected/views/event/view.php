@@ -4,7 +4,7 @@
 
 $this->breadcrumbs=array(
 	'Events'=>array('index'),
-	$model->id_event,
+	$model->title,
 );
 
 $this->menu=array(

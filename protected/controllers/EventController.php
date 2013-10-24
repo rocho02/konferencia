@@ -224,10 +224,11 @@ class EventController extends EMController
 	{
 		$model;
 		if ($sections == true){
+			
 			$model = Event::model()->with(
 				array(
-					'eventSections',
-					'eventSections.userAssignments'  			
+					'eventSections' => array('on' =>"eventSections.id_section in  ( select s2.id_section  from tbl_section s2 left outer join tbl_user_section_assignment usa2 on s2.id_section = usa2.id_section where (usa2.id_section is not null) or ( s2.visibility = ". Section::VISIBILITY_PUBLIC . " ))  " ),
+					//'eventSections.userAssignments'  			
 				)
 			)->findByPk($id);
 		}else{
