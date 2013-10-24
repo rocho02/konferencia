@@ -102,7 +102,7 @@ DIV#content .compactRadioGroup LABEL{
 
 	<div class="row compactRadioGroup">
 		<?php echo $form->labelEx($model,'visibility'); ?>
-		<?php echo $form->radioButtonList($model,'visibility', Section::getVisiblityOptions(),array('separator'=> ' 	') ); ?>
+		<?php echo $form->radioButtonList($model,'visibility', Section::getVisibilityOptions(),array('separator'=> ' 	') ); ?>
 		<?php echo $form->error($model,'visibility'); ?>
 	</div>
 

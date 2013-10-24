@@ -85,8 +85,19 @@ class SectionController extends Controller {
 
 		if (isset($_POST['Section'])) {
 			$model -> attributes = $_POST['Section'];
+			
+			$model->start_time = $this->fixDateTime($model->start_time,$model->start_hour,$model->start_min);
+			$model->end_time = $this->fixDateTime($model->end_time,$model->end_hour,$model->end_min);
+			
 			if ($model -> save())
 				$this -> redirect(array('view', 'id' => $model -> id_section));
+		}else{
+   			$model->start_hour =   date('H', strtotime($model->start_time) );
+   			$model->start_min =   date('i', strtotime($model->start_time) );
+  		
+			$model->end_hour =   date('H', strtotime($model->end_time) );
+  		    $model->end_min =   date('i', strtotime($model->end_time) );
+		
 		}
 
 		$this -> render('update', array('model' => $model, ));

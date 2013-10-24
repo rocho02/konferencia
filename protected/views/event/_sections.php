@@ -11,17 +11,17 @@
 		<?php echo Yii::t('app','Create User').":&nbsp" . CHtml::encode($eventSection -> createUserName); ?>
 	</div>
 	<div class="event_start_time">
-		<?php echo Yii::t('app','Start:')."&nbsp" . CHtml::encode($eventSection -> start_time); ?>
+		<?php echo Yii::t('app','Start Date').":&nbsp" . CHtml::encode($eventSection -> start_time); ?>
 	</div>
 	<div class="event_end_time">	
-		<?php echo Yii::t('app','End:')."&nbsp" . CHtml::encode($eventSection -> end_time ); ?>
+		<?php echo Yii::t('app','End Date').":&nbsp" . CHtml::encode($eventSection -> end_time ); ?>
 	</div>
 	<div class="visibility">
 		<?php 
 		
-		$visiblities = Section::getVisiblityOptions();
+		$visiblities = Section::getVisibilityOptions();
 		$visibilityName = $visiblities[$eventSection -> visibility]; 
-		echo Yii::t('app','Visibility:')."&nbsp" . CHtml::encode( $visibilityName ); ?>
+		echo Yii::t('app','Visibility').":&nbsp" . CHtml::encode( $visibilityName ); ?>
 	</div>
 	<hr>
 </div><!-- comment -->
