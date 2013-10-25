@@ -19,14 +19,20 @@ $this->breadcrumbs=array(
 		)
 )); ?>
 
+<h1>Cikk csatolása szekcióhoz</h1>
+
 <table>
 <thead>
+	<tr>Kérem jelölje be a csatolni kívánt cikket!</tr>
+	<tr>
+	<td></td>
+	</tr>
 	<tr>
 		<td></td>
 		<td>Cikk címe</td>
 	</tr>
 </thead>	
-<?php echo $form->labelEx($model,'selectedArticles'); ?>
+<?php echo $form->labelEx($model,''); ?>
 <?php echo $form->error($model,'selectedArticles'); ?>
 <?php
 
@@ -43,6 +49,6 @@ foreach($model->articles as $article){
 ?>
 </table>
 <div class="row buttons">
-		<?php echo CHtml::submitButton('attach selected items'); ?>
+		<?php echo CHtml::submitButton('Csatolás'); ?>
 	</div>
 <?php $this->endWidget(); ?>

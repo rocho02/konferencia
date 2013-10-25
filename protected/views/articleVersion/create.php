@@ -14,9 +14,9 @@ $this->menu=array(
 );
 ?>
 <?php if ( $article->isNewRecord)
-	echo "<h1>Upload and Create Article</h1>";
+	echo "<h1>Cikk feltöltése</h1>";
 else {
-	echo "<h1>Upload New Version of Article</h1>";
+	echo "<h1>Létező cikk új verziójának feltöltése</h1>";
 }
 ?>
 

@@ -118,7 +118,6 @@ class Event extends CActiveRecord {
 		$criteria -> compare('create_user_id', $this -> create_user_id);
 		$criteria -> compare('update_time', $this -> update_time, true);
 		$criteria -> compare('update_user_id', $this -> update_user_id);
-		$criteria->compare('visibility',$this->visibility);
 
 		return new CActiveDataProvider($this, array('criteria' => $criteria, ));
 	}
@@ -234,7 +233,7 @@ class Event extends CActiveRecord {
 	}
 	
 	
-	public static function getVisiblityOptions(){
+	public static function getVisibilityOptions(){
 		return array(
 			self::VISIBILITY_PRIVATE=>"private",
 			self::VISIBILITY_PUBLIC  =>"public",

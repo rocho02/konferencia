@@ -6,7 +6,7 @@
  ?>
 <h1>Konferencia</h1>
 <h2><?php  echo $event->title ?></h2>
-<h3>Bírálatok </h3>
+<h3>Cikk vélemények</h3>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,

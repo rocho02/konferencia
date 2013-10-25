@@ -168,7 +168,7 @@ class Section extends TimestampBehaviorSupportActiveRecord
 		$this->end_time = $end_time;
 	}
 	
-	public static function getVisiblityOptions(){
+	public static function getVisibilityOptions(){
 		return array(
 			self::VISIBILITY_PRIVATE=>Yii::t('app',"private"),
 			self::VISIBILITY_PUBLIC  =>Yii::t('app',"public"),

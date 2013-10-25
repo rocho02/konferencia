@@ -11,7 +11,6 @@
 	
 	<b><?php echo CHtml::encode($data->getAttributeLabel('start_date')); ?>:</b>
 	<?php echo  CHtml::encode($data->start_date) ; ?>
-	<?php echo CHtml::link(CHtml::encode($data->start_date), array('view', 'id'=>$data->id_event)); ?>
 	<br />
 	
 	<b><?php echo CHtml::encode($data->getAttributeLabel('end_date')); ?>:</b>
@@ -27,7 +26,7 @@
 	<br />
 	
 	<b><?php echo CHtml::encode($data->getAttributeLabel('visibility')); ?>:</b>
- 	<?php $visibilityOptions = Event::getVisiblityOptions();
+ 	<?php $visibilityOptions = Event::getVisibilityOptions();
   	echo CHtml::encode( $data->visibility == null ? "-" : $visibilityOptions[$data->visibility] ); ?>
 	
 	<?php /*

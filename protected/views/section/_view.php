@@ -22,7 +22,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('visibility')); ?>:</b>
-	<?php $visibilityOptions = Event::getVisiblityOptions();
+	<?php $visibilityOptions = Event::getVisibilityOptions();
   	echo CHtml::encode( $data->visibility == null ? "-" : $visibilityOptions[$data->visibility] ); ?>
 	<br />
 	
