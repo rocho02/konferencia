@@ -49,8 +49,15 @@ class EventController extends EMController
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
 	 */
-	public function actionView($id)
-	{
+	public function actionView($id)	{
+		
+		
+		
+		$condition_allowed_actions = "select distinct s1.id_section from tbl_section s1 " 
+		. " left outer join tbl_user_section_assignment usa  on s1.id_section = usa.id_section and usa.role = :section_admin and usa.id_user = :id_user "
+		. " left outer join tbl_user_event_assignment uea  on s1.id_event = uea.id_event and uea.role = :event_admin and usa.id_user = :id_user "
+		. " where usa.id_section is not null or uea.id_event is not null or s1.visibility = :section_visibility ";	
+		
 		
 		
 		$this->render('view',array(
@@ -153,8 +160,16 @@ class EventController extends EMController
 	{
 		
 		$criteria = new CDbCriteria;
-		$criteria->condition='userAssignments.id_user=:id_user ';
-		$criteria->params=array(':id_user'=> Yii::app()->user->id);
+		
+		$condition_event_admin_or_event_is_public = "select distinct e1.id_event from tbl_event e1 inner join tbl_user_event_assignment ua1  on e1.id_event = ua1.id_event  and ua1.role = '".Event::ROLE_EVENT_ADMIN."' and ua1.id_user = :id_user where ua1.id_event is not null or e1.visibility = :event_visibility";
+		$condition_section_admin_or_section_is_pubilc = "select distinct s2.id_event from tbl_section s2 left join tbl_user_section_assignment ua1  on s2.id_section = ua1.id_section  and ua1.role = '".Section::ROLE_SECTION_ADMIN."' and ua1.id_user = :id_user where ua1.id_section is not null or s2.visibility = :section_visibility";
+		
+		$criteria->condition=" ( t.id_event in  ( $condition_event_admin_or_event_is_public )  ) or ( t.id_event in  ( $condition_section_admin_or_section_is_pubilc )  )  ";
+		$criteria->params=array(
+			':id_user'=> Yii::app()->user->id,
+			':section_visibility'=>Section::VISIBILITY_PUBLIC,
+			':event_visibility'=>Event::VISIBILITY_PUBLIC,
+			);
 		
 		
 		$events = Event::model()->with(
@@ -225,9 +240,19 @@ class EventController extends EMController
 		$model;
 		if ($sections == true){
 			
+			$id_user = Yii::app()->user->id;
+			
+			$condition_allowed_actions = "select distinct s1.id_section from tbl_section s1 " 
+			. " left outer join tbl_user_section_assignment usa  on s1.id_section = usa.id_section and usa.role = '".Section::ROLE_SECTION_ADMIN."' and usa.id_user = $id_user "
+			. " left outer join tbl_user_event_assignment uea  on s1.id_event = uea.id_event and uea.role = '".Event::ROLE_EVENT_ADMIN."' and usa.id_user = $id_user "
+			. " where usa.id_section is not null or uea.id_event is not null or s1.visibility =  ". Section::VISIBILITY_PUBLIC;	
+		
+			
 			$model = Event::model()->with(
 				array(
-					'eventSections' => array('on' =>"eventSections.id_section in  ( select s2.id_section  from tbl_section s2 left outer join tbl_user_section_assignment usa2 on s2.id_section = usa2.id_section where (usa2.id_section is not null) or ( s2.visibility = ". Section::VISIBILITY_PUBLIC . " ))  " ),
+					'createUser' => array('joinType' => 'INNER JOIN'),
+					'eventSections' => array('on' =>"eventSections.id_section in  ( $condition_allowed_actions ) " ),
+					'eventSections.createUser' => array('alias' => 'section_create_user')
 					//'eventSections.userAssignments'  			
 				)
 			)->findByPk($id);

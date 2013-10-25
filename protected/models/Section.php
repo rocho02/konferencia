@@ -71,6 +71,7 @@ class Section extends TimestampBehaviorSupportActiveRecord
 		$relations['sectionArticles'] = array(self::HAS_MANY , 'SectionArticle', 'id_section');
 		$relations['userAssignments'] = array(self::HAS_MANY , 'UserSectionAssignment', 'id_section');
 		$relations['users'] = array(self::HAS_MANY, 'User', 'id_user','through'=>'userAssignments');
+        $relations['event'] = array(self::BELONGS_TO, 'Event', 'id_event');
 		return  $relations;
 	}
 
