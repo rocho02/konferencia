@@ -3,7 +3,9 @@
 /* @var $dataProvider CActiveDataProvider */
 
 $this->breadcrumbs=array(
-	'Sections',
+	Yii::t('app','Events') => array('event/index'),
+	Yii::t('app','Event') => array('event/view','id'=>$event->id_event),
+	Yii::t('app','Sections'),
 );
 
 $this->menu=array(

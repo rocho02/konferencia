@@ -61,6 +61,8 @@ class Article extends TimestampBehaviorSupportActiveRecord
 		$array['articleVersions'] = array(self::HAS_MANY , 'ArticleVersion', 'id_article');
 		$array['acceptedVersions'] = array(self::HAS_MANY , 'ArticleVersion', 'id_article',  'joinType'=>'INNER JOIN', 'on'=>'acceptedVersions.flag = ' . ArticleVersion::FLAG_ACCEPTED );
 		$array['sectionArticles'] = array(self::HAS_MANY , 'SectionArticle', 'id_article');
+		$array['userAssignments'] = array(self::HAS_MANY , 'UserArticleAssignment', 'id_article');
+		$array['users'] = array(self::HAS_MANY, 'User', 'id_user','through'=>'userAssignments');
 		//$array['sectionArticle'] = array(self::HAS_MANY , 'SectionArticle', 'id_article' , 'on'=>'sectionArticle.id_article='.$this->id_article) ;
 		return $array;
 	}
@@ -155,6 +157,53 @@ class Article extends TimestampBehaviorSupportActiveRecord
 		);
 		
 		return sizeof(Article::model()->with(array('acceptedVersions'))->findAll($criteria )) > 0;
+	}
+	
+	
+		public function assignUser($idUser, $role)
+	{
+		$command = Yii::app()->db->createCommand();
+		$command->insert('tbl_user_article_assignment', array(
+		'role'=>$role,
+		'id_user'=>$idUser,
+		'id_article'=>$this->id_article,
+		));
+	}
+	
+	
+	public function removeUser($idUser)
+	{
+		$command = Yii::app()->db->createCommand();
+		$command->delete(
+		'tbl_user_article_assignment',
+		'id_user=:id_user AND id_article=:id_article',
+		array(':id_user'=>$idUser,':id_article'=>$this->id_section));
+	}
+	
+	
+	public function allowCurrentUser( $role ){
+		$sql = "SELECT * FROM tbl_user_article_assignment WHERE id_article=:id_article AND id_user=:id_user AND role=:role";
+		$command = Yii::app()->db->createCommand($sql);
+		$command->bindValue(":id_article", $this->id_article, PDO::PARAM_INT);
+		$command->bindValue(":id_user", Yii::app()->user->getId(), PDO::PARAM_INT);
+		$command->bindValue(":role", $role, PDO::PARAM_STR);
+		return $command->execute()==1;
+	}
+
+	/*
+	* Determines whether or not a user is already part of a section
+	*/
+	public function isUserInArticle($user){
+		$sql = "SELECT id_user FROM tbl_user_article_assignment WHERE id_article=:id_article AND id_user=:id_user";
+		$command = Yii::app()->db->createCommand($sql);
+		$command->bindValue(":id_article", $this->id_article, PDO::PARAM_INT);
+		$command->bindValue(":id_user", $user->id, PDO::PARAM_INT);
+		return $command->execute()==1;
+	}
+	
+	
+	public static function getUserRoleOptions()	{
+		return array(  Permissions::ROLE_ARTICLE_JUDGE => Yii::t('app','Article Judge' ));
 	}
 
 }

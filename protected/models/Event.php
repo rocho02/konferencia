@@ -244,7 +244,7 @@ class Event extends CActiveRecord {
 	* Returns an array of available roles in which a user can be placed	when being added to an event
 	*/
 	public static function getUserRoleOptions()	{
-		return CHtml::listData(Yii::app()->authManager->getRoles(), 'name',	'name');
+		return array(  Event::ROLE_EVENT_ADMIN => Yii::t('app','Event Admin' ));
 	}
 	
 	/*

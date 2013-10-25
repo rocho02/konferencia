@@ -2,6 +2,8 @@
 /* @var $this EventController */
 /* @var $model Event */
 
+$event_admin = $model->isUserInEvent(Yii::app()->user);
+
 $this->breadcrumbs=array(
 	'Events'=>array('index','event'=> $model->id_event),
 	$model->title,
@@ -10,13 +12,14 @@ $this->breadcrumbs=array(
 $this->menu=array(
 	array('label'=>Yii::t("app",'List Event'), 'url'=>array('index'),'visible'=>Yii::app()->user->checkAccess('Event.Index') ),
 	array('label'=>Yii::t("app",'Create Event'), 'url'=>array('create'),'visible'=>true),
-	array('label'=>Yii::t("app",'Update Event'), 'url'=>array('update', 'id'=>$model->id_event),'visible'=>true),
+	array('label'=>Yii::t("app",'Update Event'), 'url'=>array('update', 'id'=>$model->id_event),'visible'=>$event_admin),
 	//array('label'=>Yii::t("app",'Delete Event'), 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id_event),'confirm'=>'Are you sure you want to delete this item?'),'visible'=>true),
 	//array('label'=>Yii::t("app",'Manage Event'), 'url'=>array('admin'),'visible'=>true),
-	array('label'=>Yii::t("app",'Create Section'), 'url'=>array('section/create','event'=>$model->id_event),'visible'=>true),
-	array('label'=>Yii::t("app",'Event Sections'), 'url'=>array('section/index','event'=>$model->id_event),'visible'=>true),
-	array('label'=>Yii::t("app",'Add User To event'), 'url'=>array('event/adduser','id'=>$model->id_event)),
-	array('label'=>Yii::t("app",'Article Opinions'), 'url'=>array('event/opinions','id'=>$model->id_event)),
+	array('label'=>Yii::t("app",'Create Section'), 'url'=>array('section/create','event'=>$model->id_event),'visible'=>$event_admin),
+	array('label'=>Yii::t("app",'Event Sections'), 'url'=>array('section/index','event'=>$model->id_event),'visible'=>$event_admin),
+	//array('label'=>'Add User To event', 'url'=>array('event/adduser','id'=>$model->id_event),'visible'=>$event_admin),
+	array('label'=>Yii::t("app",'Add User To event'), 'url'=>array('event/adduser','id'=>$model->id_event),'visible'=>$event_admin),
+	array('label'=>'Article Opinions', 'url'=>array('event/opinions','id'=>$model->id_event),'visible'=>$event_admin),
 );
 ?>
 

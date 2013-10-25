@@ -3,19 +3,17 @@
 /* @var $dataProvider CActiveDataProvider */
 
 $this->breadcrumbs=array(
-	'Articles',
+	Yii::t('app','Articles To Judge'),
 );
 
 $this->menu=array(
-	array('label'=> Yii::t('app','Marked For Judge'), 'url'=>array('article/judgeindex')),
-	array('label'=> Yii::t('app','Create Article'), 'url'=>array('articleVersion/create')),
 	//array('label'=>'Manage Article', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Cikkek listázása</h1>
+<h1>Bírálatra jelölt cikkek</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,
-	'itemView'=>'_view',
+	'itemView'=>'_view_judgeindex',
 )); ?>

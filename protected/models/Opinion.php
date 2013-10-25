@@ -15,6 +15,10 @@
  */
 class Opinion extends TimestampBehaviorSupportActiveRecord
 {
+	
+	const STATUS_ACCEPT = 1;
+	const STATUS_REJECT = 2;
+	
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -103,5 +107,12 @@ class Opinion extends TimestampBehaviorSupportActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+
+	public static  function getStatusOptions(){
+		return array(
+			self::STATUS_ACCEPT=>Yii::t('app','Accept'),
+			self::STATUS_REJECT=>Yii::t('app','Reject'),
+		);
 	}
 }
