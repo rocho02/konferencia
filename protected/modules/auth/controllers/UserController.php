@@ -142,7 +142,16 @@ class UserController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('User');
+	    $user = Yii::app()->user;
+        $users = array();
+        if ( $user->checkAccess('admin') ){
+            $users = User::model()->findAll();
+        }else if ( !$user->isGuest){
+            $users[] = User::model()->findByPk($user->id);
+        }
+		$dataProvider=new CArrayDataProvider( $users , array('keyField'=>'id','id'=>'dp_users') );
+		// $dataProvider=new CActiveDataProvider('User');
+        
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
