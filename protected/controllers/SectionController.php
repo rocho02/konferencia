@@ -295,7 +295,7 @@ class SectionController extends EMController {
     }
 
     function isEventAllowed($event) {
-        return Yii::app() -> user -> checkAccess(Section::ROLE_EVENT_ADMIN, array('event' => $event));
+        return Yii::app() -> user -> checkAccess(Event::ROLE_EVENT_ADMIN, array('event' => $event));
     }
 
     function isUserAllowed($event, $section) {
