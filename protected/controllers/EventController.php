@@ -163,7 +163,7 @@ class EventController extends EMController {
 
             $criteria = new CDbCriteria;
 
-            $condition_event_admin_or_event_is_public = "select distinct e1.id_event from tbl_event e1 inner join tbl_user_event_assignment ua1  on e1.id_event = ua1.id_event  and ua1.role = '" . Event::ROLE_EVENT_ADMIN . "' and ua1.id_user = :id_user where ua1.id_event is not null or e1.visibility = :event_visibility";
+            $condition_event_admin_or_event_is_public = "select distinct e1.id_event from tbl_event e1 left join tbl_user_event_assignment ua1  on e1.id_event = ua1.id_event  and ua1.role = '" . Event::ROLE_EVENT_ADMIN . "' and ua1.id_user = :id_user where ua1.id_event is not null or e1.visibility = :event_visibility";
             $condition_section_admin_or_section_is_pubilc = "select distinct s2.id_event from tbl_section s2 left join tbl_user_section_assignment ua1  on s2.id_section = ua1.id_section  and ua1.role = '" . Section::ROLE_SECTION_ADMIN . "' and ua1.id_user = :id_user where ua1.id_section is not null or s2.visibility = :section_visibility";
 
             $criteria -> condition = " ( t.id_event in  ( $condition_event_admin_or_event_is_public )  ) or ( t.id_event in  ( $condition_section_admin_or_section_is_pubilc )  )  ";
@@ -282,7 +282,8 @@ class EventController extends EMController {
      */
     public function actionAdduser($id) {
         $event = $this -> loadModel($id);
-        if (!Yii::app() -> user -> checkAccess(Event::ROLE_EVENT_ADMIN, array('event' => $event))) {
+        $user = Yii::app()->user;
+        if ( !$user->checkAccess("admin") && !$user -> checkAccess(Event::ROLE_EVENT_ADMIN, array('event' => $event)) ) {
             throw new CHttpException(403, 'You are not authorized to performthis action.');
         }
         $form = new EventUserForm;
@@ -300,8 +301,10 @@ class EventController extends EMController {
                 }
             }
         }
+        
         $form -> event = $event;
-        $this -> render('adduser', array('model' => $form));
+        $users = $event->usersEventAdmin;
+        $this -> render('adduser', array('model' => $form,'users'=>$users));
     }
 
     function fixDateTime($date, $hour, $min) {

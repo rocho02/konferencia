@@ -66,6 +66,7 @@ class Event extends CActiveRecord {
 					 'eventSections' => array(self::HAS_MANY, 'Section', 'id_event'),
 					 'userAssignments' => array(self::HAS_MANY, 'UserEventAssignment', 'id_event'),
 					 'users' => array(self::HAS_MANY, 'User', 'id_user','through'=>'userAssignments'),
+					 'usersEventAdmin' => array(self::HAS_MANY, 'User', 'id_user','through'=>'userAssignments' , 'joinType'=>'INNER JOIN' , 'on'=>"userAssignments.role='".Event::ROLE_EVENT_ADMIN."'" ) ,
 					);
 	}
 	

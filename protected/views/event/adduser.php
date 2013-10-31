@@ -42,3 +42,28 @@
 	</div>
 	<?php $this->endWidget(); ?>
 </div>
+
+<h2>Event administrators</h2>
+<table>
+    <tr>
+        <td>Username</td>
+        <td>Name</td>
+        <td>Surname</td>
+    </tr>
+<?php 
+    foreach ( $users  as $u ){
+        echo "<tr>";
+        echo "<td>";
+        echo $u->username;
+        echo "<td>";
+        echo "<td>";
+        echo $u->name;
+        echo "<td>";
+        echo "<td>";
+        echo $u->surname;
+        echo "<td>";
+        echo "</tr>";
+    }
+
+?>
+</table>

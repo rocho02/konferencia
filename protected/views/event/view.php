@@ -2,7 +2,9 @@
 /* @var $this EventController */
 /* @var $model Event */
 
-$event_admin = $model->isUserInEvent(Yii::app()->user);
+$user = Yii::app()->user;
+$event_admin = $model->isUserInEvent( $user ) || $user->checkAccess('admin');
+
 
 $this->breadcrumbs=array(
 	'Events'=>array('index','event'=> $model->id_event),
