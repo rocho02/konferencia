@@ -99,6 +99,10 @@ class EventController extends EMController {
                 ));
             }
         }
+        
+        if (isset($_POST['UnAssignForm'])) {
+            
+        }
 
         $this -> render('create', array('model' => $model, ));
     }
@@ -300,6 +304,12 @@ class EventController extends EMController {
                     $form -> clearErrors();
                 }
             }
+        }
+        if (isset($_POST['EventUnAssignForm'])) {
+            $unassignForm = new EventUserUnAssignForm;
+            $unassignForm -> attributes = $_POST['EventUnAssignForm'];
+            $event->removeUser($unassignForm->id_user);
+            Yii::app() -> user -> setFlash('success',   "User has been unassigned from the event.");
         }
         
         $form -> event = $event;

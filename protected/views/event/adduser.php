@@ -7,12 +7,29 @@
 		array('label'=>Yii::t("app",'Back To Event'), 'url'=>array('view','id'=>$model->event->id_event)),
 	);
 ?>
-<h1>Konferenciaszervező hozzárendelése a(z) <?php echo $model->event->title; ?> konferenciához</h1>
+<h1>Felhasználó hozzárendelése konferenciához</h1>
+
+<h4><?php echo Yii::t('app', 'Konferencia részletei') ?></h4>
+<?php
+
+    $this->widget('zii.widgets.CDetailView', array(
+    'data'=>$model->event,
+    'attributes'=>array(
+        'title',             // title attribute (in plain text)
+        'start_date',             // title attribute (in plain text)
+        'end_date',             // title attribute (in plain text)
+    ),
+));
+
+?>
+
 <?php if(Yii::app()->user->hasFlash('success')):?>
 	<div class="successMessage">
 		<?php echo Yii::app()->user->getFlash('success'); ?>
 	</div>
 <?php endif; ?>
+<br/>
+<h4><?php echo Yii::t('app', 'Felhasználó hozzárendelése') ?></h4>
 <div class="form">
 	<?php $form=$this->beginWidget('CActiveForm'); ?>
 	<p class="note">Fields with <span class="required">*</span> are	required.</p>
@@ -42,28 +59,43 @@
 	</div>
 	<?php $this->endWidget(); ?>
 </div>
+<br/>
+<h4><?php echo Yii::t('app','Event administrators') ?></h4>
+    
+<?php
+$dpUsers = new CArrayDataProvider( $users, array('id' => 'dpUsers', 'keyField'=>'id')  );
 
-<h2>Event administrators</h2>
-<table>
-    <tr>
-        <td>Username</td>
-        <td>Name</td>
-        <td>Surname</td>
-    </tr>
-<?php 
-    foreach ( $users  as $u ){
-        echo "<tr>";
-        echo "<td>";
-        echo $u->username;
-        echo "<td>";
-        echo "<td>";
-        echo $u->name;
-        echo "<td>";
-        echo "<td>";
-        echo $u->surname;
-        echo "<td>";
-        echo "</tr>";
-    }
+$form=$this->beginWidget('CActiveForm',array(
+    'id'=>'unassign-form',
+    'enableAjaxValidation'=>false,
+));
+    ?>
+    <input type='hidden' name="EventUnAssignForm[id_user]" >
+    <?php
+    
+ $this->endWidget();  
+
+$this->widget('zii.widgets.grid.CGridView', array(
+    'dataProvider'=>$dpUsers,
+    'columns'=>array(
+        'username',
+        'name',
+        'surname',
+        array(            // display a column with "view", "update" and "delete" buttons
+            'class'=>'CButtonColumn',
+            'template'=>'{delete}',
+             'buttons' => array(
+                'delete' => array(                      
+                   'url'=>'$data->id',
+                   'visible'=>'true',
+                   'options'=>array('class'=>'viewbtns'),
+                   'click'=>"js: function(){  $('#unassign-form').find(\"input[type='hidden']\").val( $(this).attr('href')); $('#unassign-form').submit();  return false; }",
+                )
+        ),
+            
+        ),
+    )
+));
 
 ?>
-</table>
+
