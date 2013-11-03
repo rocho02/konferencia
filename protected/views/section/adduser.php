@@ -11,7 +11,21 @@
 	);
 ?>
 <h1>Felhasználó  hozzárendelése szekcióhoz </h1>
-<h2>Szekció: <?php echo $model->section->title; ?> </h2>
+
+<h4><?php echo Yii::t('app', 'Szekcio részletei') ?></h4>
+<?php
+
+    $this->widget('zii.widgets.CDetailView', array(
+    'data'=>$model->section,
+    'attributes'=>array(
+        'title',             // title attribute (in plain text)
+        'start_date',             // title attribute (in plain text)
+        'end_date',             // title attribute (in plain text)
+    ),
+));
+
+?>
+<br />
 <?php if(Yii::app()->user->hasFlash('success')):?>
 	<div class="successMessage">
 		<?php echo Yii::app()->user->getFlash('success'); ?>
@@ -46,3 +60,42 @@
 	</div>
 	<?php $this->endWidget(); ?>
 </div>
+<br/>
+<h4><?php echo Yii::t('app','Section administrators') ?></h4>
+    
+<?php
+$dpUsers = new CArrayDataProvider( $users, array('id' => 'dpUsers', 'keyField'=>'id')  );
+
+$form=$this->beginWidget('CActiveForm',array(
+    'id'=>'unassign-form',
+    'enableAjaxValidation'=>false,
+));
+    ?>
+    <input type='hidden' name="SectionUserUnassignForm[id_user]" >
+    <?php
+    
+ $this->endWidget();  
+
+$this->widget('zii.widgets.grid.CGridView', array(
+    'dataProvider'=>$dpUsers,
+    'columns'=>array(
+        'username',
+        'name',
+        'surname',
+        array(            // display a column with "view", "update" and "delete" buttons
+            'class'=>'CButtonColumn',
+            'template'=>'{delete}',
+             'buttons' => array(
+                'delete' => array(                      
+                   'url'=>'$data->id',
+                   'visible'=>'true',
+                   'options'=>array('class'=>'viewbtns'),
+                   'click'=>"js: function(){  $('#unassign-form').find(\"input[type='hidden']\").val( $(this).attr('href')); $('#unassign-form').submit();  return false; }",
+                )
+        ),
+            
+        ),
+    )
+));
+
+?>

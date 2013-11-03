@@ -283,9 +283,18 @@ class SectionController extends EMController {
                 }
             }
         }
+        
+         if (isset($_POST['SectionUserUnassignForm'])) {
+            $unassignForm = new SectionUserUnassignForm;
+            $unassignForm -> attributes = $_POST['SectionUserUnassignForm'];
+            $section->removeUser($unassignForm->id_user);
+            Yii::app() -> user -> setFlash('success',   "User has been unassigned from the section.");
+        }
+        
         $form -> event = $event;
         $form -> section = $section;
-        $this -> render('adduser', array('model' => $form));
+        $users = $section->usersSectionAdmin;
+        $this -> render('adduser', array('model' => $form,'users'=>$users));
         /*
          */
     }

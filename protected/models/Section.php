@@ -72,6 +72,7 @@ class Section extends TimestampBehaviorSupportActiveRecord
 		$relations['userAssignments'] = array(self::HAS_MANY , 'UserSectionAssignment', 'id_section');
 		$relations['users'] = array(self::HAS_MANY, 'User', 'id_user','through'=>'userAssignments');
         $relations['event'] = array(self::BELONGS_TO, 'Event', 'id_event');
+        $relations['usersSectionAdmin']  = array(self::HAS_MANY, 'User', 'id_user','through'=>'userAssignments' , 'joinType'=>'INNER JOIN' , 'on'=>"userAssignments.role='".Section::ROLE_SECTION_ADMIN."'" ) ;
 		return  $relations;
 	}
 

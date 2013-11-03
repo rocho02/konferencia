@@ -6,18 +6,19 @@ $user = Yii::app()->user;
 
 $event_admin = $model->event->isUserInEvent($user);
 $section_admin = $model->isUserInSection($user);
+$_admin = Yii::app()->user->checkAccess('admin');
 
-$admin = $event_admin || $section_admin;
+$admin = $event_admin || $section_admin || $_admin;
 
 $this->breadcrumbs=array(
 	Yii::t('app','Events')=>array('event/index' ),
 	Yii::t('app','Event')=>array('event/view','id'=>$model->id_event ),
-	Yii::t('app','Sections')=>array('section/index', 'event'=> $model->id_event ),
+	//Yii::t('app','Sections')=>array('section/index', 'event'=> $model->id_event ),
 	$model->title,
 );
 
 $this->menu=array(
-	array('label'=>Yii::t('app', 'List Section' ), 'url'=>array('index','event'=>$model->id_event)),
+	//array('label'=>Yii::t('app', 'List Section' ), 'url'=>array('index','event'=>$model->id_event)),
 	//array('label'=>'Create Section', 'url'=>array('create')),
 	array('label'=>Yii::t('app','Update Section'), 'url'=>array('update', 'id'=>$model->id_section),'visible'=>$admin),
 	//array('label'=>Yii::t('app','Delete Section'), 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id_section),'confirm'=>'Are you sure you want to delete this item?')),

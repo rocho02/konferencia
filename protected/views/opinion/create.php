@@ -6,7 +6,7 @@ if ( $scenario == 'create'){
 $this->breadcrumbs=array(
 	Yii::t('app','Events')=>array('event/index'),
 	Yii::t('app','Event')=>array('event/view','id'=>$section->id_event),
-	Yii::t('app','Sections')=>array('section/index','event'=>$section->id_event),
+	//Yii::t('app','Sections')=>array('section/index','event'=>$section->id_event),
 	Yii::t('app','Section')=>array('section/view','id'=>$section->id_section),
 	'Create',
 );
