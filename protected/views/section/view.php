@@ -24,7 +24,7 @@ $this->menu=array(
 	//array('label'=>Yii::t('app','Delete Section'), 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id_section),'confirm'=>'Are you sure you want to delete this item?')),
 	//array('label'=>'Manage Section', 'url'=>array('admin')),
 	array('label'=>Yii::t('app','Attach article'), 'url'=>array('addArticle', 'section'=>$model->id_section)),
-	array('label'=>Yii::t('app','Add User'), 'url'=>array('adduser', 'id'=>$model->id_section),'visible'=>$admin),
+	array('label'=>Yii::t('app','Add User To section'), 'url'=>array('adduser', 'id'=>$model->id_section),'visible'=>$admin),
 );
 ?>
 
