@@ -63,6 +63,7 @@ class Article extends TimestampBehaviorSupportActiveRecord
 		$array['sectionArticles'] = array(self::HAS_MANY , 'SectionArticle', 'id_article');
 		$array['userAssignments'] = array(self::HAS_MANY , 'UserArticleAssignment', 'id_article');
 		$array['users'] = array(self::HAS_MANY, 'User', 'id_user','through'=>'userAssignments');
+        $array['usersArticleJudge']  = array(self::HAS_MANY, 'User', 'id_user','through'=>'userAssignments' , 'joinType'=>'INNER JOIN' , 'on'=>"userAssignments.role='" . Permissions::ROLE_ARTICLE_JUDGE . "'" ) ;
 		//$array['sectionArticle'] = array(self::HAS_MANY , 'SectionArticle', 'id_article' , 'on'=>'sectionArticle.id_article='.$this->id_article) ;
 		return $array;
 	}
@@ -177,7 +178,7 @@ class Article extends TimestampBehaviorSupportActiveRecord
 		$command->delete(
 		'tbl_user_article_assignment',
 		'id_user=:id_user AND id_article=:id_article',
-		array(':id_user'=>$idUser,':id_article'=>$this->id_section));
+		array(':id_user'=>$idUser,':id_article'=>$this->id_article));
 	}
 	
 	

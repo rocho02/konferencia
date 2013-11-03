@@ -397,10 +397,11 @@ class SectionController extends EMController {
 
         $form = new SectionArticleJudgeAssignment;
 
+        $form -> article = Article::model() -> findByPk($_GET['article']);
+        
         if (isset($_POST['SectionArticleJudgeAssignment'])) {
 
             $form -> attributes = $_POST['SectionArticleJudgeAssignment'];
-            $form -> article = Article::model() -> findByPk($_GET['article']);
 
             $form -> section = $this -> _section;
             // validate user input
@@ -410,13 +411,25 @@ class SectionController extends EMController {
                     //reset the form for another user to be associated if desired
                     $form -> unsetAttributes();
                     $form -> clearErrors();
+                    $form -> article = Article::model() -> findByPk($_GET['article']);
                 }
             }
         }
 
+        if (isset($_POST['ArticleUserUnassignForm'])) {
+            $unassignForm = new ArticleUserUnassignForm;
+            $unassignForm -> attributes = $_POST['ArticleUserUnassignForm'];
+            $form -> article->removeUser($unassignForm->id_user);
+            Yii::app() -> user -> setFlash('success',   "User has been unassigned from the article.");
+        }
+
+    
+         $users = $form -> article->usersArticleJudge;
+    
         $this -> render('addjudge', array(
             'model' => $form,
-            'section' => $this -> _section
+            'section' => $this -> _section,
+            'users' =>$users
         ));
     }
 
