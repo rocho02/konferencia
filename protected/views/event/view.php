@@ -34,7 +34,10 @@ $this->menu=array(
 		'start_date',
 		'end_date',
 		'description',
-		'visibility',
+		array(
+		  'label'=> Yii::t('app','Visibility'),
+		  'value'=> $model->getHumanReadableVisibility(),
+        ),
 		'createUserName',
 	),
 )); ?>
