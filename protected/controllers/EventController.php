@@ -38,7 +38,7 @@ class EventController extends EMController {
                     'create',
                     'update',
                     'addUser',
-                    'opinions'
+                    'opinions',
                 ),
                 'users' => array('@'),
             ),
@@ -320,6 +320,10 @@ class EventController extends EMController {
         $users = $event->usersEventAdmin;
         $this -> render('adduser', array('model' => $form,'users'=>$users));
     }
+
+
+    
+
 
     function fixDateTime($date, $hour, $min) {
         $ts = strtotime($date);

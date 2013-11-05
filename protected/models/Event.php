@@ -21,6 +21,7 @@ class Event extends CActiveRecord {
 	const VISIBILITY_PUBLIC = 2;
 	
 	const ROLE_EVENT_ADMIN = "Event.Admin";
+    const ROLE_EVENT_REGISTERED = "Event.Registered";
 	
 	/**
 	 * Returns the static model of the specified AR class.
