@@ -7,6 +7,7 @@
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('file_name')); ?>:</b>
 	<?php echo  CHtml::encode($data->file_name);  ?>
+	<?php  echo CHtml::link( $data->file_name , array('article/articleDownload' ,'id_article' =>$data->id_article , 'id_article_version' =>$data->getCurrentVersion()->id_article_version ),array('target'=>'_blank')) ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('create_time')); ?>:</b>

@@ -38,7 +38,7 @@ class EventController extends EMController {
                     'create',
                     'update',
                     'addUser',
-                    'opinions'
+                    'opinions',
                 ),
                 'users' => array('@'),
             ),
@@ -250,8 +250,12 @@ class EventController extends EMController {
             if ( $user->checkAccess('admin')){
                 $joinSections = array();//do nothing
             }else{
-                $condition_allowed_sections = "select distinct s1.id_section from tbl_section s1 " . " left outer join tbl_user_section_assignment usa  on s1.id_section = usa.id_section and usa.role = '" . Section::ROLE_SECTION_ADMIN . "' and usa.id_user = $id_user " . " left outer join tbl_user_event_assignment uea  on s1.id_event = uea.id_event and uea.role = '" . Event::ROLE_EVENT_ADMIN . "' and usa.id_user = $id_user " . " where usa.id_section is not null or uea.id_event is not null or s1.visibility =  " . Section::VISIBILITY_PUBLIC;
-                $joinSections =  array('on' => "eventSections.id_section in  ( $condition_allowed_sections ) ");
+                if ( $user->isGuest ){
+                    $joinSections =  array('on' => "eventSections.visibility =  " . Section::VISIBILITY_PUBLIC  );
+                }else{
+                    $condition_allowed_sections = "select distinct s1.id_section from tbl_section s1 " . " left outer join tbl_user_section_assignment usa  on s1.id_section = usa.id_section and usa.role = '" . Section::ROLE_SECTION_ADMIN . "' and usa.id_user = $id_user " . " left outer join tbl_user_event_assignment uea  on s1.id_event = uea.id_event and uea.role = '" . Event::ROLE_EVENT_ADMIN . "' and usa.id_user = $id_user " . " where usa.id_section is not null or uea.id_event is not null or s1.visibility =  " . Section::VISIBILITY_PUBLIC;
+                    $joinSections =  array('on' => "eventSections.id_section in  ( $condition_allowed_sections ) ");
+                }
             }
                 
 
@@ -316,6 +320,10 @@ class EventController extends EMController {
         $users = $event->usersEventAdmin;
         $this -> render('adduser', array('model' => $form,'users'=>$users));
     }
+
+
+    
+
 
     function fixDateTime($date, $hour, $min) {
         $ts = strtotime($date);

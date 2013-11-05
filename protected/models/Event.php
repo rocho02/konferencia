@@ -21,6 +21,7 @@ class Event extends CActiveRecord {
 	const VISIBILITY_PUBLIC = 2;
 	
 	const ROLE_EVENT_ADMIN = "Event.Admin";
+    const ROLE_EVENT_REGISTERED = "Event.Registered";
 	
 	/**
 	 * Returns the static model of the specified AR class.
@@ -236,10 +237,15 @@ class Event extends CActiveRecord {
 	
 	public static function getVisibilityOptions(){
 		return array(
-			self::VISIBILITY_PRIVATE=>"private",
-			self::VISIBILITY_PUBLIC  =>"public",
+			self::VISIBILITY_PRIVATE=> Yii::t('app',"private"),
+			self::VISIBILITY_PUBLIC  =>Yii::t('app', "public"),
 		);
 	} 
+    
+    public  function getHumanReadableVisibility(){
+        $options =Event::getVisibilityOptions();
+        return $options[$this->visibility];
+    }
 
 	/**
 	* Returns an array of available roles in which a user can be placed	when being added to an event

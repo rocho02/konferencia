@@ -240,7 +240,7 @@ class SectionController extends EMController {
             }
         }
 
-        $this -> render('addArticle', array('model' => $form));
+        $this -> render('addarticle', array('model' => $form));
     }
 
     /**
