@@ -68,6 +68,7 @@ return array(
 'Recepients' => 'Címzett(ek)',
 'Reservation' => 'Szállás',
 'Registration' =>'Regisztráció',
+'Registered Users'=>'Regisztrált Felhasználók',
 'Role' => 'Jogkör',
 'Sent Message'=>'Elküldőtt üzenetek',
 'Section' => 'Szekció',

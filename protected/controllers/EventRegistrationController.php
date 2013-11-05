@@ -18,7 +18,7 @@ class EventRegistrationController extends Controller
 		return array(
 			'accessControl', // perform access control for CRUD operations
 			'postOnly + delete', // we only allow deletion via POST request
-			'eventContext + create'
+			'eventContext + create,index'
 		);
 	}
 
@@ -31,11 +31,11 @@ class EventRegistrationController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('view'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update', 'index' ),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -145,9 +145,17 @@ class EventRegistrationController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('EventRegistration');
+	    $assignments = UserEventAssignment::model()->with(
+	       array(
+            'user'=>array('joinType'=>'INNER JOIN', 'on'=>'t.role =\'' .Event::ROLE_EVENT_REGISTERED .'\' and t.id_event = ' . $this->_event->id_event)
+           )
+        )->findAll();
+        
+        $dataProvider = new CArrayDataProvider($assignments,array('id'=>'dpAssignments','keyField'=>'id_user'));
+		//$dataProvider=new CActiveDataProvider('EventRegistration');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
+			'event'=>$this->_event,
 		));
 	}
 
