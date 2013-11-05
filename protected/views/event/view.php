@@ -3,8 +3,8 @@
 /* @var $model Event */
 
 $user = Yii::app()->user;
-$event_admin = $model->isUserInEvent( $user ) || $user->checkAccess('admin');
-
+$event_admin = $model->allowCurrentUser(Event::ROLE_EVENT_ADMIN ) || $user->checkAccess('admin');
+$registered = $model->allowCurrentUser(Event::ROLE_EVENT_REGISTERED);
 
 $this->breadcrumbs=array(
 	'Events'=>array('index','event'=> $model->id_event),
@@ -13,6 +13,7 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	array('label'=>Yii::t("app",'List Event'), 'url'=>array('index'),'visible'=>Yii::app()->user->checkAccess('Event.Index') ),
+	array('label'=>Yii::t("app",'Registered Users'), 'url'=>array('eventRegistration/index','id'=>$model->id_event),'visible'=>$event_admin),
 	array('label'=>Yii::t("app",'Create Event'), 'url'=>array('create'),'visible'=>true),
 	array('label'=>Yii::t("app",'Update Event'), 'url'=>array('update', 'id'=>$model->id_event),'visible'=>$event_admin),
 	//array('label'=>Yii::t("app",'Delete Event'), 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id_event),'confirm'=>'Are you sure you want to delete this item?'),'visible'=>true),
@@ -22,7 +23,8 @@ $this->menu=array(
 	//array('label'=>'Add User To event', 'url'=>array('event/adduser','id'=>$model->id_event),'visible'=>$event_admin),
 	array('label'=>Yii::t("app",'Add User To event'), 'url'=>array('event/adduser','id'=>$model->id_event),'visible'=>$event_admin),
 	array('label'=>'Article Opinions', 'url'=>array('event/opinions','id'=>$model->id_event),'visible'=>$event_admin),
-	array('label'=>Yii::t('app','Registration'), 'url'=>array('eventRegistration/create','event'=>$model->id_event),'visible'=> !$user->isGuest),
+	array('label'=>Yii::t('app','Registration'), 'url'=>array('eventRegistration/create','event'=>$model->id_event),'visible'=> !$user->isGuest && !$registered ),
+	//array('label'=>Yii::t('app','Unregister'), 'url'=>array('eventRegistration/create','event'=>$model->id_event),'visible'=> $registered ),
 );
 ?>
 
