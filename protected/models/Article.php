@@ -74,12 +74,12 @@ class Article extends TimestampBehaviorSupportActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id_article' => 'Id Article',
-			'file_name' => 'File Name',
-			'create_time' => 'Upload Time',
-			'create_user_id' => 'Create User',
-			'update_time' => 'Update Time',
-			'update_user_id' => 'Update User',
+			'id_article' => Yii::t("app",'Id Article'),
+			'file_name' => Yii::t("app",'File Name'),
+			'create_time' => Yii::t("app",'Upload Time'),
+			'create_user_id' => Yii::t("app",'Create User'),
+			'update_time' => Yii::t("app",'Update Time'),
+			'update_user_id' => Yii::t("app",'Update User'),
 		);
 	}
 

@@ -75,16 +75,16 @@ class ArticleVersion extends TimestampBehaviorSupportActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id_article_version' => 'Id Article Version',
-			'id_article' => 'Id Article',
-			'version' => 'Version',
-			'original_file_name' => 'Original File Name',
-			'path' => 'Path',
-			'flag' => 'Flag',
-			'create_time' => 'Create Time',
-			'create_user_id' => 'Create User',
-			'update_time' => 'Update Time',
-			'update_user_id' => 'Update User',
+			'id_article_version' => Yii::t("app",'Id Article Version'),
+			'id_article' => Yii::t("app",'Id Article'),
+			'version' => Yii::t("app",'Version'),
+			'original_file_name' => Yii::t("app",'Original File Name'),
+			'path' => Yii::t("app",'Path'),
+			'flag' => Yii::t("app",'Flag'),
+			'create_time' => Yii::t("app",'Create Time'),
+			'create_user_id' => Yii::t("app",'Create User'),
+			'update_time' => Yii::t("app",'Update Time'),
+			'update_user_id' => Yii::t("app",'Update User'),
 		);
 	}
 

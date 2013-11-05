@@ -68,13 +68,13 @@ class SectionArticle extends TimestampBehaviorSupportActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id_section_article' => 'Id Section Article',
-			'id_section' => 'Id Section',
-			'id_article' => 'Id Article',
-			'create_time' => 'Create Time',
-			'create_user_id' => 'Create User',
-			'update_time' => 'Update Time',
-			'update_user_id' => 'Update User',
+			'id_section_article' => Yii::t("app",'Id Section Article'),
+			'id_section' => Yii::t("app",'Id Section'),
+			'id_article' => Yii::t("app",'Id Article'),
+			'create_time' => Yii::t("app",'Create Time'),
+			'create_user_id' => Yii::t("app",'Create User'),
+			'update_time' => Yii::t("app",'Update Time'),
+			'update_user_id' => Yii::t("app",'Update User'),
 		);
 	}
 
