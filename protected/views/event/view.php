@@ -6,6 +6,8 @@ $user = Yii::app()->user;
 $event_admin = $model->allowCurrentUser(Event::ROLE_EVENT_ADMIN ) || $user->checkAccess('admin');
 $registered = $model->allowCurrentUser(Event::ROLE_EVENT_REGISTERED);
 
+$allow_guest_message = $model->allow_guest_message;
+
 $this->breadcrumbs=array(
 	'Events'=>array('index','event'=> $model->id_event),
 	$model->title,
@@ -25,6 +27,8 @@ $this->menu=array(
 	array('label'=>'Article Opinions', 'url'=>array('event/opinions','id'=>$model->id_event),'visible'=>$event_admin),
 	array('label'=>Yii::t('app','Registration'), 'url'=>array('eventRegistration/create','event'=>$model->id_event),'visible'=> !$user->isGuest && !$registered ),
 	//array('label'=>Yii::t('app','Unregister'), 'url'=>array('eventRegistration/create','event'=>$model->id_event),'visible'=> $registered ),
+	
+	array('label'=>Yii::t("app",'Message To Admins'), 'url'=>array('message/eventAdminMessage','event'=>$model->id_event),'visible'=>$allow_guest_message ),
 );
 ?>
 
@@ -40,6 +44,11 @@ $this->menu=array(
 		array(
 		  'label'=> Yii::t('app','Visibility'),
 		  'value'=> $model->getHumanReadableVisibility(),
+        ),
+        array(
+            'label' =>Yii::t('app','Allow guest message'),
+            'type' => 'raw',
+            'value' => "<input onclick='javascript: return false;' type='checkbox' " . ( $model->allow_guest_message == 1 ? "checked='checked'" : "" ) ." >" 
         ),
 		'createUserName',
 	),

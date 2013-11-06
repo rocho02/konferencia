@@ -48,7 +48,7 @@ class Event extends CActiveRecord {
 		return array( 
 			array('create_user_id, update_user_id, visibility', 'numerical', 'integerOnly' => true),
 		 	array('description', 'length', 'max' => 255),
-		 	array('create_time, update_time, start_hour, start_min, end_hour, end_min', 'safe'),
+		 	array('create_time, update_time, start_hour, start_min, end_hour, end_min, allow_guest_message ', 'safe'),
 		 	array('formattedStartDate,formattedEndDate,title,start_date, end_date,',  'required'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -93,6 +93,7 @@ class Event extends CActiveRecord {
 		'update_user_id' => Yii::t("app", 'Update User'), 
 		'createUserName' => Yii::t("app", 'Create User'),
 		'role' => Yii::t("app", 'Role'),
+		'allow_guest_message'=>Yii::t('app','Allow guest message'),
 		);
 	}
 

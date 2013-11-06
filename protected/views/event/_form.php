@@ -100,6 +100,12 @@ DIV#content .compactRadioGroup LABEL{
 		<?php echo $form->error($model,'description'); ?>
 	</div>
 	
+	<div class="row">
+        <?php echo $form->labelEx($model,'allow_guest_message'); ?>
+        <?php echo $form->checkbox($model,'allow_guest_message'); ?>
+        <?php echo $form->error($model,'allow_guest_message'); ?>
+    </div>
+	
 	<div class="row compactRadioGroup">
 		<?php echo $form->labelEx($model,'visibility'); ?>
 		<?php echo $form->radioButtonList($model,'visibility', Event::getVisibilityOptions(),array('separator'=> ' 	') ); ?>

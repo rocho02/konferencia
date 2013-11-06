@@ -46,6 +46,7 @@ class Message extends TimestampBehaviorSupportActiveRecord
 		return array(
 			array('id_sender, flag', 'numerical', 'integerOnly'=>true),
 			array('subject, body', 'length', 'max'=>255),
+			array('subject, body', 'required'),
 			array('create_time,recepient', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -108,9 +109,12 @@ class Message extends TimestampBehaviorSupportActiveRecord
 
 	public function getSenderUsername(){
   		$username = "";
-  		if ( isset( $this->senderUser  ) ){
-  		 $username = $this->senderUser->username;
- 	 }
+  		 if ( isset( $this->senderUser  ) ){
+  		    $username = $this->senderUser->username;
+     	 }
+         else{
+             $username = Yii::t('app', 'Guest');
+         }
   	return $username;
  	}
 	
@@ -128,4 +132,5 @@ class Message extends TimestampBehaviorSupportActiveRecord
 	public function setRecepient($v){
 		$this->recepient = $v;
 	}
+    
 	}
