@@ -109,6 +109,7 @@ class SectionController extends EMController {
         if (isset($_POST['Section'])) {
 
             $model -> attributes = $_POST['Section'];
+            
             $model -> start_time = $this -> fixDateTime($model -> start_time, $model -> start_hour, $model -> start_min);
             $model -> end_time = $this -> fixDateTime($model -> end_time, $model -> end_hour, $model -> end_min);
 
@@ -120,7 +121,7 @@ class SectionController extends EMController {
                 $form -> username = Yii::app() -> user -> name;
                 $form -> section = $model;
                 $form -> role = Section::ROLE_SECTION_ADMIN;
-                if ($form -> validate()) {
+                if ($form -> validate()) {  
                     $form -> assign();
                 }
 
@@ -384,10 +385,16 @@ class SectionController extends EMController {
     }
 
     function fixDateTime($date, $hour, $min) {
+        if ( !isset($date)  || strlen(trim($date) ) == 0)
+            return "";
+        
         $ts = strtotime($date);
 
-        $ts = $ts + ($hour * 60 * 60);
-        $ts = $ts + ($min * 60);
+        if ( isset($hour) && is_numeric($hour)   )
+            $ts = $ts + ($hour * 60 * 60);
+        
+        if ( isset($min) && is_numeric($min)   )
+            $ts = $ts + ($min * 60);
 
         $d2 = date("Y-m-d H:i", $ts);
         return $d2;

@@ -53,6 +53,7 @@ class Section extends TimestampBehaviorSupportActiveRecord
 			array('visibility, id_event, create_user_id, update_user_id', 'numerical', 'integerOnly'=>true),
 			array('title, description', 'length', 'max'=>255),
 			array('start_time, end_time, create_time, update_time', 'safe'),
+			array('formattedStartDate,formattedEndDate,title,start_hour,start_min,end_hour,end_min',  'required'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id_section, title, description, start_time, end_time, visibility, id_event, create_time, create_user_id, update_time, update_user_id', 'safe', 'on'=>'search'),
