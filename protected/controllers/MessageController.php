@@ -7,6 +7,7 @@ class MessageController extends Controller
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
 	public $layout='//layouts/column2';
+    private $_event;
 
 	/**
 	 * @return array action filters
@@ -16,6 +17,7 @@ class MessageController extends Controller
 		return array(
 			'accessControl', // perform access control for CRUD operations
 			'postOnly + delete', // we only allow deletion via POST request
+			'eventContext + eventAdminMessage', // we need an event to create a section or list sections
 		);
 	}
 
@@ -28,11 +30,11 @@ class MessageController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('index','view','eventAdminMessage'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','incoming','read'),
+				'actions'=>array('create','update','incoming','read',),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -183,7 +185,7 @@ class MessageController extends Controller
 			array( 
 			'userMessages.recepient'=>array('condition'=>'id_recepient=' .Yii::app()->user->id ,'joinType'=>'INNER JOIN', 'order'=>'status,userMessages.create_time desc'),
 			//'recepients' =>array('joinType'=>'INNER JOIN',),
-			'senderUser' =>array('joinType'=>'INNER JOIN',),
+			'senderUser' =>array('joinType'=>'LEFT JOIN',),
 			 ))->findAll( );
 		
 		
@@ -216,6 +218,48 @@ class MessageController extends Controller
 			'model'=>$model,
 		));
 	}
+    
+    public function actionEventAdminMessage(){
+        if ( $this->_event->allow_guest_message != '1')
+            throw new CHttpException(404,'The requested page does not exist.');
+        $model=new Message;
+
+        // Uncomment the following line if AJAX validation is needed
+        // $this->performAjaxValidation($model);
+
+        if(isset($_POST['Message']))
+        {
+            $model->attributes=$_POST['Message'];
+            $eventAdmins = $this->_event->usersEventAdmin;
+            $model->id_sender = Yii::app()->user->id;
+            $trans = null;
+            try{
+                $trans= Yii::app()->db->beginTransaction();
+                if($model->save()){
+                    foreach( $eventAdmins as $eventAdmin ){
+                        $recepient = new UserMessage;
+                        $recepient->id_message = $model->id_message;
+                        $recepient->id_recepient = $eventAdmin->id;
+                        $recepient->status = Message::STATUS_NEW;
+                        $recepient->save();
+                    }
+                    $trans->commit();
+                    $this->redirect(array('event/view','id'=>$this->_event->id_event));
+                }
+            }catch(Exception $e){
+                 if ( $trans != null)   
+                    $trans->rollback();
+                 
+                 throw $e;                
+            }
+        }
+
+        $this->render('event_admin_message',array(
+            'model'=>$model,
+            'event'=>$this->_event,
+        ));
+                
+    }
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
@@ -249,4 +293,22 @@ class MessageController extends Controller
  		return  CHtml::listData($users,'id', 'username');
 	}
 	
+    
+    public function filterEventContext($filterChain) {
+        //set the project identifier based on GET input request variables
+        if (isset($_GET['event']))
+            $this -> _event = $this -> loadEvent($_GET['event']);
+        else
+            throw new CHttpException(403, 'Must specify aan event before    performing this action.');
+        //complete the running of other filters and execute the requested action
+        $filterChain -> run();
+    }
+    
+    
+    public function loadEvent($id) {
+        $model = Event::model() -> findByPk($id);
+        if ($model === null)
+            throw new CHttpException(404, 'The requested page does not exist.');
+        return $model;
+    }
 }
