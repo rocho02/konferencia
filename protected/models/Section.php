@@ -52,7 +52,7 @@ class Section extends TimestampBehaviorSupportActiveRecord
 		return array(
 			array('visibility, id_event, create_user_id, update_user_id', 'numerical', 'integerOnly'=>true),
 			array('title, description', 'length', 'max'=>255),
-			array('start_time, end_time, create_time, update_time', 'safe'),
+			array('start_time, end_time, create_time, update_time, allow_guest_message', 'safe'),
 			array('formattedStartDate,formattedEndDate,title,start_hour,start_min,end_hour,end_min',  'required'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -91,6 +91,7 @@ class Section extends TimestampBehaviorSupportActiveRecord
 			'end_time' => Yii::t("app",'End Date'),
 			'end_min' => Yii::t("app", 'End Time'), 
 			'visibility' => Yii::t("app",'Visibility'),
+			'humanReadableVisibility' => Yii::t("app",'Visibility'),
 			'id_event' => Yii::t("app",'Id Event'),
 			'create_time' => Yii::t("app",'Create Time'),
 			'create_user_id' => Yii::t("app",'Create User'),
@@ -181,6 +182,11 @@ class Section extends TimestampBehaviorSupportActiveRecord
 			self::VISIBILITY_PUBLIC  =>Yii::t('app',"public"),
 		);
 	} 
+    
+    public function getHumanReadableVisibility(){
+        $options = Section::getVisibilityOptions();
+        return $options[$this->visibility];
+    }
 
 	public function assignUser($idUser, $role)
 	{
