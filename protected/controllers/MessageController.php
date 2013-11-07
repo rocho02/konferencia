@@ -8,6 +8,7 @@ class MessageController extends Controller
 	 */
 	public $layout='//layouts/column2';
     private $_event;
+    private $_section;
 
 	/**
 	 * @return array action filters
@@ -18,6 +19,7 @@ class MessageController extends Controller
 			'accessControl', // perform access control for CRUD operations
 			'postOnly + delete', // we only allow deletion via POST request
 			'eventContext + eventAdminMessage', // we need an event to create a section or list sections
+			'sectionContext + sectionAdminMessage'
 		);
 	}
 
@@ -30,7 +32,7 @@ class MessageController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','eventAdminMessage'),
+				'actions'=>array('index','view','eventAdminMessage','sectionAdminMessage'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -236,6 +238,15 @@ class MessageController extends Controller
             try{
                 $trans= Yii::app()->db->beginTransaction();
                 if($model->save()){
+                    
+                    $messageObect = new MessageObjectAssignment;
+                    $messageObect->type= MessageObjectAssignment::TYPE_EVENT;
+                    $messageObect->id_object = $this->_event->id_event;
+                    $messageObect->id_message = $model->id_message;
+
+                    $messageObect->save();
+                    
+                    
                     foreach( $eventAdmins as $eventAdmin ){
                         $recepient = new UserMessage;
                         $recepient->id_message = $model->id_message;
@@ -260,6 +271,61 @@ class MessageController extends Controller
         ));
                 
     }
+
+
+    public function actionSectionAdminMessage(){
+        if ( $this->_section->allow_guest_message != '1')
+            throw new CHttpException(404,'The requested page does not exist.');
+        
+        $model=new Message;
+
+        // Uncomment the following line if AJAX validation is needed
+        // $this->performAjaxValidation($model);
+
+        if(isset($_POST['Message']))
+        {
+            $model->attributes=$_POST['Message'];
+            $sectionAdmins = $this->_section->usersSectionAdmin;
+            $model->id_sender = Yii::app()->user->id;
+            $trans = null;
+            try{
+                $trans= Yii::app()->db->beginTransaction();
+                if($model->save()){
+                    
+                    $messageObect = new MessageObjectAssignment;
+                    $messageObect->type= MessageObjectAssignment::TYPE_SECTION;
+                    $messageObect->id_object = $this->_section->id_section;
+                    $messageObect->id_message = $model->id_message;
+
+                    $messageObect->save();
+                    
+                    foreach( $sectionAdmins as $sectionAdmin ){
+                        $recepient = new UserMessage;
+                        $recepient->id_message = $model->id_message;
+                        $recepient->id_recepient = $sectionAdmin->id;
+                        $recepient->status = Message::STATUS_NEW;
+                        $recepient->save();
+                    }
+                    
+                    $trans->commit();
+                    $this->redirect(array('section/view','id'=>$this->_section->id_section));
+                }
+            }catch(Exception $e){
+                 if ( $trans != null)   
+                    $trans->rollback();
+                 
+                 throw $e;                
+            }
+        }
+
+        $this->render('section_admin_message',array(
+            'model'=>$model,
+            'section'=>$this->_section,
+        ));
+                
+    }
+
+
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
@@ -292,7 +358,6 @@ class MessageController extends Controller
  		$users = User::model()->findAll();
  		return  CHtml::listData($users,'id', 'username');
 	}
-	
     
     public function filterEventContext($filterChain) {
         //set the project identifier based on GET input request variables
@@ -304,11 +369,28 @@ class MessageController extends Controller
         $filterChain -> run();
     }
     
-    
     public function loadEvent($id) {
         $model = Event::model() -> findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');
         return $model;
     }
+    
+    public function filterSectionContext($filterChain) {
+        //set the project identifier based on GET input request variables
+        if (isset($_GET['section']))
+            $this -> _section = $this -> loadSection($_GET['section']);
+        else
+            throw new CHttpException(403, 'Must specify a section before    performing this action.');
+        //complete the running of other filters and execute the requested action
+        $filterChain -> run();
+    }
+    
+    public function loadSection($id) {
+        $model = Section::model() -> findByPk($id);
+        if ($model === null)
+            throw new CHttpException(404, 'The requested page does not exist.');
+        return $model;
+    }
+    
 }
