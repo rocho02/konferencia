@@ -238,6 +238,15 @@ class MessageController extends Controller
             try{
                 $trans= Yii::app()->db->beginTransaction();
                 if($model->save()){
+                    
+                    $messageObect = new MessageObjectAssignment;
+                    $messageObect->type= MessageObjectAssignment::TYPE_EVENT;
+                    $messageObect->id_object = $this->_event->id_event;
+                    $messageObect->id_message = $model->id_message;
+
+                    $messageObect->save();
+                    
+                    
                     foreach( $eventAdmins as $eventAdmin ){
                         $recepient = new UserMessage;
                         $recepient->id_message = $model->id_message;
@@ -282,6 +291,14 @@ class MessageController extends Controller
             try{
                 $trans= Yii::app()->db->beginTransaction();
                 if($model->save()){
+                    
+                    $messageObect = new MessageObjectAssignment;
+                    $messageObect->type= MessageObjectAssignment::TYPE_SECTION;
+                    $messageObect->id_object = $this->_section->id_section;
+                    $messageObect->id_message = $model->id_message;
+
+                    $messageObect->save();
+                    
                     foreach( $sectionAdmins as $sectionAdmin ){
                         $recepient = new UserMessage;
                         $recepient->id_message = $model->id_message;
@@ -289,6 +306,7 @@ class MessageController extends Controller
                         $recepient->status = Message::STATUS_NEW;
                         $recepient->save();
                     }
+                    
                     $trans->commit();
                     $this->redirect(array('section/view','id'=>$this->_section->id_section));
                 }

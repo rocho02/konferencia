@@ -32,5 +32,24 @@ $this->menu=array(
 <?php echo   CHtml::encode(   $model->subject) ; ?>
 </span>
 <br />
+<?php
+    $sections = $model->attachedSections;
+    if (sizeof($sections) > 0){
+        echo "<br />";
+        foreach($sections as $object){
+           echo CHtml::link('Hivatkozott Szekció' , array('section/view','id'=>$object->id_object) );
+        }
+    } 
+  ?>
+<?php
+    $events = $model->attachedEvents;
+    if (sizeof($events) > 0){
+        echo "<br />";
+        foreach($events as $object){
+           echo CHtml::link('Hivatkozott Konverencia' , array('event/view','id'=>$object->id_object) );
+        }
+    } 
+  ?>
 
+<br />
 <?php echo   CHtml::activeTextarea( $model ,'body' ,array('cols'=>65,'rows'=>10, 'readonly'=>'readonly', 'style'=>'margin-top: 20px;' )  ) ; ?>
