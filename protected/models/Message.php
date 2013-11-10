@@ -15,6 +15,8 @@ class Message extends TimestampBehaviorSupportActiveRecord
 {
 	const STATUS_NEW = 0;
 	const STATUS_READ = 1;
+    
+    const FLAG_INVITATION = 1;
 	
 	public $recepient;
 	

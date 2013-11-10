@@ -22,7 +22,7 @@ class Event extends CActiveRecord {
 	
 	const ROLE_EVENT_ADMIN = "Event.Admin";
     const ROLE_EVENT_REGISTERED = "Event.Registered";
-	
+	const ROLE_EVENT_INVITED = "Event.Invited";
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
