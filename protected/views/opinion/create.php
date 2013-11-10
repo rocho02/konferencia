@@ -25,9 +25,9 @@ $this->menu=array(
 );
 ?>
 
-<h1>Create Opinion</h1>
+<h1>Vélemény írása</h1>
 <br />
-Article:
+Cikk:
 <?php  echo CHtml::link( $article->file_name , array('article/articleDownload' ,'id_article' =>$article->id_article , 'id_article_version' =>$article->getCurrentVersion()->id_article_version ),array('target'=>'_blank')) ?>
 <br />
 <br />

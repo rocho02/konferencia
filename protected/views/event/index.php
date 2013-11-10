@@ -3,7 +3,7 @@
 /* @var $dataProvider CActiveDataProvider */
 
 $this->breadcrumbs=array(
-	'Events',
+	Yii::t("app",'Events'),
 );
 
 $this->menu=array(

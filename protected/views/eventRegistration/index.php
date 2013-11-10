@@ -4,7 +4,7 @@
 
 $this->breadcrumbs=array(
     Yii::t('app','Event') => array('event/view','id'=>$event->id_event),
-	'Event Registrations',
+	 Yii::t('app','Event Registrations'),
 );
 
 $this->menu=array(

@@ -3,9 +3,9 @@
 /* @var $model Event */
 
 $this->breadcrumbs=array(
-	'Events'=>array('index'),
-	$model->id_event=>array('view','id'=>$model->id_event),
-	'Update',
+	 Yii::t('app','Events')=>array('index'),
+	$model->title=>array('view','id'=>$model->id_event),
+	 Yii::t('app','Update Event'),
 );
 
 $this->menu=array(

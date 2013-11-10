@@ -3,8 +3,8 @@
 /* @var $model Event */
 
 $this->breadcrumbs=array(
-	'Events'=>array('index'),
-	'Create',
+	Yii::t("app",'Events')=>array('index'),
+	Yii::t("app",'Create'),
 );
 
 $this->menu=array(

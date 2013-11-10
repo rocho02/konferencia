@@ -24,12 +24,12 @@ $this->menu=array(
 	//array('label'=>Yii::t("app",'Event Sections'), 'url'=>array('section/index','event'=>$model->id_event),'visible'=>$event_admin),
 	//array('label'=>'Add User To event', 'url'=>array('event/adduser','id'=>$model->id_event),'visible'=>$event_admin),
 	array('label'=>Yii::t("app",'Add User To event'), 'url'=>array('event/adduser','id'=>$model->id_event),'visible'=>$event_admin),
-	array('label'=>'Article Opinions', 'url'=>array('event/opinions','id'=>$model->id_event),'visible'=>$event_admin),
+	array('label'=>Yii::t("app",'Article Opinions'), 'url'=>array('event/opinions','id'=>$model->id_event),'visible'=>$event_admin),
 	array('label'=>Yii::t("app",'Invitation'), 'url'=>array('auth/user/invite', 'event'=>$model->id_event),'visible'=>$event_admin),
 	array('label'=>Yii::t('app','Registration'), 'url'=>array('eventRegistration/create','event'=>$model->id_event),'visible'=> !$user->isGuest && !$registered ),
 	//array('label'=>Yii::t('app','Unregister'), 'url'=>array('eventRegistration/create','event'=>$model->id_event),'visible'=> $registered ),
 	
-	array('label'=>Yii::t("app",'Message To Admins'), 'url'=>array('message/eventAdminMessage','event'=>$model->id_event),'visible'=>$allow_guest_message ),
+	array('label'=>Yii::t("app",'Message To Admin'), 'url'=>array('message/eventAdminMessage','event'=>$model->id_event),'visible'=>$allow_guest_message ),
 );
 ?>
 

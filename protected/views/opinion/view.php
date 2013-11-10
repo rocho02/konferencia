@@ -27,7 +27,7 @@ $this->menu=array(
 <br />
 <div>
 	<div>
-		<?php echo Yii::t('app','Rating:') ?>
+		<?php echo Yii::t('app','Rating') ?>
 	</div>
 	
 	<?php  $this->widget('CStarRating',array('model'=> $model->aspects[0], 'attribute' => 'rating', "readOnly"=>true )) ; ?>

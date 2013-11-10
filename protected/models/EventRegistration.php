@@ -45,9 +45,10 @@ class EventRegistration extends CActiveRecord
 		return array(
 			array('id_user, id_event, reservation, vegetarian', 'numerical', 'integerOnly'=>true),
 			array('institut', 'length', 'max'=>255),
+			array('institut',  'required'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id_registration, id_user, id_event, reservation, vegetarian, institut', 'safe', 'on'=>'search'),
+			array('id_registration, id_user, id_event, reservation, vegetarian', 'safe', 'on'=>'search'),
 		);
 	}
 

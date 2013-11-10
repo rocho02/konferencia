@@ -3,8 +3,8 @@
 /* @var $model Section */
 
 $this->breadcrumbs=array(
-	'Sections'=>array('index'),
-	'Create',
+	 Yii::t('app','Sections')=>array('index'),
+	 Yii::t('app','Create'),
 );
 
 $this->menu=array(

@@ -1,13 +1,14 @@
 <?php
 	$this->pageTitle=Yii::app()->name . ' - Add User To Project';
 	$this->breadcrumbs=array(
-		$model->event->title=>array('view','id'=>$model->event->id_event),'Add User',
+		$model->event->title=>array('view','id'=>$model->event->id_event),
+		 Yii::t('app','Add User To event'),
 	);
 	$this->menu=array(
 		array('label'=>Yii::t("app",'Back To Event'), 'url'=>array('view','id'=>$model->event->id_event)),
 	);
 ?>
-<h1>Felhasználó hozzárendelése konferenciához</h1>
+<h1>Konferenciaszervező hozzárendelése</h1>
 
 <h4><?php echo Yii::t('app', 'Konferencia részletei') ?></h4>
 <?php
