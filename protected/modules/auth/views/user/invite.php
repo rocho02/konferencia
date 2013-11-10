@@ -3,6 +3,13 @@
 
 <div class="form">
 <?php 
+$this->breadcrumbs=array(
+    Yii::t('app','Events')=>array('/event/index' ),
+    Yii::t('app','Event')=>array('/event/view','id'=> $event->id_event),
+    Yii::t('app','Invitation')
+);
+
+
 $form=$this->beginWidget('CActiveForm', array(
     'id'=>'event-form',
     'enableAjaxValidation'=>false,

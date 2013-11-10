@@ -62,8 +62,37 @@ class EventController extends EMController {
      * @param integer $id the ID of the model to be displayed
      */
     public function actionView($id) {
+        $event = $this -> loadModel($id, true);
 
-        $this -> render('view', array('model' => $this -> loadModel($id, true), ));
+        //public
+        $allow = $event -> visibility = Event::VISIBILITY_PUBLIC;
+
+        // user is admin
+        if (!$allow)
+            $allow = Yii::app() -> user -> checkAccess('admin');
+
+        //or user is event admin of this event
+        if (!$allow)
+            $allow = $event -> allowCurrentUser(Event::ROLE_EVENT_ADMIN);
+
+        //or user is registered
+        if (!$allow)
+            $allow = $event -> allowCurrentUser(Event::ROLE_EVENT_REGISTERED);
+
+        //or user is invited
+        if (!$allow)
+            $allow = $event -> allowCurrentUser(Event::ROLE_EVENT_INVITED);
+        
+        //or event has public section or user is admin of any section in event
+        if (!$allow){
+            $allow = sizeof( $event->eventSections ) > 0;
+        }
+
+        //if user not allowd, throw exception
+        if ( !$allow )
+             throw new CHttpException(404, 'The requested page does not exist.');
+        
+        $this -> render('view', array('model' => $event, ));
     }
 
     /**
@@ -99,9 +128,9 @@ class EventController extends EMController {
                 ));
             }
         }
-        
+
         if (isset($_POST['UnAssignForm'])) {
-            
+
         }
 
         $this -> render('create', array('model' => $model, ));
@@ -163,7 +192,7 @@ class EventController extends EMController {
 
         if ($user -> checkAccess('admin')) {
             $events = Event::model() -> findAll();
-        } else  {
+        } else {
 
             $criteria = new CDbCriteria;
 
@@ -240,24 +269,24 @@ class EventController extends EMController {
      */
     public function loadModel($id, $sections = false) {
         $model;
-        $user = Yii::app()->user;
-        
+        $user = Yii::app() -> user;
+
         if ($sections == true) {
-                
+
             $id_user = Yii::app() -> user -> id;
-        
+
             $joinSections = array();
-            if ( $user->checkAccess('admin')){
-                $joinSections = array();//do nothing
-            }else{
-                if ( $user->isGuest ){
-                    $joinSections =  array('on' => "eventSections.visibility =  " . Section::VISIBILITY_PUBLIC  );
-                }else{
+            if ($user -> checkAccess('admin')) {
+                $joinSections = array();
+                //do nothing
+            } else {
+                if ($user -> isGuest) {
+                    $joinSections = array('on' => "eventSections.visibility =  " . Section::VISIBILITY_PUBLIC);
+                } else {
                     $condition_allowed_sections = "select distinct s1.id_section from tbl_section s1 " . " left outer join tbl_user_section_assignment usa  on s1.id_section = usa.id_section and usa.role = '" . Section::ROLE_SECTION_ADMIN . "' and usa.id_user = $id_user " . " left outer join tbl_user_event_assignment uea  on s1.id_event = uea.id_event and uea.role = '" . Event::ROLE_EVENT_ADMIN . "' and usa.id_user = $id_user " . " where usa.id_section is not null or uea.id_event is not null or s1.visibility =  " . Section::VISIBILITY_PUBLIC;
-                    $joinSections =  array('on' => "eventSections.id_section in  ( $condition_allowed_sections ) ");
+                    $joinSections = array('on' => "eventSections.id_section in  ( $condition_allowed_sections ) ");
                 }
             }
-                
 
             $model = Event::model() -> with(array(
                 'createUser' => array('joinType' => 'INNER JOIN'),
@@ -290,8 +319,8 @@ class EventController extends EMController {
      */
     public function actionAdduser($id) {
         $event = $this -> loadModel($id);
-        $user = Yii::app()->user;
-        if ( !$user->checkAccess("admin") && !$user -> checkAccess(Event::ROLE_EVENT_ADMIN, array('event' => $event)) ) {
+        $user = Yii::app() -> user;
+        if (!$user -> checkAccess("admin") && !$user -> checkAccess(Event::ROLE_EVENT_ADMIN, array('event' => $event))) {
             throw new CHttpException(403, 'You are not authorized to performthis action.');
         }
         $form = new EventUserForm;
@@ -312,18 +341,17 @@ class EventController extends EMController {
         if (isset($_POST['EventUnAssignForm'])) {
             $unassignForm = new EventUserUnAssignForm;
             $unassignForm -> attributes = $_POST['EventUnAssignForm'];
-            $event->removeUser($unassignForm->id_user);
-            Yii::app() -> user -> setFlash('success',   "User has been unassigned from the event.");
+            $event -> removeUser($unassignForm -> id_user);
+            Yii::app() -> user -> setFlash('success', "User has been unassigned from the event.");
         }
-        
+
         $form -> event = $event;
-        $users = $event->usersEventAdmin;
-        $this -> render('adduser', array('model' => $form,'users'=>$users));
+        $users = $event -> usersEventAdmin;
+        $this -> render('adduser', array(
+            'model' => $form,
+            'users' => $users
+        ));
     }
-
-
-    
-
 
     function fixDateTime($date, $hour, $min) {
         $ts = strtotime($date);

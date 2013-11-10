@@ -270,7 +270,8 @@ class UserController extends Controller {
         $this -> render('invite', array(
             'dpUsers' => $dpUsers,
             'dpInvited' => $dpInvited,
-            'model' => $inviteForm
+            'model' => $inviteForm,
+             'event' => $this->_event,
         ));
     }
 
