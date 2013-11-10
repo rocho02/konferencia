@@ -25,6 +25,7 @@ $this->menu=array(
 	//array('label'=>'Add User To event', 'url'=>array('event/adduser','id'=>$model->id_event),'visible'=>$event_admin),
 	array('label'=>Yii::t("app",'Add User To event'), 'url'=>array('event/adduser','id'=>$model->id_event),'visible'=>$event_admin),
 	array('label'=>'Article Opinions', 'url'=>array('event/opinions','id'=>$model->id_event),'visible'=>$event_admin),
+	array('label'=>Yii::t("app",'Invitation'), 'url'=>array('auth/user/invite', 'event'=>$model->id_event),'visible'=>$event_admin),
 	array('label'=>Yii::t('app','Registration'), 'url'=>array('eventRegistration/create','event'=>$model->id_event),'visible'=> !$user->isGuest && !$registered ),
 	//array('label'=>Yii::t('app','Unregister'), 'url'=>array('eventRegistration/create','event'=>$model->id_event),'visible'=> $registered ),
 	

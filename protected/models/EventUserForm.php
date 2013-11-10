@@ -17,7 +17,7 @@ class EventUserForm extends CFormModel {
 	 * @var object an instance of the Event AR model class
 	 */
 	public $event;
-	private $_user;
+	public $_user;
 	/**
 	 * Declares the validation rules.
 	 * The rules state that username and password are required,
