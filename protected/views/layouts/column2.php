@@ -8,6 +8,21 @@
 <div class="span-5 last">
 	<div id="sidebar">
 	<?php
+       $this->widget('zii.widgets.jui.CJuiDatePicker',array(
+            'name'=>'publishDate',
+            'flat'=>true,
+            // additional javascript options for the date picker plugin
+            'options'=>array(
+                'showAnim'=>'fold',
+            ),
+            'htmlOptions'=>array(
+                'style'=>' font-size: 8px; margin-bottom: 10px;'
+            ),
+        ));
+        ?>
+        <?php
+    ?>
+	<?php
 		$this->beginWidget('zii.widgets.CPortlet', array(
 			'title'=> Yii::t('app','Operations'),
 		));
@@ -17,23 +32,6 @@
 		));
 		$this->endWidget();
 	?>
-	<?php
-        $this->beginWidget('zii.widgets.CPortlet', array(
-            'title'=> Yii::t('app','Calendar'),
-        ));
-       $this->widget('zii.widgets.jui.CJuiDatePicker',array(
-            'name'=>'publishDate',
-            'flat'=>true,
-            // additional javascript options for the date picker plugin
-            'options'=>array(
-                'showAnim'=>'fold',
-            ),
-            'htmlOptions'=>array(
-                'style'=>'height:20px; font-size: 8px;'
-            ),
-        ));
-        $this->endWidget();
-    ?>
 	</div><!-- sidebar -->
 </div>
 <?php $this->endContent(); ?>
