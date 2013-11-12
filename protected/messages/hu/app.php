@@ -8,7 +8,7 @@ return array(
 'Allow guest message'=>'Vendég küldhet üzenetet',
 'Already Invited' => 'Már kaptak meghívót',
 'Article' => 'Cikk',
-'Article Opinions' => 'Cikk véleményezése',
+'Article Opinions' => 'Cikk vélemények',
 'Articles' => 'Cikkek',
 'Attach article' => 'Cikk csatolása szekcióhoz',
 'Back To Event' => 'Vissza a konferenciához',
