@@ -17,7 +17,7 @@
 
 	<?php echo $form->errorSummary($model); ?>
 	
-		<div class="row">
+	<div class="row">
 		<?php echo $form->labelEx($model,'email'); ?>
 		<?php echo $form->textField($model,'email',array('size'=>60,'maxlength'=>255)); ?>
 		<?php echo $form->error($model,'email'); ?>

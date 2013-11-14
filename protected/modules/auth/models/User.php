@@ -46,7 +46,7 @@ class User extends AuthBaseActiveRecord
 		// will receive user inputs.
 		return array(
 			array('username, email, password, password_repeat, surname, address, name, birthday', 'required','on'=>'register'),
-			array('username, email, password, password_repeat',  'required'),
+			array('username, email, password, password_repeat,surname, address, name, birthday',  'required'),
 			array('create_user_id, update_user_id', 'numerical', 'integerOnly'=>true),
 			array('username, email, password', 'length', 'max'=>255),
 			array('last_login_time, create_time, update_time, title', 'safe'),

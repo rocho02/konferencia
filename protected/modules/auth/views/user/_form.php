@@ -18,12 +18,6 @@
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'username'); ?>
-		<?php echo $form->textField($model,'username',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'username'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->labelEx($model,'email'); ?>
 		<?php echo $form->textField($model,'email',array('size'=>60,'maxlength'=>255)); ?>
 		<?php echo $form->error($model,'email'); ?>
@@ -39,6 +33,42 @@
 		<?php echo $form->labelEx($model,'password_repeat'); ?>
 		<?php echo $form->passwordField($model,'password_repeat',array('size'=>60,'maxlength'=>255)); ?>
 		<?php echo $form->error($model,'password_repeat'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'username'); ?>
+		<?php echo $form->textField($model,'username',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->error($model,'username'); ?>
+	</div>
+	
+	<div class="row">
+		<?php echo $form->labelEx($model,'title'); ?>
+		<?php echo $form->textField($model,'title',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->error($model,'title'); ?>
+	</div>
+	
+	<div class="row">
+		<?php echo $form->labelEx($model,'surname'); ?>
+		<?php echo $form->textField($model,'surname',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->error($model,'surname'); ?>
+	</div>
+	
+	<div class="row">
+		<?php echo $form->labelEx($model,'name'); ?>
+		<?php echo $form->textField($model,'name',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->error($model,'name'); ?>
+	</div>
+	
+	<div class="row">
+		<?php echo $form->labelEx($model,'birthday'); ?>
+		<?php echo $form->textField($model,'birthday',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->error($model,'birthday'); ?>
+	</div>
+	
+	<div class="row">
+		<?php echo $form->labelEx($model,'address'); ?>
+		<?php echo $form->textField($model,'address',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->error($model,'address'); ?>
 	</div>
 
 	<div class="row buttons">
