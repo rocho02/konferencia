@@ -89,10 +89,14 @@ class SectionController extends EMController {
             'id' => 'articleDP'
         ));
 
+        $sectionAdmins = $section->usersSectionAdmin;
+        $dpAdmin = new CArrayDataProvider( $sectionAdmins, array('id' => 'dpUsers', 'keyField'=>'id')  );
+
         $this -> render('view', array(
             'model' => $section,
             'articles' => $articles,
-            'articleDataProvider' => $articleDataProvider
+            'articleDataProvider' => $articleDataProvider,
+            'dpAdmin' => $dpAdmin
         ));
     }
 

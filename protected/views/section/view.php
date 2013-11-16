@@ -48,6 +48,19 @@ $this->menu=array(
 		'humanReadableVisibility',
 	),
 )); ?>
+<br><br>
+<h2><?php echo Yii::t('app','Administrators') ?></h2>
+<?php
+$this->widget('zii.widgets.grid.CGridView', array(
+    'dataProvider'=>$dpAdmin,
+    'columns'=>array(
+        'username',
+        'name',
+        'surname',
+    )
+));
+
+?>
 <br>
 <br>
 <h3>Csatolt fájlok</h3>
