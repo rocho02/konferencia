@@ -92,7 +92,11 @@ class EventController extends EMController {
         if ( !$allow )
              throw new CHttpException(404, 'The requested page does not exist.');
         
-        $this -> render('view', array('model' => $event, ));
+        $eventAdmins = $event -> usersEventAdmin;
+        $dpAdmin = new CArrayDataProvider( $eventAdmins, array('id' => 'dpUsers', 'keyField'=>'id')  );
+    
+        
+        $this -> render('view', array('model' => $event,  'dpAdmin' => $dpAdmin));
     }
 
     /**

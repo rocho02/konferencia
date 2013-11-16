@@ -6,8 +6,10 @@ $this->breadcrumbs=array(
 	Yii::t("app",'Events'),
 );
 
+$authenticated = !Yii::app()->user->isGuest;
+
 $this->menu=array(
-	array('label'=> Yii::t("app",'Create Event'), 'url'=>array('create') ),
+	array('label'=> Yii::t("app",'Create Event'), 'url'=>array('create') ,'visible' => $authenticated ),
 );
 ?>
 

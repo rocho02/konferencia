@@ -54,6 +54,8 @@ class EventRegistrationController extends Controller
 	 */
 	public function actionView($id)
 	{
+	      $users = $event -> usersEventAdmin;
+        
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
 		));
