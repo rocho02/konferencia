@@ -22,7 +22,8 @@ $this->menu=array(
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'id_article',
+    	'title',
+    	'writer',
 		'file_name',
 		'create_time',
 		'createUserName',

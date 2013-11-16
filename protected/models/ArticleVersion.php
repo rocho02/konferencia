@@ -52,6 +52,7 @@ class ArticleVersion extends TimestampBehaviorSupportActiveRecord
 			array('id_article, version, flag, create_user_id, update_user_id', 'numerical', 'integerOnly'=>true),
 			array('original_file_name, path', 'length', 'max'=>255),
 			array('create_time, update_time', 'safe'),
+			array('document', 'file', 'on'=>'create'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id_article_version, id_article, version, original_file_name, path, flag, create_time, create_user_id, update_time, update_user_id', 'safe', 'on'=>'search'),
@@ -79,6 +80,7 @@ class ArticleVersion extends TimestampBehaviorSupportActiveRecord
 			'id_article' => Yii::t("app",'Id Article'),
 			'version' => Yii::t("app",'Version'),
 			'original_file_name' => Yii::t("app",'Original File Name'),
+			'document' => Yii::t("app",'Document'),
 			'path' => Yii::t("app",'Path'),
 			'flag' => Yii::t("app",'Flag'),
 			'create_time' => Yii::t("app",'Create Time'),

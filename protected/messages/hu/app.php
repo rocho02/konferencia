@@ -33,6 +33,7 @@ return array(
 'Delete Topic' => 'Téma törlése',
 'Delete User' => 'Felhasználó törlése',
 'Description'   => 'Leírás',
+'Document' => 'Cikk',
 'Download' => 'Letöltés',
 'Email' => 'E-mail cím',
 'End Date'   => 'Befejezési Dátum',
@@ -123,6 +124,7 @@ return array(
 'View User' => 'Profillap',
 'Visibility' => 'Láthatóság',
 'Write Opinion' => 'Vélemény írása',
+'Writer' => 'Szerző',
 )
 
 ?>

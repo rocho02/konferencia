@@ -68,26 +68,27 @@ class ArticleVersionController extends Controller
 		if ( $article == null )		
 			$article = new Article; 
 		
-		$articleVersion=new ArticleVersion;
+		$articleVersion=new ArticleVersion('create');
 		
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['ArticleVersion']))
+		if(isset($_POST['ArticleVersion']) && isset($_POST['Article']))
 		{
 			$articleVersion->attributes=$_POST['ArticleVersion'];
+            $article->attributes = $_POST['Article'];
+            
+            
 			$articleVersion->flag = ArticleVersion::FLAG_NEW;
-			if ( isset( $articleVersion->id_article )  && is_numeric( $articleVersion->id_article )){
-				$article = $this->loadArticle($articleVersion->id_article);
-				if ( $article == null )
-					$article = new Article;
-			} 
+			
 			
 			$articleVersion->document=CUploadedFile::getInstance($articleVersion,'document');
-			$articleVersion->original_file_name = $articleVersion->document->name;
 			
-			
-			if (   $articleVersion->validate() ){
+			$aritcleValid = $article->validate();
+            $versionValid = $articleVersion->validate();
+            
+			if ( $aritcleValid &&   $versionValid ){
+    			$articleVersion->original_file_name = $articleVersion->document->name;
 				$trans = Yii::app()->db->beginTransaction();
 				try{
 					$saveSuccess = true;
@@ -95,7 +96,9 @@ class ArticleVersionController extends Controller
 					if ( $article->isNewRecord ){
 						$article->file_name = $articleVersion->original_file_name;
 						$articleVersion->version = 1;
-						$saveSuccess = $article->save();
+						$saveSuccess = $article->save(false);
+					}else{
+					    $article->save(false);
 					}
 					
 					//save article version object, but before set the reference for article
@@ -121,10 +124,10 @@ class ArticleVersionController extends Controller
 					 $trans->rollback();
 				}
 				
+    			//if($articleVersion->save())
+    			$this->redirect(array('article/view','id'=>$articleVersion->id_article ) );
 			}
 			
-			//if($articleVersion->save())
-			$this->redirect(array('article/view','id'=>$articleVersion->id_article ) );
 		}
 
 		$this->render('create',array(

@@ -43,6 +43,7 @@ class Article extends TimestampBehaviorSupportActiveRecord
 		return array(
 			array('create_user_id, update_user_id', 'numerical', 'integerOnly'=>true),
 			array('file_name', 'length', 'max'=>255),
+			array('writer,title', 'required'),
 			array('create_time, update_time', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -78,8 +79,11 @@ class Article extends TimestampBehaviorSupportActiveRecord
 			'file_name' => Yii::t("app",'File Name'),
 			'create_time' => Yii::t("app",'Upload Time'),
 			'create_user_id' => Yii::t("app",'Create User'),
+			'createUserName' => Yii::t("app",'Create User'),
 			'update_time' => Yii::t("app",'Update Time'),
 			'update_user_id' => Yii::t("app",'Update User'),
+			'title' => Yii::t("app",'Title'),
+			'writer' => Yii::t("app",'Writer'),
 		);
 	}
 

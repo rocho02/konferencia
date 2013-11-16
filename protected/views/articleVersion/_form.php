@@ -1,6 +1,7 @@
 <?php
 /* @var $this ArticleVersionController */
-/* @var $model ArticleVersion */
+/* @var $articleVersion ArticleVersion */
+/* @var $article Article */
 /* @var $form CActiveForm */
 ?>
 
@@ -14,14 +15,26 @@
 
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
-	<?php echo $form->errorSummary($articleVersion); ?>
+	<?php echo $form->errorSummary(array($article ,$articleVersion)); ?>
 
 	<?php echo $form->hiddenField($articleVersion,'id_article'); ?>
 	
 	<div class="row">
-		<?php echo $form->labelEx($articleVersion,'original_file_name'); ?>
+        <?php echo $form->labelEx($article,'writer'); ?>
+        <?php echo $form->textField($article,'writer',   array('style' =>"width : 300px")   ); ?>
+        <?php echo $form->error($article,'writer'); ?>
+    </div>
+    
+    <div class="row">
+        <?php echo $form->labelEx($article,'title'); ?>
+        <?php echo $form->textField($article,'title', array('style' =>"width : 300px")  ); ?>
+        <?php echo $form->error($article,'title'); ?>
+    </div>
+	
+	<div class="row">
+		<?php echo $form->labelEx($articleVersion,'document'); ?>
 		<?php echo $form->fileField($articleVersion,'document'); ?>
-		<?php echo $form->error($articleVersion,'original_file_name'); ?>
+		<?php echo $form->error($articleVersion,'document'); ?>
 	</div>
 
 

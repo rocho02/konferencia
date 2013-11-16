@@ -191,9 +191,14 @@ class ArticleController extends Controller
 		$id_article_version = $_GET['id_article_version'];
 		
 		$article = Article::model()->findByPk($id_article);
-		$articleVersion = ArticleVersion::model()->findByPk(array('id_article'=>$id_article, 'id_article_version'=>$id_article_version));
+        
+        $criteria = new CDbCriteria;
+        $criteria->condition = "id_article_version = $id_article_version and id_article = $id_article";
+        
+		$articleVersion = ArticleVersion::model()->find($criteria );
 		
-		$yourfile = Yii::app()->basePath . DIRECTORY_SEPARATOR . $articleVersion->path;
+		$yourfile = Yii::app()->basePath. DIRECTORY_SEPARATOR .'article'. DIRECTORY_SEPARATOR . $article->id_article . DIRECTORY_SEPARATOR .$articleVersion->version;
+       
 		$fp = @fopen($yourfile, 'rb');
 
 	    if (strstr($_SERVER['HTTP_USER_AGENT'], "MSIE"))
