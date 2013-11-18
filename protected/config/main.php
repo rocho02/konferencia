@@ -116,6 +116,22 @@ return array(
 			'assignmentTable' =>'tbl_auth_assignment',
 			'rightsTable' =>'tbl_rights',
 		),
+		 'ePdf' => array(
+		       'class'         => 'ext.yii-pdf.EYiiPdf',
+            'params'        => array(
+                'mpdf'     => array(
+                    'librarySourcePath' => 'application.vendors.mpdf.*',
+                    'constants'         => array(
+                        '_MPDF_TEMP_PATH' => Yii::getPathOfAlias('application.runtime'),
+                    ),
+                    'class'=>'mpdf', // the literal class filename to be loaded from the vendors folder.
+                ),
+                'HTML2PDF' => array(
+                    'librarySourcePath' => 'application.vendors.html2pdf.*',
+                    'classFile'         => 'html2pdf.class.php', // For adding to Yii::$classMap
+                )
+             ),
+		 ),
 	),
 
 	// application-level parameters that can be accessed

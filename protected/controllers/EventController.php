@@ -39,6 +39,7 @@ class EventController extends EMController {
                     'update',
                     'addUser',
                     'opinions',
+                    'pdfView',
                 ),
                 'users' => array('@'),
             ),
@@ -98,6 +99,73 @@ class EventController extends EMController {
         
         $this -> render('view', array('model' => $event,  'dpAdmin' => $dpAdmin));
     }
+
+    /**
+     * Displays a particular model.
+     * @param integer $id the ID of the model to be displayed
+     */
+    public function actionPdfView($id) {
+        $event = $this -> loadModel($id, true);
+
+        //public
+        $allow = $event -> visibility = Event::VISIBILITY_PUBLIC;
+
+        // user is admin
+        if (!$allow)
+            $allow = Yii::app() -> user -> checkAccess('admin');
+
+        //or user is event admin of this event
+        if (!$allow)
+            $allow = $event -> allowCurrentUser(Event::ROLE_EVENT_ADMIN);
+
+        //or user is registered
+        if (!$allow)
+            $allow = $event -> allowCurrentUser(Event::ROLE_EVENT_REGISTERED);
+
+        //or user is invited
+        if (!$allow)
+            $allow = $event -> allowCurrentUser(Event::ROLE_EVENT_INVITED);
+        
+        //or event has public section or user is admin of any section in event
+        if (!$allow){
+            $allow = sizeof( $event->eventSections ) > 0;
+        }
+
+        //if user not allowd, throw exception
+        if ( !$allow )
+             throw new CHttpException(404, 'The requested page does not exist.');
+        
+        $eventAdmins = $event -> usersEventAdmin;
+        $dpAdmin = new CArrayDataProvider( $eventAdmins, array('id' => 'dpUsers', 'keyField'=>'id')  );
+    
+        
+        //$this -> render('view', array('model' => $event,  'dpAdmin' => $dpAdmin));
+        /*
+        $html2pdf = Yii::app()->ePdf->HTML2PDF();
+        $html2pdf->WriteHTML($this->renderPartial('view', array('model' => $event,  'dpAdmin' => $dpAdmin), true));
+        $html2pdf->Output();
+        */
+        
+        # mPDF
+        $mPDF1 = Yii::app()->ePdf->mpdf();
+
+        # You can easily override default constructor's params
+        $mPDF1 = Yii::app()->ePdf->mpdf('', 'A4');
+
+        $stylesheet = file_get_contents(Yii::getPathOfAlias('webroot.css') . '/main.css');
+        $mPDF1->WriteHTML($stylesheet, 1);
+
+        # renderPartial (only 'view' of current controller)
+        $mPDF1->WriteHTML($this->renderPartial('view', array('model' => $event,  'dpAdmin' => $dpAdmin), true));
+
+        # Renders image
+        // $mPDF1->WriteHTML(CHtml::image(Yii::getPathOfAlias('webroot.css') . '/bg.gif' ));
+
+        # Outputs ready PDF
+        $mPDF1->Output();
+    }
+    
+
 
     /**
      * Creates a new model.

@@ -23,6 +23,7 @@ $this->menu=array(
 	array('label'=>Yii::t("app",'Invitation'), 'url'=>array('auth/user/invite', 'event'=>$model->id_event),'visible'=>$event_admin),
 	array('label'=>Yii::t('app','Registration'), 'url'=>array('eventRegistration/create','event'=>$model->id_event),'visible'=> !$user->isGuest && !$registered ),
 	array('label'=>Yii::t("app",'Message To Admin'), 'url'=>array('message/eventAdminMessage','event'=>$model->id_event),'visible'=>$allow_guest_message ),
+	array('label'=>Yii::t("app",'Export PDF'), 'url'=>array('event/pdfview','id'=>$model->id_event ),'visible'=>true,"linkOptions"=> array("target" =>"_blank")),
 );
 ?>
 
