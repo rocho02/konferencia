@@ -27,7 +27,7 @@ $this->menu=array(
 	//array('label'=>'Manage Section', 'url'=>array('admin')),
 	array('label'=>Yii::t('app','Attach article'), 'url'=>array('addArticle', 'section'=>$model->id_section)),
 	array('label'=>Yii::t('app','Add User To section'), 'url'=>array('adduser', 'id'=>$model->id_section),'visible'=>$admin),
-	array('label'=>Yii::t('app','Message To Admin'), 'url'=>array('message/sectionAdminMessage', 'section'=>$model->id_section),'visible'=>$admin),
+	array('label'=>Yii::t('app','Message To Admin'), 'url'=>array('message/sectionAdminMessage', 'section'=>$model->id_section),'visible'=>$allow_guest_message),
 	array('label'=>Yii::t('app','Export PDF'), 'url'=>array('pdfview', 'id'=>$model->id_section),'visible'=>true,'linkOptions'=>array("target" =>"_blank")),
 );
 ?>
