@@ -8,7 +8,7 @@ $this->pageTitle=Yii::app()->name;
 
 <p></p>
 
-<p>Az aktuális kofnerenciákat a Konferencia menüpont alatt találja!</p>
+<p>Az aktuális konferenciákat a Konferencia menüpont alatt találja!</p>
 <!--
 <ul>
 	<li>View file: <code><?php echo __FILE__; ?></code></li>

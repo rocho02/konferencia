@@ -16,6 +16,6 @@ $this->menu=array(
 );
 ?>
 
-<h1><?php echo $model->title; ?> szekció frissítése</h1>
+<h1><?php echo $model->title; ?> szekció szerkesztése</h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
