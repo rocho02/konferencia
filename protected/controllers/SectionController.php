@@ -33,7 +33,8 @@ class SectionController extends EMController {
                 'allow', // allow all users to perform 'index' and 'view' actions
                 'actions' => array(
                     'index',
-                    'view'
+                    'view',
+                    'pdfview'
                 ),
                 'users' => array('*'),
             ),
@@ -99,6 +100,68 @@ class SectionController extends EMController {
             'dpAdmin' => $dpAdmin
         ));
     }
+
+
+    /**
+     * Displays a particular model.
+     * @param integer $id the ID of the model to be displayed
+     */
+    public function actionPdfview($id) {
+        
+        $section = Section::model()->with(
+            array(
+                'event'
+            )
+        ) -> findByPk($id);
+        if ($section === null)
+            throw new CHttpException(404, 'The requested page does not exist.');
+        
+        $articles = Article::model() -> with( 
+            array('sectionArticles' => array(
+                'on' => 'sectionArticles.id_section=' . $section -> id_section,
+                'joinType' => 'INNER JOIN'
+            ),
+            )) -> findAll();
+
+        $articleDataProvider = new CArrayDataProvider($articles, array(
+            'keyField' => 'id_article',
+            'id' => 'articleDP'
+        ));
+
+        $sectionAdmins = $section->usersSectionAdmin;
+        $dpAdmin = new CArrayDataProvider( $sectionAdmins, array('id' => 'dpUsers', 'keyField'=>'id')  );
+
+        // $this -> render('view', array(
+            // 'model' => $section,
+            // 'articles' => $articles,
+            // 'articleDataProvider' => $articleDataProvider,
+            // 'dpAdmin' => $dpAdmin
+        // ));
+        
+        # mPDF
+        $mPDF1 = Yii::app()->ePdf->mpdf();
+
+        # You can easily override default constructor's params
+        $mPDF1 = Yii::app()->ePdf->mpdf('', 'A4');
+
+        $stylesheet = file_get_contents(Yii::getPathOfAlias('webroot.css') . '/main.css');
+        $mPDF1->WriteHTML($stylesheet, 1);
+
+        # renderPartial (only 'view' of current controller)
+        $mPDF1->WriteHTML($this->renderPartial('view', array(
+            'model' => $section,
+            'articles' => $articles,
+            'articleDataProvider' => $articleDataProvider,
+            'dpAdmin' => $dpAdmin
+        ), true));
+
+        # Renders image
+        // $mPDF1->WriteHTML(CHtml::image(Yii::getPathOfAlias('webroot.css') . '/bg.gif' ));
+
+        # Outputs ready PDF
+        $mPDF1->Output();
+    }
+    
 
     /**
      * Creates a new model.
