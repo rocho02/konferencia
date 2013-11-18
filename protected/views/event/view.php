@@ -26,7 +26,11 @@ $this->menu=array(
 	array('label'=>Yii::t("app",'Export PDF'), 'url'=>array('event/pdfview','id'=>$model->id_event ),'visible'=>true,"linkOptions"=> array("target" =>"_blank")),
 );
 ?>
-
+<?php
+if ( isset($exportDate) ){
+    echo "<div style='text-align: right;' >".Yii::app()->name."</div>";
+}
+?>
 <h1><?php echo $model->title; ?> konferencia</h1>
 
 <?php 

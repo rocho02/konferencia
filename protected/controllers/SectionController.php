@@ -152,7 +152,8 @@ class SectionController extends EMController {
             'model' => $section,
             'articles' => $articles,
             'articleDataProvider' => $articleDataProvider,
-            'dpAdmin' => $dpAdmin
+            'dpAdmin' => $dpAdmin,
+            'exportDate'=>time()
         ), true));
 
         # Renders image

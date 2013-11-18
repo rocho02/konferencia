@@ -31,9 +31,18 @@ $this->menu=array(
 	array('label'=>Yii::t('app','Export PDF'), 'url'=>array('pdfview', 'id'=>$model->id_section),'visible'=>true,'linkOptions'=>array("target" =>"_blank")),
 );
 ?>
-
+<?php
+if ( isset($exportDate) ){
+    echo "<div style='text-align: right;' >".Yii::app()->name."</div>";
+}
+?>
 <h1>Szekció adatai</h1>
-
+<?php 
+    if ( isset($exportDate) ){
+        echo "Exportálás dátuma:" .  Yii::app()->dateFormatter->formatDateTime(time(), 'medium', 'medium');
+        echo "<br/><br/>";
+    }
+?>
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
