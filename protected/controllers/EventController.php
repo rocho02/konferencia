@@ -136,7 +136,7 @@ class EventController extends EMController {
              throw new CHttpException(404, 'The requested page does not exist.');
         
         $eventAdmins = $event -> usersEventAdmin;
-        $dpAdmin = new CArrayDataProvider( $eventAdmins, array('id' => 'dpUsers', 'keyField'=>'id')  );
+        $dpAdmin = new CArrayDataProvider( $eventAdmins, array('id' => 'dpUsers', 'keyField'=>'id', )  );
     
         
         //$this -> render('view', array('model' => $event,  'dpAdmin' => $dpAdmin));
@@ -156,7 +156,7 @@ class EventController extends EMController {
         $mPDF1->WriteHTML($stylesheet, 1);
 
         # renderPartial (only 'view' of current controller)
-        $mPDF1->WriteHTML($this->renderPartial('view', array('model' => $event,  'dpAdmin' => $dpAdmin), true));
+        $mPDF1->WriteHTML($this->renderPartial('view', array('model' => $event,  'dpAdmin' => $dpAdmin,'exportDate'=>time()), true));
 
         # Renders image
         // $mPDF1->WriteHTML(CHtml::image(Yii::getPathOfAlias('webroot.css') . '/bg.gif' ));

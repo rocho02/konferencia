@@ -29,6 +29,13 @@ $this->menu=array(
 
 <h1><?php echo $model->title; ?> konferencia</h1>
 
+<?php 
+    if ( isset($exportDate) ){
+        echo "Exportálás dátuma:" .  Yii::app()->dateFormatter->formatDateTime(time(), 'medium', 'medium');
+        echo "<br/><br/>";
+    }
+?>
+
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
