@@ -116,7 +116,7 @@ class OpinionController extends Controller
 	 */
 	public function actionJudgeCreate()
 	{
-		$model=new Opinion;
+		$model = new Opinion;
 		$aspect = new OpinionAspect;
 		$model->id_article = $this->_article->id_article;
 		$model->id_article_version = $this->_article->getCurrentVersion()->id_article_version;
@@ -149,7 +149,10 @@ class OpinionController extends Controller
                 $message = new Message;
                 $message->id_sender = Yii::app()->user->id;
                 $message->subject = "Vélemény: " .$this->_article->title . " ";
-                $message->body  = "A Ön által felöltött cikk elbírálásra került";
+                $message->body  = "A Ön által felöltött cikk elbírálásra került. Az elbírálás eredménye: " . ( $model->status == Opinion::STATUS_ACCEPT ? " elfogadva" : "viszautasítva") ."!";
+                
+                
+                
                 $message->flag = 0; 
                 $message->save();
  

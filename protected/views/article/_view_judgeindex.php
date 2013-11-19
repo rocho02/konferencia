@@ -3,6 +3,10 @@
 /* @var $data Article */
 ?>
 
+<?php
+
+?>
+
 <div class="view">
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('file_name')); ?>:</b>
