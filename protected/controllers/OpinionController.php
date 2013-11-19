@@ -122,7 +122,16 @@ class OpinionController extends Controller
 		$model->id_article_version = $this->_article->getCurrentVersion()->id_article_version;
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
-
+        $role  = "";
+		if ( $this->_article->allowCurrentUser(Permissions::ROLE_ARTICLE_JUDGE) ){
+		    $role = Permissions::ROLE_ARTICLE_JUDGE;
+		}else if ( $this->_article->allowCurrentUser(Permissions::ROLE_ARTICLE_JUDGE_BLIND) ){
+            $role = Permissions::ROLE_ARTICLE_JUDGE_BLIND;
+        }else{
+            throw new CHttpException(404, 'The requested page does not exist.');
+        }
+		
+		
 		if(isset($_POST['Opinion']) && isset($_POST['OpinionAspect']))
 		{
 			$model->attributes=$_POST['Opinion'];
@@ -149,7 +158,8 @@ class OpinionController extends Controller
 			'scenario'=>'judge',
 			'model'=>$model,
 			'aspect'=>$aspect,
-			'article'=>$this->_article
+			'article'=>$this->_article,
+			'role'=>$role,
 		));
 	}
 

@@ -13,6 +13,11 @@ class SectionArticleJudgeAssignment extends CFormModel {
 	 * @var string the role to which the user will be associated within the section
 	 */
 	public $role;
+    /**
+     * @var int a flag to store extra info for assignment ( e.g.: blind judge)
+     * */
+    public $flag;
+    
 	/**
 	 * @var object an instance of the Section AR model class
 	 */

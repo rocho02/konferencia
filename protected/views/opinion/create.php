@@ -27,6 +27,16 @@ $this->menu=array(
 
 <h1>Vélemény írása</h1>
 <br />
+<?php 
+    if ( isset($role) && $role == Permissions::ROLE_ARTICLE_JUDGE ){
+       echo "Writer:";
+       echo $article->writer;
+       echo "<br>"; 
+    }
+    echo Yii::t('app','Title') . ":&nbsp;";
+       echo $article->title;
+       echo "<br>";
+ ?>
 Cikk:
 <?php  echo CHtml::link( $article->file_name , array('article/articleDownload' ,'id_article' =>$article->id_article , 'id_article_version' =>$article->getCurrentVersion()->id_article_version ),array('target'=>'_blank')) ?>
 <br />

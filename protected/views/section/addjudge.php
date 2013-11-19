@@ -28,6 +28,8 @@ $this->breadcrumbs=array(
     $this->widget('zii.widgets.CDetailView', array(
     'data'=>$model->article,
     'attributes'=>array(
+        'writer',
+        'title',
         'file_name',             // title attribute (in plain text)
     ),
 ));
@@ -67,7 +69,7 @@ $this->breadcrumbs=array(
 <h4><?php echo Yii::t('app','Article Judges') ?></h4>
     
 <?php
-$dpUsers = new CArrayDataProvider( $users, array('id' => 'dpUsers', 'keyField'=>'id')  );
+$dpUsers = new CArrayDataProvider( $assignments, array('id' => 'dpUsers', 'keyField'=>'id_user')  );
 
 $form=$this->beginWidget('CActiveForm',array(
     'id'=>'unassign-form',
@@ -82,15 +84,20 @@ $form=$this->beginWidget('CActiveForm',array(
 $this->widget('zii.widgets.grid.CGridView', array(
     'dataProvider'=>$dpUsers,
     'columns'=>array(
-        'username',
-        'name',
-        'surname',
+        array(
+         'name'=> Yii::t('app','Username'),
+         'value'=>'$data->user->username',
+         ),
+        array(
+         'name'=> Yii::t('app','Role'),
+         'value'=>'$data->role',
+         ),
         array(            // display a column with "view", "update" and "delete" buttons
             'class'=>'CButtonColumn',
             'template'=>'{delete}',
              'buttons' => array(
                 'delete' => array(                      
-                   'url'=>'$data->id',
+                   'url'=>'$data->id_user',
                    'visible'=>'true',
                    'options'=>array('class'=>'viewbtns'),
                    'click'=>"js: function(){  $('#unassign-form').find(\"input[type='hidden']\").val( $(this).attr('href')); $('#unassign-form').submit();  return false; }",

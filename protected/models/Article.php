@@ -65,6 +65,8 @@ class Article extends TimestampBehaviorSupportActiveRecord
 		$array['userAssignments'] = array(self::HAS_MANY , 'UserArticleAssignment', 'id_article');
 		$array['users'] = array(self::HAS_MANY, 'User', 'id_user','through'=>'userAssignments');
         $array['usersArticleJudge']  = array(self::HAS_MANY, 'User', 'id_user','through'=>'userAssignments' , 'joinType'=>'INNER JOIN' , 'on'=>"userAssignments.role='" . Permissions::ROLE_ARTICLE_JUDGE . "'" ) ;
+        $array['usersArticleJudgeAll']  = array(self::HAS_MANY, 'User', 'id_user','through'=>'userAssignments' , 'joinType'=>'INNER JOIN' , 'on'=>"userAssignments.role in ('" . Permissions::ROLE_ARTICLE_JUDGE 
+        . "','". Permissions::ROLE_ARTICLE_JUDGE_BLIND . "' )" ) ;
 		//$array['sectionArticle'] = array(self::HAS_MANY , 'SectionArticle', 'id_article' , 'on'=>'sectionArticle.id_article='.$this->id_article) ;
 		return $array;
 	}
@@ -208,7 +210,7 @@ class Article extends TimestampBehaviorSupportActiveRecord
 	
 	
 	public static function getUserRoleOptions()	{
-		return array(  Permissions::ROLE_ARTICLE_JUDGE => Yii::t('app','Article Judge' ));
+		return array(  Permissions::ROLE_ARTICLE_JUDGE => Yii::t('app','Article Judge' ) , Permissions::ROLE_ARTICLE_JUDGE_BLIND => Yii::t('app','Article Judge Blind' ));
 	}
 
 }

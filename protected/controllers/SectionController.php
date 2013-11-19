@@ -499,13 +499,14 @@ class SectionController extends EMController {
         }
 
     
-         $users = $form -> article->usersArticleJudge;
-    
+       $assignments = $form -> article->userAssignments;
+              
         $this -> render('addjudge', array(
             'model' => $form,
             'section' => $this -> _section,
-            'users' =>$users
+            'assignments' =>$assignments
         ));
+        
     }
 
 }

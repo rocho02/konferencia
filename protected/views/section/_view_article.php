@@ -3,6 +3,12 @@
 /* @var $data Article */
 ?>
 <div class='view'>
+     <div>
+        <?php echo "Szerző: ". $data->writer;   ?>
+    </div>
+     <div>
+        <?php echo "Cím: ". $data->title;   ?>
+    </div>
 	<div>
 	 	<?php echo "Fájl: ". $data->file_name;   ?>
 	</div>
