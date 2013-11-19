@@ -69,6 +69,7 @@ class Message extends TimestampBehaviorSupportActiveRecord
       'recepients' => array(self::HAS_MANY, 'User', 'id_recepient','through' => 'userMessages'),
       'attachedSections' => array(self::HAS_MANY, 'MessageObjectAssignment', 'id_message' , 'on' =>'attachedSections.type = ' . MessageObjectAssignment::TYPE_SECTION ),
       'attachedEvents' => array(self::HAS_MANY, 'MessageObjectAssignment', 'id_message' , 'on' =>'attachedEvents.type = ' . MessageObjectAssignment::TYPE_EVENT ),
+      'attachedArticles' => array(self::HAS_MANY, 'MessageObjectAssignment', 'id_message' , 'on' =>'attachedArticles.type = ' . MessageObjectAssignment::TYPE_ARTICLE ),
       );
 	}
 

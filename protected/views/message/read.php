@@ -50,6 +50,16 @@ $this->menu=array(
         }
     } 
   ?>
+  
+  <?php
+    $articles = $model->attachedArticles;
+    if (sizeof($articles) > 0){
+        echo "<br />";
+        foreach($articles as $object){
+           echo CHtml::link('Hivatkozott Cikk' , array('article/view','id'=>$object->id_object) );
+        }
+    } 
+  ?>
 
 <br />
 <?php echo   CHtml::activeTextarea( $model ,'body' ,array('cols'=>65,'rows'=>10, 'readonly'=>'readonly', 'style'=>'margin-top: 20px;' )  ) ; ?>

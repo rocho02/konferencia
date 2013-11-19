@@ -145,6 +145,27 @@ class OpinionController extends Controller
 				$model->save( );
 				$aspect->id_opinion = $model->id_opinion;
 				$aspect->save( );
+                
+                $message = new Message;
+                $message->id_sender = Yii::app()->user->id;
+                $message->subject = "Vélemény: " .$this->_article->title . " ";
+                $message->body  = "A Ön által felöltött cikk elbírálásra került";
+                $message->flag = 0; 
+                $message->save();
+ 
+                $recepient = new UserMessage;
+                $recepient->id_recepient = $this->_article->create_user_id;
+                $recepient->id_message = $message->id_message;
+                $recepient->status = Message::STATUS_NEW;
+                $recepient->save();
+                
+                $messageObject = new MessageObjectAssignment;
+                $messageObject->id_message = $message->id_message;
+                $messageObject->id_object = $this->_article->id_article;
+                $messageObject->type = MessageObjectAssignment::TYPE_ARTICLE;
+                $messageObject->save();
+                
+
 			 	$trans->commit();
 				$this->redirect(array('article/judgeindex'));
 			}catch(Exception $e){

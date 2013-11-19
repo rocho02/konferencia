@@ -16,6 +16,7 @@ class MessageObjectAssignment extends CActiveRecord
     
     const TYPE_EVENT = 1;
     const TYPE_SECTION = 2;
+     const TYPE_ARTICLE = 3;
     
 	/**
 	 * Returns the static model of the specified AR class.
