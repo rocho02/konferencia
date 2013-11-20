@@ -67,6 +67,7 @@ class Article extends TimestampBehaviorSupportActiveRecord
         $array['usersArticleJudge']  = array(self::HAS_MANY, 'User', 'id_user','through'=>'userAssignments' , 'joinType'=>'INNER JOIN' , 'on'=>"userAssignments.role='" . Permissions::ROLE_ARTICLE_JUDGE . "'" ) ;
         $array['usersArticleJudgeAll']  = array(self::HAS_MANY, 'User', 'id_user','through'=>'userAssignments' , 'joinType'=>'INNER JOIN' , 'on'=>"userAssignments.role in ('" . Permissions::ROLE_ARTICLE_JUDGE 
         . "','". Permissions::ROLE_ARTICLE_JUDGE_BLIND . "' )" ) ;
+        $array['opinions'] = array(self::HAS_MANY, 'Opinion', 'id_article',);
 		//$array['sectionArticle'] = array(self::HAS_MANY , 'SectionArticle', 'id_article' , 'on'=>'sectionArticle.id_article='.$this->id_article) ;
 		return $array;
 	}
@@ -86,6 +87,7 @@ class Article extends TimestampBehaviorSupportActiveRecord
 			'update_user_id' => Yii::t("app",'Update User'),
 			'title' => Yii::t("app",'Title'),
 			'writer' => Yii::t("app",'Writer'),
+			'currentVersionNumber' => Yii::t('app', 'Version'),
 		);
 	}
 

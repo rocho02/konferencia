@@ -234,16 +234,18 @@ class ArticleController extends Controller
 	{
 		
 		$criteria = new CDbCriteria;
-		$criteria->condition='create_user_id=:id_user';
-		$criteria->params=array(':id_user'=> Yii::app()->user->id);
+		//$criteria->condition='create_user_id=:id_user';
+		//$criteria->params=array(':id_user'=> Yii::app()->user->id);
+        $criteria->order = 't.title asc';
 		
 		$articles  = Article::model()->with(
 			array(
 				'userAssignments' => array('joinType'=>'INNER JOIN' ,'on' =>'userAssignments.id_user='.Yii::app()->user->id ),
 				'createUser',
-				'articleVersions'
+				'articleVersions',
+				'opinions' => array( "on" => "opinions.create_user_id = " .Yii::app()->user->id),
 			)
-		)->findAll();
+		)->findAll($criteria);
 		
 		$dataProvider=new CArrayDataProvider($articles,array('keyField'=>'id_article','id'=>'dpArticle'  ));
 		//$dataProvider=new CActiveDataProvider('Article',array('criteria'=>$criteria,));

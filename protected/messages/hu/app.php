@@ -118,6 +118,7 @@ return array(
 'Upload Time' => 'Feltöltés ideje',
 'Username' => 'Felhasználónév',
 'Vegetarian'=>'Vegetáriánus étkezést kér',
+'Version' => 'Verzió',
 'Versions' => 'Verziók',
 'View Event' => 'Konfrencia megjelenítése',
 'View Message' => 'Üzenet megtekintése',
