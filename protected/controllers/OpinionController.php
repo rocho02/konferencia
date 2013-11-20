@@ -72,6 +72,7 @@ class OpinionController extends Controller
 	 */
 	public function actionCreate()
 	{
+	    /**creting model*/
 		$model=new Opinion;
 		$aspect = new OpinionAspect;
 		$model->id_article = $this->_article->id_article;
