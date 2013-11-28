@@ -1,11 +1,7 @@
 <?php /* @var $this Controller */ ?>
 <?php $this->beginContent('//layouts/main'); ?>
-<div class="span-19">
-	<div id="content">
-		<?php echo $content; ?>
-	</div><!-- content -->
-</div>
-<div class="span-5 last">
+
+<div class="span-5 " style="padding-left: 10px; padding-right: 0px; margin-right: 0;">
 	<div id="sidebar">
 	<?php
        $this->widget('zii.widgets.jui.CJuiDatePicker',array(
@@ -33,5 +29,10 @@
 		$this->endWidget();
 	?>
 	</div><!-- sidebar -->
+</div>
+<div class="span-19 last" style="padding-right: 0px;">
+    <div id="content">
+        <?php echo $content; ?>
+    </div><!-- content -->
 </div>
 <?php $this->endContent(); ?>
