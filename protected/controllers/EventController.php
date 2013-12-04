@@ -263,7 +263,10 @@ class EventController extends EMController {
         $events = array();
 
         if ($user -> checkAccess('admin')) {
-            $events = Event::model() -> findAll();
+            $events = Event::model()  -> with(array(
+                'users' => array(),
+                'createUser' => array(),
+            ))-> findAll();
         } else {
 
             $criteria = new CDbCriteria;
