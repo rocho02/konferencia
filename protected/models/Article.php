@@ -60,7 +60,7 @@ class Article extends TimestampBehaviorSupportActiveRecord
 		// class name for the relations automatically generated below.
 		$array = parent::relations();
 		$array['articleVersions'] = array(self::HAS_MANY , 'ArticleVersion', 'id_article');
-		$array['acceptedVersions'] = array(self::HAS_MANY , 'ArticleVersion', 'id_article',  'joinType'=>'INNER JOIN', 'on'=>'acceptedVersions.flag = ' . ArticleVersion::FLAG_ACCEPTED );
+		$array['acceptedVersions'] = array(self::HAS_MANY , 'ArticleVersion', 'id_article',  'joinType'=>'INNER JOIN', 'on'=>'acceptedVersions.flag in ( ' . ArticleVersion::FLAG_ACCEPTED  . ',' . ArticleVersion::FLAG_WEAK_ACCEPTED  .' ) ');
 		$array['sectionArticles'] = array(self::HAS_MANY , 'SectionArticle', 'id_article');
 		$array['userAssignments'] = array(self::HAS_MANY , 'UserArticleAssignment', 'id_article');
 		$array['users'] = array(self::HAS_MANY, 'User', 'id_user','through'=>'userAssignments');

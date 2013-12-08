@@ -45,7 +45,8 @@ class SectionController extends EMController {
                     'update',
                     'addArticle',
                     'adduser',
-                    'addjudge'
+                    'addjudge',
+                      'opinions',
                 ),
                 'users' => array('@'),
             ),
@@ -372,7 +373,7 @@ class SectionController extends EMController {
     }
 
     function isSectionAllowed($section) {
-        return Yii::app() -> user -> checkAccess(Section::ROLE_SECTION_ADMIN, array('section' => $section));
+        return Yii::app() -> user -> checkAccess(Section::ROLE_SECTION_ADMIN, array('section' => $section)) || Yii::app() -> user -> checkAccess(Section::ROLE_SECTION_ADMIN_WEAK, array('section' => $section));
     }
 
     function isEventAllowed($event) {
@@ -511,5 +512,34 @@ class SectionController extends EMController {
         ));
         
     }
+
+     public function actionOpinions($id) {
+
+        $section = $this -> loadModel($id);
+        $event = $section->event;
+
+        $criteria = new CDbCriteria;
+        $criteria -> order = 't.id_opinion desc';
+        //$criteria->condition = 'article.id_article not in ( select id_article form tbl_article xa inner join article_version xav on  xa.id_article = xav.id_article and xav.id_article = '.ArticleVersion::FLAG_ACCEPTED.')';
+
+        $opinions = Opinion::model() -> with(array(
+            'aspects' => array('joinType' => 'INNER JOIN'),
+            'article' => array('joinType' => 'INNER JOIN', /* 'on'=>'article.id_article not in ( select xa.id_article from tbl_article xa inner join tbl_article_version xav on xa.id_article = xav.id_article and xav.flag= '.ArticleVersion::FLAG_ACCEPTED.')' */),
+            'article.sectionArticles' => array('joinType' => 'INNER JOIN' , 'on' => 'sectionArticles.id_section = ' . $section->id_section),
+            'article.sectionArticles.section' => array(
+                'joinType' => 'INNER JOIN',
+                'on' => 'section.id_event=' . $event -> id_event
+            ),
+        )) -> findAll($criteria);
+        $dataProvider = new CArrayDataProvider($opinions, array(
+            'keyField' => 'id_opinion',
+            'id' => 'dp_opinions'
+        ));
+        $this -> render('opinions', array(
+            'dataProvider' => $dataProvider,
+            'event' => $event,
+        ));
+    }
+    
 
 }

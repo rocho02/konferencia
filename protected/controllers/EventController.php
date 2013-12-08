@@ -272,7 +272,7 @@ class EventController extends EMController {
             $criteria = new CDbCriteria;
 
             $condition_event_admin_or_event_is_public = "select distinct e1.id_event from tbl_event e1 left join tbl_user_event_assignment ua1  on e1.id_event = ua1.id_event  and ua1.role = '" . Event::ROLE_EVENT_ADMIN . "' and ua1.id_user = :id_user where ua1.id_event is not null or e1.visibility = :event_visibility";
-            $condition_section_admin_or_section_is_pubilc = "select distinct s2.id_event from tbl_section s2 left join tbl_user_section_assignment ua1  on s2.id_section = ua1.id_section  and ua1.role = '" . Section::ROLE_SECTION_ADMIN . "' and ua1.id_user = :id_user where ua1.id_section is not null or s2.visibility = :section_visibility";
+            $condition_section_admin_or_section_is_pubilc = "select distinct s2.id_event from tbl_section s2 left join tbl_user_section_assignment ua1  on s2.id_section = ua1.id_section  and ua1.role in ( '" . Section::ROLE_SECTION_ADMIN . "', '" . Section::ROLE_SECTION_ADMIN_WEAK . "' ) and ua1.id_user = :id_user where ua1.id_section is not null or s2.visibility = :section_visibility";
 
             $criteria -> condition = " ( t.id_event in  ( $condition_event_admin_or_event_is_public )  ) or ( t.id_event in  ( $condition_section_admin_or_section_is_pubilc )  )  ";
             $criteria -> params = array(
@@ -358,7 +358,7 @@ class EventController extends EMController {
                 if ($user -> isGuest) {
                     $joinSections = array('on' => "eventSections.visibility =  " . Section::VISIBILITY_PUBLIC);
                 } else {
-                    $condition_allowed_sections = "select distinct s1.id_section from tbl_section s1 " . " left outer join tbl_user_section_assignment usa  on s1.id_section = usa.id_section and usa.role = '" . Section::ROLE_SECTION_ADMIN . "' and usa.id_user = $id_user " . " left outer join tbl_user_event_assignment uea  on s1.id_event = uea.id_event and uea.role = '" . Event::ROLE_EVENT_ADMIN . "' and usa.id_user = $id_user " . " where usa.id_section is not null or uea.id_event is not null or s1.visibility =  " . Section::VISIBILITY_PUBLIC;
+                    $condition_allowed_sections = "select distinct s1.id_section from tbl_section s1 " . " left outer join tbl_user_section_assignment usa  on s1.id_section = usa.id_section and usa.role in ( '" . Section::ROLE_SECTION_ADMIN . "', '" . Section::ROLE_SECTION_ADMIN . "'  ) and usa.id_user = $id_user " . " left outer join tbl_user_event_assignment uea  on s1.id_event = uea.id_event and uea.role = '" . Event::ROLE_EVENT_ADMIN . "' and usa.id_user = $id_user " . " where usa.id_section is not null or uea.id_event is not null or s1.visibility =  " . Section::VISIBILITY_PUBLIC;
                     $joinSections = array('on' => "eventSections.id_section in  ( $condition_allowed_sections ) ");
                 }
             }

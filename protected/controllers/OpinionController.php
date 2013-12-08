@@ -19,8 +19,8 @@ class OpinionController extends Controller {
             'accessControl', // perform access control for CRUD operations
             'postOnly + delete', // we only allow deletion via POST request
             'ArticleContext + create, index, judgeCreate',
-            'SectionContext + create, index, view, eventAccept',
-            'OpinionContext + eventAccept'
+            'SectionContext + create, index, view, eventAccept, sectionAccept',
+            'OpinionContext + eventAccept, sectionAccept'
         );
     }
 
@@ -45,6 +45,7 @@ class OpinionController extends Controller {
                     'create',
                     'update',
                     'eventAccept',
+                    'sectionAccept',
                     'judgeCreate',
                     'judgeupdate'
                 ),
@@ -441,7 +442,6 @@ class OpinionController extends Controller {
             )
         ));
 
-        //print_r($model->articleVersion);
 
         if (isset($_POST['EventOpinionAcceptForm'])) {
 
@@ -457,12 +457,46 @@ class OpinionController extends Controller {
             ));
         }
 
-        print $model -> article -> isAccepted();
+        // print $model -> article -> isAccepted();
 
         $this -> render('event_accept', array('model' => $model));
-        /*
-         *
-         */
+    }
+
+
+public function actionSectionAccept() {
+
+        $model = new EventOpinionAcceptForm;
+        $article = Article::model() -> findByPk($this -> _opinion -> id_article);
+
+        $model -> section = $this -> _section;
+        $model -> opinion = $this -> _opinion;
+        $model -> article = $article;
+        $model -> articleVersion = ArticleVersion::model() -> find(array(
+            'condition' => 'id_article=:id_article and id_article_version = :id_article_version',
+            'params' => array(
+                ':id_article' => $this -> _opinion -> id_article,
+                ':id_article_version' => $this -> _opinion -> id_article_version
+            )
+        ));
+
+
+        if (isset($_POST['EventOpinionAcceptForm'])) {
+
+            $model -> attributes = $_POST['EventOpinionAcceptForm'];
+
+            $model -> articleVersion -> flag = isset($model -> _accept) ? ArticleVersion::FLAG_WEAK_ACCEPTED : ArticleVersion::FLAG_WEAK_REJECTED;
+
+            $model -> articleVersion -> save();
+
+            $this -> redirect(array(
+                'section/opinions',
+                'id' => $this -> _section -> id_event
+            ));
+        }
+
+        // print $model -> article -> isAccepted();
+
+        $this -> render('section_accept', array('model' => $model));
     }
 
 }

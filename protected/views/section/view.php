@@ -7,6 +7,7 @@ $user = Yii::app()->user;
 $event_admin = $model->event->isUserInEvent($user);
 $section_admin = $model->isUserInSection($user);
 $_admin = Yii::app()->user->checkAccess('admin');
+$section_admin_weak = $model->allowCurrentUser(Section::ROLE_SECTION_ADMIN_WEAK);
 
 $admin = $event_admin || $section_admin || $_admin;
 
@@ -29,6 +30,7 @@ $this->menu=array(
 	array('label'=>Yii::t('app','Add User To section'), 'url'=>array('adduser', 'id'=>$model->id_section),'visible'=>$admin),
 	array('label'=>Yii::t('app','Message To Admin'), 'url'=>array('message/sectionAdminMessage', 'section'=>$model->id_section),'visible'=>$allow_guest_message),
 	array('label'=>Yii::t('app','Export PDF'), 'url'=>array('pdfview', 'id'=>$model->id_section),'visible'=>true,'linkOptions'=>array("target" =>"_blank")),
+	array('label'=>Yii::t("app",'Article Opinions'), 'url'=>array('section/opinions','id'=>$model->id_section),'visible'=>$section_admin_weak),
 );
 ?>
 <?php

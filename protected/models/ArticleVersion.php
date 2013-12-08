@@ -20,6 +20,8 @@ class ArticleVersion extends TimestampBehaviorSupportActiveRecord
 	const FLAG_NEW = 1;
 	const FLAG_REJECTED = 2;
 	const FLAG_ACCEPTED = 3;
+    const FLAG_WEAK_REJECTED = 4;
+    const FLAG_WEAK_ACCEPTED = 5;
 	
 	 public $document;
 	

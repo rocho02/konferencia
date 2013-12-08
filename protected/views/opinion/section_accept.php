@@ -10,6 +10,7 @@
 	$this->breadcrumbs = array(
 		Yii::t('app','Events')=>array('event/index'),
 		Yii::t('app','Event')=>array('event/view','id'=>$model->section->id_event),
+		Yii::t('app','Section')=>array('section/view','id'=>$model->section->id_section),
 		Yii::t('app','Opinions')=>array('event/opinions','id'=>$model->section->id_event),
 	);
 
@@ -21,7 +22,7 @@
 	.op-meta span.title {font-weight: bold;}
 	
 </style>
-<h1>Event Article Accept</h1>
+<h1><?php echo Yii::t('app',"Section Article Accept") ?></h1>
 
 <article>
 	<header>
@@ -49,10 +50,10 @@
 	?>
 	<?php if ( !$model->article->isAccepted() ){ ?>
 	<div class="row buttons">
-		<?php echo CHtml::submitButton(Yii::t('app','Mark Article Accepted'),array('name'=>'EventOpinionAcceptForm[_accept]') ); ?>
-		<?php echo CHtml::submitButton(Yii::t('app','Mark Article Rejected'),array('name'=>'EventOpinionAcceptForm[_reject]') ); ?>
+		<?php echo CHtml::submitButton(Yii::t('app','Mark Article Weak Accepted'),array('name'=>'EventOpinionAcceptForm[_accept]') ); ?>
+		<?php echo CHtml::submitButton(Yii::t('app','Mark Article Weak Rejected'),array('name'=>'EventOpinionAcceptForm[_reject]') ); ?>
 	</div>
-<?php } else {
+<?php }else{
     
     $acceptedVersions = $model->article->acceptedVersions;
     $acceptMode = $acceptedVersions[0]->flag;
@@ -62,5 +63,7 @@
         case ArticleVersion::FLAG_WEAK_ACCEPTED: $humanreadableMode = Yii::t('app','Weak Accepted'); break;
     }
     print "<b>".$humanreadableMode."</b>";
-}?>
+}
+
+?>
 <?php $this->endWidget(); ?>
