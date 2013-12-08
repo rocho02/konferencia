@@ -360,10 +360,13 @@ class SectionController extends EMController {
             Yii::app() -> user -> setFlash('success',   "User has been unassigned from the section.");
         }
         
+        
         $form -> event = $event;
         $form -> section = $section;
         $users = $section->usersSectionAdmin;
-        $this -> render('adduser', array('model' => $form,'users'=>$users));
+        $assignments = $form -> section->userAssignments;
+        
+        $this -> render('adduser', array('model' => $form,'users'=>$users, 'assignments' => $assignments));
         /*
          */
     }

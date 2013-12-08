@@ -76,18 +76,27 @@ $form=$this->beginWidget('CActiveForm',array(
     
  $this->endWidget();  
 
+
+
+$dpUsers = new CArrayDataProvider( $assignments, array('id' => 'dpUsers', 'keyField'=>'id_user')  );
+
 $this->widget('zii.widgets.grid.CGridView', array(
     'dataProvider'=>$dpUsers,
     'columns'=>array(
-        'username',
-        'name',
-        'surname',
+        array(
+         'name'=> Yii::t('app','Username'),
+         'value'=>'$data->user->username',
+         ),
+        array(
+         'name'=> Yii::t('app','Role'),
+         'value'=>'$data->role',
+         ),
         array(            // display a column with "view", "update" and "delete" buttons
             'class'=>'CButtonColumn',
             'template'=>'{delete}',
              'buttons' => array(
                 'delete' => array(                      
-                   'url'=>'$data->id',
+                   'url'=>'$data->id_user',
                    'visible'=>'true',
                    'options'=>array('class'=>'viewbtns'),
                    'click'=>"js: function(){  $('#unassign-form').find(\"input[type='hidden']\").val( $(this).attr('href')); $('#unassign-form').submit();  return false; }",

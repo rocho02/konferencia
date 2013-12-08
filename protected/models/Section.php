@@ -23,7 +23,7 @@ class Section extends TimestampBehaviorSupportActiveRecord
 	const VISIBILITY_PRIVATE = 1;
 	const VISIBILITY_PUBLIC = 2;
 	const ROLE_SECTION_ADMIN = "Section.Admin";
-	
+	const ROLE_SECTION_ADMIN_WEAK = "Section.Admin.Weak";
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -232,7 +232,8 @@ class Section extends TimestampBehaviorSupportActiveRecord
 	public static function getUserRoleOptions()	{
 		// return CHtml::listData(Yii::app()->authManager->getRoles(), 'name',	'name');
 		return array(
-			Section::ROLE_SECTION_ADMIN=>Yii::t('app','Section Admin')
+			Section::ROLE_SECTION_ADMIN=>Yii::t('app','Section Admin'),
+			Section::ROLE_SECTION_ADMIN_WEAK=>Yii::t('app','Section Admin With Weak Accept/Reject')
 		);
 	}	
 }
